@@ -1,0 +1,123 @@
+<form [formGroup]="signupForm" (submit)="onSubmit($event)">
+  <div class="container box">
+    <div class="columns is-centered">
+      <div class="field column is-half">
+        <label class="label">Name</label>
+        <div class="control">
+          <input [formControl]="signupForm.get('name')" class="input" type="text" placeholder="John Doe"
+            >
+        </div>
+        <p *ngIf="signupForm.controls.name.errors && signupForm.controls.name.touched" class="help is-danger">
+          Name cannot be empty
+        </p>
+      </div>
+
+    </div>
+
+    <div class="columns is-centered">
+      <div class="field column is-half">
+        <label class="label">Username</label>
+        <div class="control has-icons-left has-icons-right">
+          <input [formControl]="signupForm.get('username')"  class="input" type="text"
+            placeholder="JohnDoe">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+        <p *ngIf="signupForm.controls.username.errors && signupForm.controls.username.touched" class="help is-danger">
+          Username cannot be empty
+        </p>
+      </div>
+     
+    </div>
+
+
+    <div class="columns is-centered">
+      <div class="field column is-half">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input [formControl]="signupForm.get('email')" class="input" type="email" placeholder="user@email.com">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+        </div>
+        <p  *ngIf="signupForm.controls.email.errors?.required && signupForm.controls.email.touched" class="help is-danger">
+          Email cannot be empty
+        </p>
+        <p  *ngIf="signupForm.controls.email.errors?.pattern && signupForm.controls.email.touched" class="help is-danger">
+          Invalid Email
+        </p>
+      </div>
+    </div>
+
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control has-icons-left has-icons-right">
+            <input [formControl]="signupForm.get('password')" class="input" type="password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p  *ngIf="signupForm.controls.password.errors?.required && signupForm.controls.password.touched" class="help is-danger">
+            Password cannot be empty
+          </p>
+          <p  *ngIf="signupForm.controls.password.errors?.minlength && signupForm.controls.password.touched" class="help is-danger">
+            Password should be atleast 4 characters long
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">Confirm Password</label>
+          <div class="control has-icons-left has-icons-right">
+            <input [formControl]="signupForm.get('confirmPassword')" class="input" type="password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p  *ngIf="signupForm.controls.confirmPassword.errors?.required && signupForm.controls.confirmPassword.touched" class="help is-danger">
+            Password cannot be empty
+          </p>
+          <p  *ngIf="signupForm.controls.confirmPassword.errors?.minlength && signupForm.controls.confirmPassword.touched" class="help is-danger">
+            Password should be atleast 4 characters long
+          </p>
+          <p  *ngIf="signupForm.errors?.passwordsDontMatch && signupForm.controls.confirmPassword.touched" class="help is-danger">
+            Passwords don't match
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button [disabled]="signupForm.invalid" class="button is-link" type="submit">
+          <label>Submit</label> 
+         
+        </button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light" (click)="onReset()">Reset</button>
+      </div>
+
+    </div>
+  </div>
+</form>

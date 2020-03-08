@@ -1,0 +1,37 @@
+<div>
+    <nav class="navbar is-link is-transparent" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a routerLink="/" class="navbar-item title is-1">Crashpad</a>
+        </div>
+      
+        <div *ngIf="!(loggedIn)" id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" routerLink="/signup">
+                 Signup
+                </a>
+                <a class="button is-light" routerLink="/login">
+                  Login
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="(loggedIn)" id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" (click)="onLogoutClick()" routerLink="/logout">
+                 Logout
+                </a>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      
+</div>

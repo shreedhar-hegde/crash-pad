@@ -1,0 +1,59 @@
+<form [formGroup]="loginForm" (submit)="onLogin($event)">
+  <div class="container box">
+
+    <div class="columns is-centered">
+      <div class="field column is-half">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input [formControl]="loginForm.get('email')" class="input" type="email" placeholder="user@email.com">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+        </div>
+        <p  *ngIf="loginForm.controls.email.errors?.required && loginForm.controls.email.touched" class="help is-danger">
+          Email cannot be empty
+        </p>
+        <p  *ngIf="loginForm.controls.email.errors?.pattern && loginForm.controls.email.touched" class="help is-danger">
+          Invalid Email
+        </p>
+      </div>
+    </div>
+
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control has-icons-left has-icons-right">
+            <input [formControl]="loginForm.get('password')" class="input" type="password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p  *ngIf="loginForm.controls.password.errors?.required && loginForm.controls.password.touched" class="help is-danger">
+            Password cannot be empty
+          </p>
+          <p  *ngIf="loginForm.controls.password.errors?.minlength && loginForm.controls.password.touched" class="help is-danger">
+            Password should be atleast 4 characters long
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button [disabled]="loginForm.invalid" class="button is-link" type="submit">
+          <label>Submit</label> 
+         
+        </button>
+      </div>
+
+    </div>
+  </div>
+</form>
