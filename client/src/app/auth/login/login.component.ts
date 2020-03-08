@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       next: response => {
         console.log('response', response)
         localStorage.setItem('token', JSON.stringify(response.token))
-        this.router.navigateByUrl('/furniture')
+        this.router.navigateByUrl('/list/furniture')
       }
     })
     

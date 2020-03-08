@@ -8,6 +8,7 @@ import { FurnitureComponent } from './furniture/furniture.component';
   declarations: [FurnitureComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [FurnitureComponent]
 })
 export class FurnitureModule { }

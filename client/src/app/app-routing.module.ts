@@ -3,13 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-import { FurnitureComponent } from './furniture/furniture/furniture.component';
 import { AuthGuard } from './auth/auth.guard';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { LayoutComponent } from './layout/layout.component';
 
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'furniture', canActivate: [AuthGuard], component: FurnitureComponent},
+  {path: 'list', component: LayoutComponent}, 
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
 

@@ -10,6 +10,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FurnitureModule } from './furniture/furniture.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from './layout/layout.module';
+import { PropertiesModule } from './properties/properties.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     LandingComponent,
     SignupComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     FormsModule,
     FurnitureModule,
-    HttpClientModule
+    HttpClientModule,
+    PropertiesModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
