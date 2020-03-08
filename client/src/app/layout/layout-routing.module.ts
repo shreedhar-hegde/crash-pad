@@ -7,7 +7,7 @@ import { LayoutComponent } from './layout.component';
 
 
 const routes: Routes = [{
-  path: 'list', component: LayoutComponent,
+  path: 'dashboard', component: LayoutComponent,
   children: [
     {path: 'furniture', component: FurnitureComponent},
     { path: 'property', component: PropertiesComponent},

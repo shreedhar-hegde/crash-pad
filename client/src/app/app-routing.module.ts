@@ -10,7 +10,7 @@ import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'list', component: LayoutComponent}, 
+  {path: 'dashboard', component: LayoutComponent}, 
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
 

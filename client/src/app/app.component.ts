@@ -22,7 +22,7 @@ export class AppComponent {
     let token = localStorage.getItem('token')
     if(token) {
       this.authService.loggedIn$.next(true)
-      this.router.navigateByUrl('/furniture')
+      this.router.navigateByUrl('/dashboard/furniture')
     } 
   }
 
