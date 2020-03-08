@@ -3,11 +3,11 @@ const app = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-// const keys = require('./config')
+const keys = require('./config')
 
 
 
-mongoose.connect( 'mongodb://localhost:27017/crashpad', {
+mongoose.connect( keys.mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
