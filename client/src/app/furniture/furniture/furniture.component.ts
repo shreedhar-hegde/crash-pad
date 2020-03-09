@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FurnitureService } from '../furniture.service';
+
+interface FurnitureResponse {
+  name: String,
+  price: Number,
+  furnitureImage: String
+}
 
 @Component({
   selector: 'app-furniture',
@@ -7,9 +14,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FurnitureComponent implements OnInit {
 
-  constructor() { }
+  isModalActive: boolean = false;
+  furnitures
+  constructor(private furnitureService: FurnitureService) { }
 
   ngOnInit() {
+    this.furnitureService.getFurnitures().subscribe((res:any) => {
+      this.furnitures = res.furnitures
+    })
+    
+  }
+
+  
+
+
+
+  toggleModal() {
+    this.isModalActive = !this.isModalActive;
   }
 
 }

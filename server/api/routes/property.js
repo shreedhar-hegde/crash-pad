@@ -19,19 +19,14 @@ router.post('/', (req, res) => {
         name: req.body.name,
         price: req.body.price,
         type: req.body.type,
-        area: req.body.area
+        area: req.body.area,
+        propertyImage: req.body.propertyImage
     })
     newProperty.save()
         .then(property => {
             res.status(201).json({
                 message: 'Property Stored',
-                createdProperty: {
-                    _id: property._id,
-                    property: property.property,
-                    name: property.name,
-                    type: property.type,
-                    area: property.area
-                }
+                property: property
             })
         })
         .catch(err => res.status(500).json(err))

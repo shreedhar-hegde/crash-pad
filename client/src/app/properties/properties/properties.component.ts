@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PropertiesService } from '../properties.service';
 
 @Component({
   selector: 'app-properties',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertiesComponent implements OnInit {
 
-  constructor() { }
+  properties
+  constructor(private propertyService: PropertiesService) { }
 
   ngOnInit() {
+    this.propertyService.getProperties().subscribe((res:any) => {
+      console.log('properties', res)
+      this.properties = res.properties
+    })
   }
 
 }

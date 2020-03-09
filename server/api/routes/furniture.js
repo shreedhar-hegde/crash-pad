@@ -37,21 +37,16 @@ const Furniture = require('../models/furniture')
 router.get('/', (req, res) => {
     console.log('get')
     Furniture.find()
-        .select('_id name price')
+        .select('_id name price imageUrl')
         .then(furnitures => {
             if (furnitures.length > 0) {
                 res.status(200).json({
                     message: 'Get furnitures',
-                    count: furnitures.length,
                     furnitures: furnitures.map(furniture => {
                         return {
                             name: furniture.name,
                             price: furniture.price,
-                            furnitureImage: furniture.furnitureImage,
-                            request: {
-                                type: 'GET',
-                                url: 'http://localhost:3000/furnitures/' + furniture._id
-                            }
+                            furnitureImage: furniture.imageUrl
                         }
                     })
                 })
@@ -80,6 +75,7 @@ router.post('/', auth, (req, res) => {
         _id: mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price,
+        imageUrl: req.body.imageUrl
     })
 
     newFurniture.save().then(furniture => {
@@ -89,6 +85,7 @@ router.post('/', auth, (req, res) => {
             createdfurniture: {
                 name: furniture.name,
                 price: furniture.price,
+                imageUrl: furniture.imageUrl
             }
         })
     }).catch(err => {
@@ -110,8 +107,7 @@ router.get('/:furnitureId', (req, res) => {
             console.log('furniture', furniture)
             if (furniture) {
                 res.status(200).json({
-                    name: furniture.name,
-                    price: furniture.price
+                    furniture: furniture
                 })
             } else res.status(400).json({
                 message: 'No valid entry found'
