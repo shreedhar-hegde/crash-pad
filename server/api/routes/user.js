@@ -6,8 +6,16 @@ const bcrypt = require('bcrypt')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
 
+
+router.get('/', (req, res) => {
+    User.find()
+    .then(users => {
+        res.status(200).json({users: users})
+    })
+})
+
 router.post('/signup', (req, res, next) => {
-    console.log('signup')
+    console.log('signup', req.body)
     if(validator.isEmail(req.body.email)) {
         User.find({
             email: req.body.email
@@ -22,7 +30,6 @@ router.post('/signup', (req, res, next) => {
                     if (err) res.status(500).json(err)
                     else {
                         const user = new User({
-                            _id: new mongoose.Types.ObjectId(),
                             name: req.body.name,
                             email: req.body.email,
                             password: hash
@@ -46,7 +53,7 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', (req, res, next) => {
-    console.log(req.body.email)
+    console.log('req',req.body.email)
     User.findOne({email: req.body.email})
     .then(user => {
         console.log(user)

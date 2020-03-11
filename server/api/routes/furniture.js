@@ -42,13 +42,7 @@ router.get('/', (req, res) => {
             if (furnitures.length > 0) {
                 res.status(200).json({
                     message: 'Get furnitures',
-                    furnitures: furnitures.map(furniture => {
-                        return {
-                            name: furniture.name,
-                            price: furniture.price,
-                            furnitureImage: furniture.imageUrl
-                        }
-                    })
+                    furnitures: furnitures
                 })
             } else {
                 res.status(404).json({

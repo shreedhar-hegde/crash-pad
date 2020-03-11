@@ -11,12 +11,13 @@ mongoose.connect( keys.mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
-    console.log('Monog connected')
+    console.log('Mongo connected')
 })
 
 const furnitureRoutes = require('./api/routes/furniture')
 const propertyRoutes = require('./api/routes/property')
 const userRoutes = require('./api/routes/user')
+const cartRoutes = require('./api/routes/cart')
 
 app.use('/uploads', express.static('uploads'))
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 app.use('/property', propertyRoutes)
 app.use('/furniture', furnitureRoutes)
 app.use('/user', userRoutes)
+app.use('/cart', cartRoutes)
 
 app.use((req, res, next) => {
     const error = new Error('Not found')
