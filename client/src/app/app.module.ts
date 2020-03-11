@@ -12,6 +12,7 @@ import { FurnitureModule } from './furniture/furniture.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 import { PropertiesModule } from './properties/properties.module';
+import { CartModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PropertiesModule } from './properties/properties.module';
     FurnitureModule,
     HttpClientModule,
     PropertiesModule,
-    LayoutModule
+    LayoutModule,
+    CartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

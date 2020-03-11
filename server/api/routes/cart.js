@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
     const newCart = new Cart({
         user: req.body.userId,
         furniture: req.body.furnitureId,
+        property: req.body.propertyId,
         quantity: req.body.quantity
     }) 
 

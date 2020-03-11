@@ -6,14 +6,14 @@ const cartSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    furniture: {
+    furniture: [{
         type: Schema.Types.ObjectId,
         ref: 'Furniture',
-    },
-    property: {
+    }],
+    property: [{
         type: Schema.Types.ObjectId,
         ref: 'Property'
-    },
+    }],
     qunantity: Number,
     createdOn: {
         type: Date,
