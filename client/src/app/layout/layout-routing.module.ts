@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { PropertiesComponent } from '../properties/properties/properties.component';
 import { LayoutComponent } from './layout.component';
 import { CartComponent } from '../cart/cart/cart.component';
+import { EditProfileComponent } from '../profile/edit-profile/edit-profile.component';
 
 
 const routes: Routes = [{
@@ -13,6 +14,7 @@ const routes: Routes = [{
     {path: 'furniture', component: FurnitureComponent},
     { path: 'property', component: PropertiesComponent},
     { path: 'liked', component: CartComponent},
+    {path: 'editprofile', component: EditProfileComponent}
     ] 
   }
 ];

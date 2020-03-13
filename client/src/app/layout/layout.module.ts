@@ -5,6 +5,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { PropertiesModule } from '../properties/properties.module';
+import { ProfileModule } from '../profile/profile.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PropertiesModule } from '../properties/properties.module';
     SidebarModule,
     CommonModule,
     LayoutRoutingModule,
-    PropertiesModule
+    PropertiesModule,
+    ProfileModule
   ]
 })
 export class LayoutModule { }
