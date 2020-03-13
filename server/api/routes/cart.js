@@ -4,16 +4,19 @@ const mongoose = require('mongoose')
 const Cart = require('../models/cart')
 const User = require('../models/user')
 const Property = require('../models/property')
+const auth = require('../middleware/auth')
 
-router.get('/', (req, res) => {
-    console.log('cart', req.body)
-    Cart.find({user: req.body.userId})
+router.get('/', auth, (req, res) => {
+    console.log(req.userData)
+    Cart.find({user: req.userData.userId})
         .populate('furniture')
         .populate('property')
         .then(cartResponse => {
+            console.log('cart response', cartResponse)
             res.status(200).json({cart: cartResponse})
         })
         .catch(err => {
+            console.log('err', err)
             res.status(500).json({err: err})
         })
 })

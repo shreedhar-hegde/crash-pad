@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 import { PropertiesModule } from './properties/properties.module';
 import { CartModule } from './cart/cart.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CartModule } from './cart/cart.module';
     SignupComponent,
     HeaderComponent,
     LoginComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

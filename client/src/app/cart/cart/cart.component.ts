@@ -10,13 +10,29 @@ export class CartComponent implements OnInit {
 
   cart
 
+  furnitureItems = []
+  propertyItems = []
+
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
     this.cartService.getCart().subscribe(cartResponse => {
-      this.cart = cartResponse
-      console.log(cartResponse)
+      this.cart = cartResponse['cart']
+      // console.log(this.cart)
+      
+      for(let cart of this.cart) {
+        cart.furniture.forEach(item => {
+          this.furnitureItems.push(item)
+        });
+        cart.property.forEach(item => {
+          this.propertyItems.push(item)
+        })
+      }
+      
+
     })
+
   }
+
 
 }

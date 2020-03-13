@@ -23,6 +23,29 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
+
+               <a>
+                <div class="dropdown is-hoverable">
+                  <div class="dropdown-trigger">
+                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                      <span>{{user}}</span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                    <div class="dropdown-content">
+                      <div class="dropdown-item">
+                        <a routerLink="/editprofile" class="dropdown-item">
+                          Edit Profile
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </a>
+
                 <a class="button is-primary" (click)="onLogoutClick()" routerLink="/logout">
                  Logout
                 </a>

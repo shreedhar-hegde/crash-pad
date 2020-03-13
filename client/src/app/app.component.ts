@@ -18,12 +18,16 @@ export class AppComponent {
   }
 
   checkIsUserLoggedIn() {
-    console.log('oninit',  localStorage)
-    let token = localStorage.getItem('token')
-    if(token) {
-      this.authService.loggedIn$.next(true)
-      this.router.navigateByUrl('/dashboard/furniture')
-    } 
+    this.authService.checkAuth().subscribe(res => {
+      if(res) {
+        this.authService.loggedIn$.next(true)
+        this.router.navigateByUrl('/dashboard/furniture')
+      }
+      else {
+        localStorage.clear()
+        this.router.navigateByUrl('/')
+      }
+    })
   }
 
 }

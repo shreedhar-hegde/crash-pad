@@ -6,6 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { LayoutComponent } from './layout/layout.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'dashboard', component: LayoutComponent}, 
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
+  
 
 ];
 

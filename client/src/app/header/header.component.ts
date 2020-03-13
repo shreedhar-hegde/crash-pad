@@ -13,11 +13,14 @@ export class HeaderComponent implements OnInit {
 
   // isLoggedIn$;
   loggedIn:boolean = false;
+  user
   constructor(private authService: AuthService, private router: Router) {
   
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('token')).name
+    console.log('header', this.user)
     console.log('logged in', this.authService.loggedIn$)
     this.authService.loggedIn$.subscribe(loggedIn => {
       this.loggedIn = loggedIn;

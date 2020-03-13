@@ -5,7 +5,7 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
-
+const auth = require('../middleware/auth')
 
 router.get('/', (req, res) => {
     User.find()
@@ -72,7 +72,7 @@ router.post('/login', (req, res, next) => {
                    const token =  jwt.sign({
                         email: user.email,
                         userId: user._id
-                    }, "jwtkey", {expiresIn: "2h"})
+                    }, "jwtkey", {expiresIn: "24h"})
                     res.status(200).json({
                         message: 'Auth Success',
                         name: user.name,
@@ -95,6 +95,10 @@ router.delete(':/userId', (req, res) => {
         res.status(200).json({message: 'User deleted'})
     })
     .catch(err => res.status(500).json(err))
+})
+
+router.get('/auth', auth, (req, res) => {
+    res.status(200).json({message:true})
 })
 
 
