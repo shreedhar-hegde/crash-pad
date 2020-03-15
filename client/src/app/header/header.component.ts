@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { resolve } from 'url';
+import { LoginComponent } from '../auth/login/login.component';
 
 
 @Component({
@@ -11,19 +13,34 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+
   // isLoggedIn$;
   loggedIn:boolean = false;
   user
   constructor(private authService: AuthService, private router: Router) {
-  
+    
   }
 
-  ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('token')).name
+  getName() {
+    return new Promise(
+      (resolve, reject) => {
+        let token = localStorage.getItem('token')
+      if(token) {
+        resolve( JSON.parse(token).name)
+      }
+      }
+    )
+  }
+
+
+  async ngOnInit() {
+    this.user = await this.getName()
+    // this.user = JSON.parse(localStorage.getItem('token')).name
     console.log('header', this.user)
-    console.log('logged in', this.authService.loggedIn$)
+    console.log('logged in header', this.authService.header$)
     this.authService.loggedIn$.subscribe(loggedIn => {
       this.loggedIn = loggedIn;
+      console.log('loggedin', this.loggedIn)
    })
   }
 

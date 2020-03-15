@@ -14,20 +14,24 @@ export class AppComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-   this.checkIsUserLoggedIn()
+  this.checkIsUserLoggedIn()
   }
 
   checkIsUserLoggedIn() {
-    this.authService.checkAuth().subscribe(res => {
-      if(res) {
-        this.authService.loggedIn$.next(true)
-        this.router.navigateByUrl('/dashboard/furniture')
-      }
-      else {
-        localStorage.clear()
-        this.router.navigateByUrl('/')
-      }
-    })
+    let checkAuth = this.authService.checkAuth()
+    console.log('checkauth')
+    if(checkAuth) {
+      // checkAuth.subscribe(res => {
+      //   console.log('response', res)
+      //   if(res['message']) {
+      //     this.authService.loggedIn$.next(true)
+      //     console.log('emitted')
+      //     this.router.navigateByUrl('/dashboard/furniture')
+      //   }
+      // })
+  } else {
+    localStorage.clear()
+    this.router.navigateByUrl('/')
   }
-
+}
 }

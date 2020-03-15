@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms'
 import {Router} from '@angular/router'
 import { AuthService } from '../auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
   constructor( private router: Router, private authService: AuthService) { }
+
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -39,6 +41,8 @@ export class LoginComponent implements OnInit {
       next: response => {
         console.log('response', response)
         localStorage.setItem('token', JSON.stringify(response))
+        this.authService.header$.next(true)
+        console.log('header log')
         this.router.navigateByUrl('/dashboard/furniture')
       }
     })
