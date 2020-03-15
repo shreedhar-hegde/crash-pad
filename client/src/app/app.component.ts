@@ -14,24 +14,32 @@ export class AppComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-  this.checkIsUserLoggedIn()
+    let token = localStorage.getItem('token')
+
+    if(token) {
+      this.authService.loggedIn$.next(JSON.parse(token).name)
+      this.router.navigateByUrl('/dashboard/furniture')
+    } else {
+      this.router.navigateByUrl('/')
+    }
   }
 
-  checkIsUserLoggedIn() {
-    let checkAuth = this.authService.checkAuth()
-    console.log('checkauth')
-    if(checkAuth) {
-      // checkAuth.subscribe(res => {
-      //   console.log('response', res)
-      //   if(res['message']) {
-      //     this.authService.loggedIn$.next(true)
-      //     console.log('emitted')
-      //     this.router.navigateByUrl('/dashboard/furniture')
-      //   }
-      // })
-  } else {
-    localStorage.clear()
-    this.router.navigateByUrl('/')
-  }
-}
+  // checkIsUserLoggedIn() {
+  //   let checkAuth = this.authService.checkAuth()
+  //   console.log('checkauth', checkAuth)
+  //   if(checkAuth) {
+  //     checkAuth.subscribe(res => {
+  //       console.log('check auth responsexd', res)
+  //       if(res['message']) {
+  //         this.authService.loggedIn$.next(true)
+  //         this.authService.header$.next(true)
+  //         console.log('emitted')
+  //         this.router.navigateByUrl('/dashboard/furniture')
+  //       }
+  //     })
+  // } else {
+  //   localStorage.clear()
+  //   this.router.navigateByUrl('/')
+  // }
+// }
 }

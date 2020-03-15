@@ -37,30 +37,31 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.url}/login`, credentials).pipe(
       tap(({name}) => {
         console.log('name', name)
-        this.loggedIn$.next(true)
+        this.loggedIn$.next(name)
       })
     )
   }
 
-  checkAuth() {
-    let token = localStorage.getItem('token')
-    console.log('token', token)
-    if(token) {
-      console.log('checkauth:token', token);
+  // checkAuth() {
+  //   let token = localStorage.getItem('token')
+  //   console.log('token', token)
+  //   if(token) {
+  //     console.log('checkauth:token', token);
       
-      token = JSON.parse(token).token
-      token.replace(/['"]+/g, '')
-      this.auth = `bearer ${token}`
+  //     token = JSON.parse(token).token
+  //     token.replace(/['"]+/g, '')
+  //     this.auth = `bearer ${token}`
 
-    return this.http.get(`${this.url}/auth`,{headers:{
-      'Authorization': `${this.auth}`
-    }}).subscribe(res => {
-      console.log(res)
-      // this.header$.next(true)
-      this.loggedIn$.next(true)
-    }, err => {
-      console.log('err: checkAuth',err);
-    })
+  //   return this.http.get(`${this.url}/auth`,{headers:{
+  //     'Authorization': `${this.auth}`
+  //   }})
+    // .subscribe(res => {
+    //   console.log('checkauthres',res)
+    //   this.header$.next(true)
+    //   this.loggedIn$.next(true)
+    // }, err => {
+    //   console.log('err: checkAuth',err);
+    // })
 
     // return this.http.get<AuthResponse>(`${this.url}/auth`, {
     //   headers: new HttpHeaders({
@@ -73,11 +74,13 @@ export class AuthService {
     //     this.loggedIn$.next(true)
     //   })
     // )
-  } 
-  else {
-    return false
-  }
-  } 
+  // } 
+  // else {
+  //   return false
+  // }
+  // } 
+    // }
+  // }
 
     
 

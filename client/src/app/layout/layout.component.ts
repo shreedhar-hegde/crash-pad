@@ -12,7 +12,7 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     console.log('layout called');
-    this.authService.checkAuth();
+    // this.authService.checkAuth();
   }
 
 }
