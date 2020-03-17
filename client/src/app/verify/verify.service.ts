@@ -23,7 +23,7 @@ export class VerifyService {
     return this.http.get<UsersResponse>(`${this.url}/verify`)
   }
 
-  verify(updatedUsers) {
-    return this.http.put(`${this.url}/verify`, updatedUsers)
+  verify(modifiedUsers) {
+    return this.http.put(`${this.url}/verify`, modifiedUsers)
   }
 }

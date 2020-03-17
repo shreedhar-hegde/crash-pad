@@ -1,7 +1,7 @@
 <div class="container">
     <div class="columns">
         <div class="column">
-            <form [formGroup]="verifyForm" (submit)="onUpdateClick($event)">
+            <form (submit)="onUpdateClick($event)">
             <table class="table">
                 <thead>
                     <tr>
@@ -21,11 +21,12 @@
                                 <td>{{user.email}}</td>
                                 <td>
                                   <div class="field">
-                                      <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" 
-                                      [checked]="user.isVerified === true" 
-                                      [value]="user.isVerified"
-                                      (change)="[user.isVerified = !user.isVerified, onVerifyChange($event, user.name)]"
+                                      <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge"
+                                      [checked]="user.isVerified"
+                                      [value]="user._id"
+                                      (change)="onChange(user._id, $event.target.checked)"
                                       >{{user.isVerified}}
+                                     
                                     </div>
                                 </td>
                               </tr>

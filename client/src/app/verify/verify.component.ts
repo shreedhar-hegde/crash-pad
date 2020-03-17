@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VerifyService } from './verify.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-verify',
@@ -9,30 +9,48 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class VerifyComponent implements OnInit {
 
-  constructor(private verify: VerifyService) { }
+  constructor(private verifyService: VerifyService, private fb: FormBuilder) { }
 
-  users = []
-
-  verifyForm = new FormGroup({
-    isVerified: new FormControl('')
-  })
-
-  modifiedUsers = []
+  verifiedUsers: Array<any> = [];
+  users: Array<any> = []
 
   ngOnInit() {
-    this.verify.getUsers().subscribe(users => {
+
+    this.verifyService.getUsers().subscribe(users => {
       this.users = users['users']
-      console.log('users', typeof this.users[0].isVerified)
+      this.users.map(user => user.isVerified ? this.verifiedUsers.push(user._id): false)
+      console.log('users', this.users)
     })
   }
 
-  onVerifyChange(event, name) {
-    console.log('event',name, event.target.value)
-  }
+  onChange(user:string, isChecked: boolean) {
+    if(isChecked) {
+      this.verifiedUsers.push(user);
+      console.log('onchange', this.verifiedUsers)
+    } else {
+      let index = this.verifiedUsers.indexOf(user);
+      this.verifiedUsers.splice(index,1);
+      console.log('onchange', this.verifiedUsers)
+    }
+}
 
   onUpdateClick(event) {
     event.preventDefault()
-    console.log('updated users', this.verifyForm.value)
+
+   
+    this.users.map(user => {
+       return this.verifiedUsers.indexOf(user._id) >= 0 ? user.isVerified = true : user.isVerified = false
+     })
+   
+
+    console.log('final', this.users)
+
+    this.verifyService.verify(this.users).subscribe(res =>{
+      console.log('verify res', res)
+    })
+   
+
+    
   }
 
 }

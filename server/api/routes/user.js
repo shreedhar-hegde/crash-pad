@@ -114,8 +114,19 @@ router.get('/verify', (req, res) => {
     })
 })
 
-router.put('/verify', (req, res) => {
-    console.log('verify: ', req.body)
+router.put('/verify', async (req, res) => {
+
+
+    console.log('verify',req.body)
+
+    req.body.map(newUser => {
+       User.findOneAndUpdate({_id: newUser._id}, newUser, {upsert: true})
+       .then(user => {
+           console.log('updated user', user)
+       })
+    })
+    
+    res.status(200).json({message: 'Users Updated'})
 })
 
 
