@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VerifyService } from './verify.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-verify',
@@ -10,14 +11,28 @@ export class VerifyComponent implements OnInit {
 
   constructor(private verify: VerifyService) { }
 
+  users = []
+
+  verifyForm = new FormGroup({
+    isVerified: new FormControl('')
+  })
+
+  modifiedUsers = []
+
   ngOnInit() {
     this.verify.getUsers().subscribe(users => {
-      console.log('users', users)
+      this.users = users['users']
+      console.log('users', typeof this.users[0].isVerified)
     })
   }
 
-  onUpdateClick() {
-    console.log('updated users')
+  onVerifyChange(event, name) {
+    console.log('event',name, event.target.value)
+  }
+
+  onUpdateClick(event) {
+    event.preventDefault()
+    console.log('updated users', this.verifyForm.value)
   }
 
 }

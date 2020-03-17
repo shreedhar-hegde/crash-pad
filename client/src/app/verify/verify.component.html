@@ -1,6 +1,7 @@
 <div class="container">
     <div class="columns">
         <div class="column">
+            <form [formGroup]="verifyForm" (submit)="onUpdateClick($event)">
             <table class="table">
                 <thead>
                     <tr>
@@ -12,65 +13,30 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td>Shreedhar</td>
-                          <td>Bhatkal</td>
-                          <td>9686435493</td>
-                          <td>shree@gmail.com</td>
-                          <td>
-                            <div class="field">
-                                <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" checked="checked">
-                              </div>
-                          </td>
-                      </tr>
-                      <tr>
-                        <td>Shreedhar</td>
-                        <td>Bhatkal</td>
-                        <td>9686435493</td>
-                        <td>shree@gmail.com</td>
-                        <td>
-                          <div class="field">
-                              <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" checked="checked">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Shreedhar</td>
-                        <td>Bhatkal</td>
-                        <td>9686435493</td>
-                        <td>shree@gmail.com</td>
-                        <td>
-                          <div class="field">
-                              <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" checked="checked">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Shreedhar</td>
-                        <td>Bhatkal</td>
-                        <td>9686435493</td>
-                        <td>shree@gmail.com</td>
-                        <td>
-                          <div class="field">
-                              <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" checked="checked">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Shreedhar</td>
-                        <td>Bhatkal</td>
-                        <td>9686435493</td>
-                        <td>shree@gmail.com</td>
-                        <td>
-                          <div class="field">
-                              <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" checked="checked">
-                            </div>
-                        </td>
-                    </tr>
+                      <ng-container *ngFor="let user of users">
+                            <tr>
+                                <td>{{user.name}}</td>
+                                <td>{{user.address}}</td>
+                                <td>{{user.phone}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                  <div class="field">
+                                      <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge" 
+                                      [checked]="user.isVerified === true" 
+                                      [value]="user.isVerified"
+                                      (change)="[user.isVerified = !user.isVerified, onVerifyChange($event, user.name)]"
+                                      >{{user.isVerified}}
+                                    </div>
+                                </td>
+                              </tr>
+                            
+                        </ng-container>
                   </tbody>
             </table>
+            <button class="button" type="submit" >Update</button>
 
-            <button class="button">Update</button>
+        </form>
+            
         </div>
     </div>
 </div>

@@ -15,14 +15,17 @@ export class AppComponent {
 
   ngOnInit() {
     let token = localStorage.getItem('token')
-    console.log('token', JSON.parse(token).user.role)
-    if(JSON.parse(token).user.role === 'verifier') {
-      this.authService.loggedIn$.next(JSON.parse(token).user)
+    if(token) {
+      if(JSON.parse(token).user.role === 'verifier'){
+        this.authService.loggedIn$.next(JSON.parse(token).user)
       this.router.navigateByUrl('/verify')
-    } else if (JSON.parse(token).user.role === 'user') {
-      this.router.navigateByUrl('/dashboard/furniture')
+      }
+      else if(token) {
+        this.router.navigateByUrl('/dashboard/furniture')
     } else {
       this.router.navigateByUrl('/')
     }
+      
+    } 
   }
 }
