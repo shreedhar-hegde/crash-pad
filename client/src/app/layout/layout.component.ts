@@ -11,8 +11,7 @@ export class LayoutComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    console.log('layout called');
-    // this.authService.checkAuth();
+    
   }
 
 }

@@ -13,7 +13,7 @@ export class PropertiesComponent implements OnInit {
 
   ngOnInit() {
     this.propertyService.getProperties().subscribe((res:any) => {
-      console.log('properties', res)
+      
       this.properties = res.properties
     })
   }

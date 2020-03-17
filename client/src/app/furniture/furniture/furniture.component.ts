@@ -21,7 +21,7 @@ export class FurnitureComponent implements OnInit {
   ngOnInit() {
     this.furnitureService.getFurnitures().subscribe((res:any) => {
       this.furnitures = res.furnitures
-      console.log(this.furnitures)
+      
     })
     
   }

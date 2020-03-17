@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { BehaviorSubject } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,19 +32,19 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(event) {
-    console.log('reacher here');
     event.preventDefault()
     if (this.loginForm.invalid) {
       return;
     }
-
     this.authService.login(this.loginForm.value).subscribe({
-      next: response => {
-        console.log('response', response)
+      next: (response) => {
+        console.log('login response', response.user.role)
         localStorage.setItem('token', JSON.stringify(response))
-        this.authService.header$.next(true)
-        console.log('header log')
-        this.router.navigateByUrl('/dashboard/furniture')
+        if(response.user.role === 'verifier') {
+          this.router.navigateByUrl('/verify')
+        } else {
+          this.router.navigateByUrl('/dashboard/furniture')
+        }
       }
     })
     

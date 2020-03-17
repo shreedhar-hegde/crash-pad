@@ -15,31 +15,14 @@ export class AppComponent {
 
   ngOnInit() {
     let token = localStorage.getItem('token')
-
-    if(token) {
-      this.authService.loggedIn$.next(JSON.parse(token).name)
+    console.log('token', JSON.parse(token).user.role)
+    if(JSON.parse(token).user.role === 'verifier') {
+      this.authService.loggedIn$.next(JSON.parse(token).user)
+      this.router.navigateByUrl('/verify')
+    } else if (JSON.parse(token).user.role === 'user') {
       this.router.navigateByUrl('/dashboard/furniture')
     } else {
       this.router.navigateByUrl('/')
     }
   }
-
-  // checkIsUserLoggedIn() {
-  //   let checkAuth = this.authService.checkAuth()
-  //   console.log('checkauth', checkAuth)
-  //   if(checkAuth) {
-  //     checkAuth.subscribe(res => {
-  //       console.log('check auth responsexd', res)
-  //       if(res['message']) {
-  //         this.authService.loggedIn$.next(true)
-  //         this.authService.header$.next(true)
-  //         console.log('emitted')
-  //         this.router.navigateByUrl('/dashboard/furniture')
-  //       }
-  //     })
-  // } else {
-  //   localStorage.clear()
-  //   this.router.navigateByUrl('/')
-  // }
-// }
 }

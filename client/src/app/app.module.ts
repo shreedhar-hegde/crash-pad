@@ -14,6 +14,7 @@ import { LayoutModule } from './layout/layout.module';
 import { PropertiesModule } from './properties/properties.module';
 import { CartModule } from './cart/cart.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { VerifyComponent } from './verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HeaderComponent,
     LoginComponent,
     NotFoundComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,

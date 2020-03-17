@@ -4,7 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 import {tap} from 'rxjs/operators'
 
 interface LoginResponse {
-  name: string,
+  user: {
+    role: Object
+  },
   token: string
 }
 
@@ -35,53 +37,11 @@ export class AuthService {
 
   login(credentials) {
     return this.http.post<LoginResponse>(`${this.url}/login`, credentials).pipe(
-      tap(({name}) => {
-        console.log('name', name)
-        this.loggedIn$.next(name)
+      tap(({user}) => {
+        console.log('pipe user', user)
+        this.loggedIn$.next(user)
       })
     )
   }
-
-  // checkAuth() {
-  //   let token = localStorage.getItem('token')
-  //   console.log('token', token)
-  //   if(token) {
-  //     console.log('checkauth:token', token);
-      
-  //     token = JSON.parse(token).token
-  //     token.replace(/['"]+/g, '')
-  //     this.auth = `bearer ${token}`
-
-  //   return this.http.get(`${this.url}/auth`,{headers:{
-  //     'Authorization': `${this.auth}`
-  //   }})
-    // .subscribe(res => {
-    //   console.log('checkauthres',res)
-    //   this.header$.next(true)
-    //   this.loggedIn$.next(true)
-    // }, err => {
-    //   console.log('err: checkAuth',err);
-    // })
-
-    // return this.http.get<AuthResponse>(`${this.url}/auth`, {
-    //   headers: new HttpHeaders({
-    //     'Authorization': `${this.auth}`
-    //   })
-    // }).pipe(
-    //   tap((message) => {
-    //     console.log('auth message', message)
-    //     this.header$.next(true)
-    //     this.loggedIn$.next(true)
-    //   })
-    // )
-  // } 
-  // else {
-  //   return false
-  // }
-  // } 
-    // }
-  // }
-
-    
 
 }

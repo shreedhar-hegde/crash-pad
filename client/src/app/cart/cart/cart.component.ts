@@ -18,7 +18,6 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.cartService.getCart().subscribe(cartResponse => {
       this.cart = cartResponse['cart']
-      // console.log(this.cart)
       
       for(let cart of this.cart) {
         cart.furniture.forEach(item => {

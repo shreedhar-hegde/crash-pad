@@ -32,6 +32,8 @@ router.post('/signup', (req, res, next) => {
                         const user = new User({
                             name: req.body.name,
                             email: req.body.email,
+                            address: req.body.address,
+                            phone: req.body.phone,
                             password: hash
                         })
                         user.save()
@@ -75,7 +77,7 @@ router.post('/login', (req, res, next) => {
                     }, "jwtkey", {expiresIn: "24h"})
                     res.status(200).json({
                         message: 'Auth Success',
-                        name: user.name,
+                        user: user,
                         token: token
                     })
                 } else {
@@ -99,6 +101,21 @@ router.delete(':/userId', (req, res) => {
 
 router.get('/auth', auth, (req, res) => {
     res.status(200).json({message:true})
+})
+
+router.get('/verify', (req, res) => {
+    User.find()
+    .select('name email address phone isVerified')
+    .then(users => {
+        console.log('users', users)
+        res.status(200).json({users: users})
+    }).catch(err => {
+        console.log('verify err', err)
+    })
+})
+
+router.put('/verify', (req, res) => {
+    console.log('verify: ', req.body)
 })
 
 
