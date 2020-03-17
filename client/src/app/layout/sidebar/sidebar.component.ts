@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
     this.authService.loggedIn$.subscribe(user => {
       if(user) {
         console.log('sidebar', user)
-      this.role = user.role
+        this.role = user.role
       }
       
     })

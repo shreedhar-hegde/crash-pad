@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container has-text-centered">
     <div class="columns">
         <div class="column">
             <form (submit)="onUpdateClick($event)">
-            <table class="table">
+            <table class="table is-bordered is-fullwidth">
                 <thead>
                     <tr>
                       <th>Name</th>
@@ -25,18 +25,18 @@
                                       [checked]="user.isVerified"
                                       [value]="user._id"
                                       (change)="onChange(user._id, $event.target.checked)"
-                                      >{{user.isVerified}}
-                                     
+                                      >
+                                     <label class="label">{{user.isVerified ? 'Veirfied' : 'Not Verified'}}</label>
                                     </div>
                                 </td>
                               </tr>
                             
                         </ng-container>
                   </tbody>
-            </table>
-            <button class="button" type="submit" >Update</button>
-
-        </form>
+                </table>
+                
+              </form>
+              <button class="button is-success" type="submit" >Update</button>
             
         </div>
     </div>
