@@ -5,7 +5,8 @@ const propertySchema = mongoose.Schema({
     price: {type: Number, required: true},
     type: String,
     area: String,
-    propertyImage: String
+    propertyImage: String,
+    isInCart: {type: Boolean, default: false}
 })
 
 module.exports = mongoose.model('Property', propertySchema)

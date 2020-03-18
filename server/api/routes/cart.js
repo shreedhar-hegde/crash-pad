@@ -44,9 +44,20 @@ router.post('/', (req, res) => {
 })
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/deletefurniture/:id', (req, res) => {
     console.log('delete item from cart:',req.params.id)
     Cart.findOneAndDelete({furniture: req.params.id}).then(result => {
+        console.log('result', result)
+        res.status(200).json({message: 'deleted successfully', success: true})
+    }).catch(err => {
+        console.log('remove item err', err)
+        res.status(500).json({err: err})
+    })
+})
+
+router.delete('/deleteproperty/:id', (req, res) => {
+    console.log('delete item from cart:',req.params.id)
+    Cart.findOneAndDelete({property: req.params.id}).then(result => {
         console.log('result', result)
         res.status(200).json({message: 'deleted successfully', success: true})
     }).catch(err => {

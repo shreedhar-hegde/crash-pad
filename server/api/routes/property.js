@@ -49,9 +49,21 @@ router.get('/:propertyId', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.patch('/:propertyId', (req, res) => {
-    res.status(200).json({
-        message: 'Patch Order'
+router.put('/', (req, res) => {
+    console.log('update property', req.body)
+
+    Property.updateOne({
+        _id: req.body.propertyId
+    }, {
+       $set: { isInCart: req.body.isInCart}
+    }).then(updatedProperty => {
+        console.log('updated cart', updatedProperty)
+        res.status(200).json({
+            'message': 'Added to Liked', success: true
+        })
+    }).catch(err => {
+        res.status(500).json({err: err})
+        console.log('add to cart err', err)
     })
 })
 

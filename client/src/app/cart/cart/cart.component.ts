@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { FurnitureService } from 'src/app/furniture/furniture.service';
+import { PropertiesService } from 'src/app/properties/properties.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,8 @@ export class CartComponent implements OnInit {
   propertyItems = []
 
   constructor(private cartService: CartService,
-    private furnitureService: FurnitureService
+    private furnitureService: FurnitureService,
+    private propertyService: PropertiesService
     ) { }
 
   ngOnInit() {
@@ -31,15 +33,17 @@ export class CartComponent implements OnInit {
           this.propertyItems.push(item)
         })
       }
+
+      console.log('properties in cart', this.propertyItems)
       
 
     })
 
   }
   
-  onRemoveClick(furnitureId) {
+  onRemoveFurnitureClick(furnitureId) {
     console.log('furnitureid cart', furnitureId)
-    this.cartService.remove(furnitureId).subscribe(res => {
+    this.cartService.removeFurniture(furnitureId).subscribe(res => {
       console.log('remove item from cart', res)
       if(res.success) {
 
@@ -47,6 +51,22 @@ export class CartComponent implements OnInit {
 
        this.furnitureItems =  this.furnitureItems.filter(furniture =>{
          return furniture._id === furnitureId
+        })
+        console.log('after filter', this.furnitureItems)
+      }
+    })
+  }
+
+  onRemovePropertyClick(proeprtyId) {
+    console.log('furnitureid cart', proeprtyId)
+    this.cartService.removeProperty(proeprtyId).subscribe(res => {
+      console.log('remove item from cart', res)
+      if(res.success) {
+
+        this.propertyService.updateProperty({proeprtyId: proeprtyId, isInCart: false}).subscribe()
+
+       this.propertyItems =  this.propertyItems.filter(property =>{
+         return property._id === proeprtyId
         })
         console.log('after filter', this.furnitureItems)
       }
