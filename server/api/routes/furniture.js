@@ -8,12 +8,12 @@ const storage = multer.diskStorage({
         cb(null, 'furniture');
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() +  file.originalname)
+        cb(null, new Date().toISOString() + file.originalname)
     }
 })
 
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true)
     } else {
         cb(null, false)
@@ -37,7 +37,7 @@ const Furniture = require('../models/furniture')
 router.get('/', (req, res) => {
     console.log('get')
     Furniture.find()
-        .select('_id name price imageUrl')
+        .select('_id name price imageUrl isInCart')
         .then(furnitures => {
             if (furnitures.length > 0) {
                 res.status(200).json({
@@ -63,7 +63,7 @@ router.get('/', (req, res) => {
 // upload.single('furnitureImage')
 router.post('/', auth, (req, res) => {
 
-    console.log('file',req.file)
+    console.log('furniture', req.body)
 
     const newFurniture = new Furniture({
         _id: mongoose.Types.ObjectId(),
@@ -132,6 +132,24 @@ router.delete('/:furnitureId', auth, (req, res) => {
             })
         })
 
+})
+
+router.put('/', (req, res) => {
+    console.log('update furniture', req.body)
+
+    Furniture.updateOne({
+        _id: req.body.furnitureId
+    }, {
+       $set: { isInCart: req.body.isInCart}
+    }).then(updatedCart => {
+        console.log('updated cart', updatedCart)
+        res.status(200).json({
+            'message': 'Added to Cart', success: true
+        })
+    }).catch(err => {
+        res.status(500).json({err: err})
+        console.log('add to cart err', err)
+    })
 })
 
 module.exports = router

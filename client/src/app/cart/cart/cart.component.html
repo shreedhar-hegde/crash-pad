@@ -22,13 +22,14 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <a class="button is-danger card-footer-item">
+                    <a (click)="onRemoveClick(item._id)" class="button is-danger card-footer-item">
                       Remove
                     </a>
                     <a class="button is-primary card-footer-item">
-                      Rent
+                     Checkout
                     </a>
                 </footer>
+                
             </div>
           </div>
         </ng-container>

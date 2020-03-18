@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
+import { FurnitureService } from 'src/app/furniture/furniture.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,9 +14,12 @@ export class CartComponent implements OnInit {
   furnitureItems = []
   propertyItems = []
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,
+    private furnitureService: FurnitureService
+    ) { }
 
   ngOnInit() {
+    console.log('cart ngoinint')
     this.cartService.getCart().subscribe(cartResponse => {
       this.cart = cartResponse['cart']
       
@@ -32,6 +36,21 @@ export class CartComponent implements OnInit {
     })
 
   }
+  
+  onRemoveClick(furnitureId) {
+    console.log('furnitureid cart', furnitureId)
+    this.cartService.remove(furnitureId).subscribe(res => {
+      console.log('remove item from cart', res)
+      if(res.success) {
 
+        this.furnitureService.updateFurniture({furnitureId: furnitureId, isInCart: false}).subscribe()
+
+       this.furnitureItems =  this.furnitureItems.filter(furniture =>{
+         return furniture._id === furnitureId
+        })
+        console.log('after filter', this.furnitureItems)
+      }
+    })
+  }
 
 }

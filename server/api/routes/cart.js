@@ -22,7 +22,7 @@ router.get('/', auth, (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req.body)
+    console.log('body',req.body)
     const newCart = new Cart({
         user: req.body.userId,
         furniture: req.body.furnitureId,
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
         quantity: req.body.quantity
     }) 
 
-    console.log(newCart)
+    console.log('new cart',newCart)
 
     newCart.save()
         .then(newCart => {
@@ -41,6 +41,18 @@ router.post('/', (req, res) => {
             console.log('err', err)
             res.status(500).json({err: err})
         })
+})
+
+
+router.delete('/:id', (req, res) => {
+    console.log('delete item from cart:',req.params.id)
+    Cart.findOneAndDelete({furniture: req.params.id}).then(result => {
+        console.log('result', result)
+        res.status(200).json({message: 'deleted successfully', success: true})
+    }).catch(err => {
+        console.log('remove item err', err)
+        res.status(500).json({err: err})
+    })
 })
 
 module.exports = router

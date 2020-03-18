@@ -28,4 +28,12 @@ export class FurnitureService {
     })
   }
 
+  updateFurniture(furnitureDetails) {
+    return this.http.put<any>(`${this.url}`,furnitureDetails, {
+      headers: new HttpHeaders({
+        'Authorization': this.auth
+      })
+    })
+  }
+
 }

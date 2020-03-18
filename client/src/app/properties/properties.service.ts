@@ -30,4 +30,12 @@ export class PropertiesService {
         })
     })
   }
+
+  updateProperty(propertyDetails) {
+    return this.http.put<any>(`${this.url}`,propertyDetails, {
+      headers: new HttpHeaders({
+        'Authorization': this.auth
+      })
+    })
+  }
 }

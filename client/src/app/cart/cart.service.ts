@@ -20,4 +20,24 @@ export class CartService {
       })
     })
   }
+
+  cart(itemDetails) {
+    console.log('item details', itemDetails)
+    return this.http.post(this.url, itemDetails, {
+      headers: new HttpHeaders({
+        'Authorization': this.auth
+      })
+    })
+  }
+
+  remove(furnitureId) {
+    console.log('item details', furnitureId)
+    return this.http.delete<any>(`${this.url}/${furnitureId}`,{
+      headers: new HttpHeaders({
+        'Authorization': this.auth
+      })
+    })
+  }
+
+  
 }

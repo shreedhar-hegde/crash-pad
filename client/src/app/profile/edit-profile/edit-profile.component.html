@@ -2,9 +2,13 @@
   <div class="tile is-vertical  is-4">
     <div class="tile">
       <div class="tile  is-parent is-vertical">
-        <article class="tile has-background-danger is-child box">
+        <article *ngIf="!verified" class="tile has-background-danger is-child box">
           <p class="title">Being Verified</p>
-          <p class="subtitle">Verification under progress</p>
+          <p class="subtitle">Verification under progress, You cannot rent items</p>
+        </article>
+        <article *ngIf="verified" class="tile has-background-success is-child box">
+          <p class="title">Verified</p>
+          <p class="subtitle">You can rent items</p>
         </article>
       </div>
       </div>

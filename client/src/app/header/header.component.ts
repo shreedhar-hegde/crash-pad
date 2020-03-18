@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
     if(user) {
       this.loggedIn = true
       this.user = user.name
+      console.log('header', user)
     }
   })
   }

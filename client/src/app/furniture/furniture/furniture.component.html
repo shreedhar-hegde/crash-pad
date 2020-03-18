@@ -4,6 +4,11 @@
     <p>Awesome Furnitures For You</p>
   </div>
 
+  <div *ngIf="showNotification" class="notification is-primary">
+    <button class="delete"></button>
+    Added to Liked
+  </div>
+
     <div class="columns is-multiline">
     <ng-container *ngFor="let furniture of furnitures">
         <div class="column is-one-quarter-desktop is-half-tablet">
@@ -19,15 +24,14 @@
                     <span class="tag is-danger is-pulled-right">
                       {{furniture.price}}
                     </span> 
-                        
                   </div>
               </div>
               <footer class="card-footer">
-                  <a class="button is-primary card-footer-item">
-                    Like
-                    
-                  </a>
+                  <button (click)="onLikeClick(furniture._id)" class="button is-primary card-footer-item" [disabled]="furniture.isInCart">
+                    {{furniture.isInCart ? 'Liked' : 'Like'}}
+                  </button>
               </footer>
+             
           </div>
         </div>
          

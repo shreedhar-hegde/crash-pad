@@ -14,13 +14,19 @@ export class AppComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
+    console.log('ngonint')
     let token = localStorage.getItem('token')
     if(token) {
+      console.log('app token', token)
       if(JSON.parse(token).user.role === 'verifier'){
-        this.authService.loggedIn$.next(JSON.parse(token).user)
+        let user = JSON.parse(token).user
+        console.log('app user', user)
+        this.authService.loggedIn$.next(user)
       this.router.navigateByUrl('/verify')
       }
       else if(token) {
+        let user = JSON.parse(token).user
+        this.authService.loggedIn$.next(user)
         this.router.navigateByUrl('/dashboard/furniture')
     } else {
       this.router.navigateByUrl('/')
