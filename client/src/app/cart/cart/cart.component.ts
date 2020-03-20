@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { FurnitureService } from 'src/app/furniture/furniture.service';
 import { PropertiesService } from 'src/app/properties/properties.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,8 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService,
     private furnitureService: FurnitureService,
-    private propertyService: PropertiesService
+    private propertyService: PropertiesService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -71,6 +73,12 @@ export class CartComponent implements OnInit {
         console.log('after filter', this.furnitureItems)
       }
     })
+  }
+
+  onCheckout() {
+    console.log('checkout');
+    
+    this.router.navigateByUrl('/dashboard/checkout')
   }
 
 }

@@ -1,0 +1,12 @@
+<div class=" columns is-centered">
+    <div class="card has-background-grey-light column is-half">
+
+        <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+            <input class="input" type="text" formControlName="name" placeholder="Jane Doe">
+            <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+            <button class="button" type="submit">
+              BUY
+            </button>
+          </form>
+    </div>
+</div>

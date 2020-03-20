@@ -6,6 +6,7 @@ import { PropertiesComponent } from '../properties/properties/properties.compone
 import { LayoutComponent } from './layout.component';
 import { CartComponent } from '../cart/cart/cart.component';
 import { EditProfileComponent } from '../profile/edit-profile/edit-profile.component';
+import { CheckoutComponent } from '../checkout/checkout.component';
 
 
 const routes: Routes = [{
@@ -14,7 +15,8 @@ const routes: Routes = [{
     {path: 'furniture', component: FurnitureComponent},
     { path: 'property', component: PropertiesComponent},
     { path: 'liked', component: CartComponent},
-    {path: 'editprofile', component: EditProfileComponent}
+    {path: 'editprofile', component: EditProfileComponent},
+    {path: 'checkout', component: CheckoutComponent}
     ] 
   }
 ];

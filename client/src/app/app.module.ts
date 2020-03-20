@@ -15,7 +15,8 @@ import { PropertiesModule } from './properties/properties.module';
 import { CartModule } from './cart/cart.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { VerifyComponent } from './verify/verify.component';
-
+import { CheckoutComponent } from './checkout/checkout.component';
+import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { VerifyComponent } from './verify/verify.component';
     LoginComponent,
     NotFoundComponent,
     VerifyComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { VerifyComponent } from './verify/verify.component';
     HttpClientModule,
     PropertiesModule,
     LayoutModule,
-    CartModule
+    CartModule,
+    NgxStripeModule.forRoot('pk_test_83XH138cFfAbm9wAj3962PYL00cZArUGwx'),
   ],
   providers: [],
   bootstrap: [AppComponent]
