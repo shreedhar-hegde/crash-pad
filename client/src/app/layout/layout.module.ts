@@ -6,6 +6,7 @@ import { LayoutComponent } from './layout.component';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { PropertiesModule } from '../properties/properties.module';
 import { ProfileModule } from '../profile/profile.module';
+import { AdminModule } from '../admin/admin.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ProfileModule } from '../profile/profile.module';
     CommonModule,
     LayoutRoutingModule,
     PropertiesModule,
-    ProfileModule
+    ProfileModule,
+    AdminModule
   ]
 })
 export class LayoutModule { }

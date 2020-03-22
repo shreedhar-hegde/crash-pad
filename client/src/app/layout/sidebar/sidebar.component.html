@@ -1,11 +1,10 @@
 
     <aside class="menu">
         <ul class="menu-list">
-          <ng-container *ngIf="role === 'user' || 'admin'">
             <li ><a routerLink="furniture" routerLinkActive="active">Furniture</a></li>
             <li><a routerLink="property" routerLinkActive="active">Property</a></li>
             <li><a routerLink="liked" routerLinkActive="active">Liked</a></li>
-          </ng-container>
+            <li *ngIf="role==='admin'"><a routerLink="admin" routerLinkActive="active">Admin</a></li>
         </ul>
     </aside>
 
