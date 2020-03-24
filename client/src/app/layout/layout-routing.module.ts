@@ -22,10 +22,10 @@ const routes: Routes = [{
     {path: 'checkout', component: CheckoutComponent},
     {path: 'admin', component: AdminDashboardComponent , 
     children: [{
-      path: 'add-furniture', component: AddFurnitureComponent,
-    }, {
-      path: 'add-property', component: AddPropertyComponent
-    }]}, 
+      path: '', redirectTo: 'add-furniture', pathMatch: 'full'},
+       {path: 'add-furniture', component: AddFurnitureComponent},
+       {path: 'add-property', component: AddPropertyComponent},
+      ]}, 
     ] 
   }
 ];
