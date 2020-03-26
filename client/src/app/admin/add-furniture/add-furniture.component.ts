@@ -12,4 +12,8 @@ export class AddFurnitureComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() {
+    console.log('add furniture')
+  }
+
 }

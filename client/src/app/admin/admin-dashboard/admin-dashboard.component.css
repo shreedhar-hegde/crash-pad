@@ -1,0 +1,14 @@
+.navbar-container {
+    margin-top: 1vh;
+    margin-right: 1vw;
+}
+
+li :hover {
+    background-color: hsl(0, 0%, 96%)
+}
+
+
+.tabs-list {
+    display: contents !important;
+    justify-content: space-between;
+}

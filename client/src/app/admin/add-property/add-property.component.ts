@@ -12,4 +12,8 @@ export class AddPropertyComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit(){
+    console.log('add property')
+  }
+
 }

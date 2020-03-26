@@ -10,6 +10,8 @@ import { CheckoutComponent } from '../checkout/checkout.component';
 import { AdminDashboardComponent } from '../admin/admin-dashboard/admin-dashboard.component';
 import { AddFurnitureComponent } from '../admin/add-furniture/add-furniture.component';
 import { AddPropertyComponent } from '../admin/add-property/add-property.component';
+import { ReportComponent } from '../admin/report/report.component';
+import { ListComponent } from '../admin/list/list.component';
 
 
 const routes: Routes = [{
@@ -22,9 +24,11 @@ const routes: Routes = [{
     {path: 'checkout', component: CheckoutComponent},
     {path: 'admin', component: AdminDashboardComponent , 
     children: [{
-      path: '', redirectTo: 'add-furniture', pathMatch: 'full'},
+      path: '', redirectTo: 'report', pathMatch: 'full'},
        {path: 'add-furniture', component: AddFurnitureComponent},
        {path: 'add-property', component: AddPropertyComponent},
+       {path: 'report', component: ReportComponent},
+       {path: 'list', component: ListComponent}
       ]}, 
     ] 
   }
