@@ -29,33 +29,35 @@ export class FurnitureComponent implements OnInit {
       console.log('furnitures', this.furnitures)
     })
 
+    this.checkIfInCart()
+
     this.authService.loggedIn$.subscribe(user => {
       this.userId = user._id
       console.log('userid', this.userId)
     })
+
     
   }
 
-  onLikeClick(furnitureId) {
+  checkIfInCart() {
+    this.cartService.getCart().subscribe((res:any) => {
+      console.log('check if in cart', res.cart[0].furniture)
+      let furnitureCart = res.cart[0].furniture
 
-    this.furnitureService.addFurnitureToCart({furnitureId: furnitureId, isInCart: true}).subscribe(res => {
-      console.log('update furniture', res)
-      if(res.success) {
-
-        this.showNotification = true
-        console.log('show notification', this.showNotification)
-
-        setTimeout(() => {
-          this.showNotification = false
-        }, 5000)
-
-        this.cartService.cart({furnitureId: furnitureId, userId: this.userId}).subscribe(res => {
-          console.log('added to cart', res)
-        })
-      }
+      furnitureCart.map((item, index) => {
+        if(item._id === this.furnitures[index]._id) {
+          this.furnitures[index].isInCart = true
+        }
+      })
     })
-    console.log('furniture', furnitureId)
   }
+
+  onLikeClick(furnitureId) {
+        this.cartService.cart({furnitureId: furnitureId, userId: this.userId, key: 'furniture'}).subscribe(res => {
+          console.log('added to cart', res)
+        }) 
+      }
+      
 
 
 

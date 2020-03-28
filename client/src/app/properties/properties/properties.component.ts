@@ -21,31 +21,40 @@ export class PropertiesComponent implements OnInit {
       console.log('properties', res.properties)
       this.properties = res.properties
     })
+    this.checkIfInCart()
 
     this.authService.loggedIn$.subscribe(user => {
       this.userId = user._id
     })
   }
 
+  checkIfInCart() {
+    this.cartService.getCart().subscribe((res:any) => {
+      console.log('check if in cart', res.cart[0])
+      let propertyCart = res.cart[0].property
+
+     this.properties.map((property, index) => {
+        if(property._id === propertyCart[index]._id) {
+          return property.isInCart = true
+        }
+      })
+
+      // propertyCart.map((item, index) => {
+      //   if(item._id === this.properties[index]._id) {
+      //     this.properties[index].isInCart = true
+      //   }
+      // })
+    })
+  }
+
   onLikeClick(propertyId) {
-
-    this.propertyService.addPropertyToCart({propertyId: propertyId, isInCart: true}).subscribe((res:any) => {
-      console.log('update furniture', res)
-      if(res.success) {
-
-        this.showNotification = true
-        console.log('show notification', this.showNotification)
-
         setTimeout(() => {
           this.showNotification = false
         }, 5000)
 
-        this.cartService.cart({propertyId: propertyId, userId: this.userId}).subscribe(res => {
+        this.cartService.cart({propertyId: propertyId, userId: this.userId, key: 'property'}).subscribe(res => {
           console.log('added to cart', res)
         })
-      }
-    })
-    console.log('furniture', propertyId)
   }
 
 }

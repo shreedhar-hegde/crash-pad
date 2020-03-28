@@ -23,10 +23,9 @@ export class CartComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('cart ngoinint', localStorage.getItem('token'))
     this.cartService.getCart().subscribe(cartResponse => {
       this.cart = cartResponse['cart']
-      
+      console.log('cart service', this.cart)
       for(let cart of this.cart) {
         cart.furniture.forEach(item => {
           this.furnitureItems.push(item)
@@ -34,10 +33,7 @@ export class CartComponent implements OnInit {
         cart.property.forEach(item => {
           this.propertyItems.push(item)
         })
-      }
-
-      console.log('properties in cart', this.propertyItems)
-      
+      }      
 
     })
 

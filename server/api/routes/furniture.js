@@ -37,7 +37,7 @@ const Furniture = require('../models/furniture')
 router.get('/', auth, (req, res) => {
     console.log('get furntiure')
     Furniture.find()
-        .select('_id name price imageUrl isInCart')
+        .select('_id name price imageUrl')
         .then(furnitures => {
             console.log('furnitures', furnitures)
             if (furnitures.length > 0) {
@@ -64,7 +64,7 @@ router.get('/', auth, (req, res) => {
 // upload.single('furnitureImage')
 router.post('/', auth, (req, res) => {
 
-    console.log('furniture', req.body, req.userData)
+    console.log('auth furniture', req.body, req.userData)    
 
     const newFurniture = new Furniture({
         name: req.body.name,
