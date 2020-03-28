@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 interface FurnitureResponse {
   name: String,
   price: Number,
-  furnitureImage: String
+  imageUrl: String
 }
 
 @Injectable({
@@ -17,19 +17,36 @@ export class FurnitureService {
   
 
   url = 'http://localhost:5000/furniture'
-  token:string = localStorage.getItem('token')
-  auth = 'bearer' + this.token
+
+  jwt:any = JSON.parse(localStorage.getItem('token')).jwt
+
+
+  auth = 'bearer ' + this.jwt
 
   getFurnitures() {
-   return this.http.get<FurnitureResponse>(`${this.url}`, {
+    console.log('token', this.jwt)
+   return this.http.get(`${this.url}`, {
         headers : new HttpHeaders({
           'Authorization': this.auth
         })
     })
   }
 
-  updateFurniture(furnitureDetails) {
-    return this.http.put<any>(`${this.url}`,furnitureDetails, {
+  addFurniture(furniture) {
+    return this.http.post(this.url, furniture, {
+      headers: {
+        'Authorization': this.auth 
+      }
+    })
+  }
+
+  updateFruniture(furnitures) {
+    console.log('service', furnitures)
+    return this.http.patch(this.url, furnitures)
+  }
+
+  addFurnitureToCart(furnitureDetails) {
+    return this.http.patch<any>(`${this.url}/addtocart`,furnitureDetails, {
       headers: new HttpHeaders({
         'Authorization': this.auth
       })

@@ -20,8 +20,8 @@ export class PropertiesService {
   constructor(private http: HttpClient) { }
 
   url = 'http://localhost:5000/property'
-  token:string = localStorage.getItem('token')
-  auth = 'bearer' + this.token
+  token:any = localStorage.getItem('token')
+  auth = 'bearer' + this.token.jwt
 
   getProperties() {
    return this.http.get<PropertyResponse>(`${this.url}`, {
@@ -31,8 +31,17 @@ export class PropertiesService {
     })
   }
 
-  updateProperty(propertyDetails) {
-    return this.http.put<any>(`${this.url}`,propertyDetails, {
+  addProperty(property) {
+    return this.http.post(this.url, property)
+  }
+
+  updateProperty(updatedProperties) {
+    console.log('service', updatedProperties)
+    return this.http.patch(this.url, updatedProperties)
+  }
+
+  addPropertyToCart(propertyDetails) {
+    return this.http.patch<any>(`${this.url}/addtocart`,propertyDetails, {
       headers: new HttpHeaders({
         'Authorization': this.auth
       })

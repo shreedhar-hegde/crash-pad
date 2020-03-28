@@ -1,33 +1,51 @@
-<div class="columns is-centered has-text-centered">
-    <div class="column is-half">
-        <form class="form" (submit)="onSubmit()">
+<div class="columns has-text-centered">
+  <div class="column">
+      <form class="form" [formGroup]="furnitureForm" (submit)="onSubmit($event)">
+          <div class="field">
+              <label class="label">Furniture Name</label>
+              <div class="control">
+                <input formControlName="name" (keyup)="name = $event.target.value" class="input" type="text">
+              </div>
+            </div>
+            
             <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                  <input class="input" type="text">
-                </div>
+              <label class="label">Price</label>
+              <div class="control">
+                <input formControlName="price" (keyup)="price = $event.target.value"  class="input" type="number">
               </div>
-              
-              <div class="field">
-                <label class="label">Cost per Month</label>
-                <div class="control">
-                  <input class="input" type="number">
-                </div>
+            </div>
+            <div class="field">
+              <label class="label">Image URL</label>
+              <div class="control">
+                <input formControlName="imageUrl" placeholder="paste URL of image" (paste)="imageUrl = $event.clipboardData.getData('text')" class="input">
               </div>
-              <div class="field">
-                <label class="label">Image URL</label>
-                <div class="control">
-                  <input class="input" type="number">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Available Qunatity</label>
-                <div class="control">
-                  <input class="input" type="number" min="1">
-                </div>
-              </div>
-              <button type="submit" class="button is-primary">Submit</button>
-        </form>
-    
+            </div>
+            <button type="submit" class="button is-primary">Submit</button>
+      </form>
+  
+  </div>
+
+  <div class="column is-pulled-right">
+    <div class="card" *ngIf="name">
+      <header class="card-header">
+        <p class="card-header-title">
+          {{name}}
+        </p>
+        <a href="#" class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="content">
+         <img [src]="imageUrl" alt="">
+        </div>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">{{price}}</p>
+      </footer>
     </div>
+</div>
+
 </div>

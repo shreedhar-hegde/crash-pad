@@ -7,13 +7,16 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { ReportComponent } from './report/report.component';
 import { ListComponent } from './list/list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [ AddFurnitureComponent, AdminDashboardComponent, AddPropertyComponent, ReportComponent, ListComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

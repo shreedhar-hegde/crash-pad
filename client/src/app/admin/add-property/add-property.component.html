@@ -1,46 +1,72 @@
-<div class="columns is-centered has-text-centered">
-    <div class="column is-half">
-        <form class="form" (submit)="onSubmit()">
+<div class="columns has-text-centered">
+  <div class="column">
+      <form class="form" [formGroup]="propertyForm" (submit)="onSubmit($event)">
+          <div class="field">
+              <label class="label">Property Name</label>
+              <div class="control">
+                <input formControlName="name" (keyup)="name = $event.target.value" class="input" type="text">
+              </div>
+            </div>
+            
             <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                  <input class="input" type="text">
-                </div>
+              <label class="label">Cost per Month</label>
+              <div class="control">
+                <input formControlName="costPerMonth" (keyup)="costPerMonth = $event.target.value"  class="input" type="number">
               </div>
-              
-              <div class="field">
-                <label class="label">Cost per Month</label>
-                <div class="control">
-                  <input class="input" type="number">
-                </div>
+            </div>
+            <div class="field">
+              <label class="label">Image URL</label>
+              <div class="control">
+                <input formControlName="propertyImage" placeholder="paste URL of image" (paste)="propertyImage = $event.clipboardData.getData('text')" class="input">
               </div>
-              <div class="field">
-                <label class="label">Image URL</label>
-                <div class="control">
-                  <input class="input" type="text">
-                </div>
+            </div>
+            <div class="field">
+              <label class="label">Area</label>
+              <div class="control">
+                <input formControlName="area" (keyup)="area = $event.target.value" class="input" type="text">
               </div>
-              <div class="field">
-                <label class="label">Area</label>
-                <div class="control">
-                  <input class="input" type="text">
-                </div>
+            </div>
+            <div class="field">
+              <label class="label">Type</label>
+              <div class="control">
+                <input formControlName="type" (keyup)="type = $event.target.value" class="input" type="text">
               </div>
-              <div class="field">
-                <label class="label">Type</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Flat">
-                </div>
+            </div>
+            <div class="field">
+              <label class="label">Number of Rooms</label>
+              <div class="control">
+                <input formControlName="noOfRooms" (keyup)="noOfRooms = $event.target.value" class="input" type="number">
               </div>
-              <div class="field">
-                <label class="label">Number of Rooms</label>
-                <div class="control">
-                  <input class="input" type="text">
-                </div>
-              </div>
-              <button type="submit" class="button is-primary">Submit</button>
+            </div>
+            <button type="submit" class="button is-primary">Submit</button>
+      </form>
+  
+  </div>
 
-            </form>
+  <div class="column is-pulled-right">
+    <div class="card" *ngIf="name">
+      <header class="card-header">
+        <p class="card-header-title">
+          {{name}}
+        </p>
+        <a href="#" class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="content">
+         <img [src]="propertyImage" alt="">
         </div>
-    
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">{{area}}</p>
+        <p class="card-footer-item">{{costPerMonth}}</p>
+        <p class="card-footer-item">{{type}}</p>
+        <p class="card-footer-item">{{noOfRooms}}</p>
+      </footer>
+    </div>
+</div>
+
 </div>

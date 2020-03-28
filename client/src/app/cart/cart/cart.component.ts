@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('cart ngoinint')
+    console.log('cart ngoinint', localStorage.getItem('token'))
     this.cartService.getCart().subscribe(cartResponse => {
       this.cart = cartResponse['cart']
       
@@ -49,7 +49,7 @@ export class CartComponent implements OnInit {
       console.log('remove item from cart', res)
       if(res.success) {
 
-        this.furnitureService.updateFurniture({furnitureId: furnitureId, isInCart: false}).subscribe()
+        this.furnitureService.addFurnitureToCart({furnitureId: furnitureId, isInCart: false}).subscribe()
 
        this.furnitureItems =  this.furnitureItems.filter(furniture =>{
          return furniture._id === furnitureId

@@ -38,7 +38,7 @@ export class FurnitureComponent implements OnInit {
 
   onLikeClick(furnitureId) {
 
-    this.furnitureService.updateFurniture({furnitureId: furnitureId, isInCart: true}).subscribe(res => {
+    this.furnitureService.addFurnitureToCart({furnitureId: furnitureId, isInCart: true}).subscribe(res => {
       console.log('update furniture', res)
       if(res.success) {
 

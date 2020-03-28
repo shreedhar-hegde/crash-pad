@@ -14,12 +14,15 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+
+    console.log('property post', req.body)
+
     const newProperty = new Property({
-        _id: mongoose.Types.ObjectId(),
         name: req.body.name,
-        price: req.body.price,
+        costPerMonth: req.body.costPerMonth,
         type: req.body.type,
         area: req.body.area,
+        numberOfRooms: req.body.noOfRooms,
         propertyImage: req.body.propertyImage
     })
     newProperty.save()
@@ -29,7 +32,10 @@ router.post('/', (req, res) => {
                 property: property
             })
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err => {
+            console.log('add property err', err)
+            res.status(500).json(err)
+        } )
 })
 
 
@@ -49,7 +55,7 @@ router.get('/:propertyId', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/', (req, res) => {
+router.patch('/addtocart', (req, res) => {
     console.log('update property', req.body)
 
     Property.updateOne({
@@ -64,6 +70,19 @@ router.put('/', (req, res) => {
     }).catch(err => {
         res.status(500).json({err: err})
         console.log('add to cart err', err)
+    })
+})
+
+router.patch('/', (req, res) => {
+    console.log('update property req', req.body)
+
+    req.body.map(property => {
+        Property.updateOne({_id: property._id}, property, {new: true})
+        .then(updateproperty => {
+            res.json({success: true})
+        }).catch(err => {
+            console.log('err', err)
+        })
     })
 })
 

@@ -29,7 +29,7 @@ export class PropertiesComponent implements OnInit {
 
   onLikeClick(propertyId) {
 
-    this.propertyService.updateProperty({propertyId: propertyId, isInCart: true}).subscribe(res => {
+    this.propertyService.addPropertyToCart({propertyId: propertyId, isInCart: true}).subscribe((res:any) => {
       console.log('update furniture', res)
       if(res.success) {
 

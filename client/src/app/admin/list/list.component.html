@@ -1,1 +1,113 @@
-<p>list works!</p>
+<div class="container has-text-centered">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title is-1">Furnitures</h1>
+      <form>
+        <table class="table is-bordered is-fullwidth">
+          <thead>
+            <tr>
+              <th>Furniture Name</th>
+              <th>Image URL</th>
+              <th>Price</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let furniture of furnitures">
+              <tr>
+                <td>
+                  <input class="input" type="text" [disabled]="!furniture.edit" [value]="furniture.name"
+                    (keyup)="onNameChange(furniture._id, $event.target.value)">
+                </td>
+                <td>
+                  <input (keyup)="onUrlChange(furniture._id, $event.target.value) " class="input" type="text"
+                    [disabled]="!furniture.edit" [value]="furniture.imageUrl">
+                </td>
+                <td><input (keyup)="onPriceChange(furniture._id, $event.target.value)" class="input" type="number"
+                    [disabled]="!furniture.edit" [value]="furniture.price"></td>
+                <td>
+                  <button *ngIf="!furniture.edit" (click)="furniture.edit = !furniture.edit"
+                    class="button is-success">Edit</button>
+                  <button (click)="furniture.edit = !furniture.edit" *ngIf="furniture.edit"
+                    class="button is-info">Save</button>
+                </td>
+                <td>
+                  <button (click)="onDeleteFurnitureClick()" class="button is-danger">Delete</button>
+                </td>
+              </tr>
+
+            </ng-container>
+          </tbody>
+        </table>
+      </form>
+      <button (click)="onUpdateFurnitureClick()" class="button is-primary update ">Update</button>
+    </div>
+  </div>
+</div>
+
+<div class="container has-text-centered">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title is-1">Properties</h1>
+      <form>
+        <table class="table is-bordered is-fullwidth">
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Image URL</th>
+              <th>Cost per Month</th>
+              <th>Area</th>
+              <th>Type</th>
+              <th>Number of Rooms</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let property of properties">
+              <tr>
+                <td>
+                  <input class="input" type="text" [disabled]="!property.edit" [value]="property.name"
+                    (keyup)="onPropertyNameChange(property._id, $event.target.value)">
+                </td>
+                <td>
+                  <input (keyup)="onPropertyImageChange(property._id, $event.target.value) " class="input" type="text"
+                    [disabled]="!property.edit" [value]="property.propertyImage">
+                </td>
+                <td>
+                  <input (keyup)="onCostPerMonthChange(property._id, $event.target.value) " class="input" type="number"
+                    [disabled]="!property.edit" [value]="property.costPerMonth">
+                </td>
+                <td>
+                  <input (keyup)="onAreaChange(property._id, $event.target.value) " class="input" type="text"
+                    [disabled]="!property.edit" [value]="property.area">
+                </td>
+                <td><input (keyup)="onTypeChange(property._id, $event.target.value)" class="input" type="text"
+                    [disabled]="!property.edit" [value]="property.type">
+                  </td>
+                
+                <td><input (keyup)="onnoOfRoomsChange(property._id, $event.target.value)" class="input" type="number"
+                    [disabled]="!property.edit" [value]="property.numberOfRooms">
+                  </td>
+                
+                  <td>
+                    <button *ngIf="!property.edit" (click)="property.edit = !property.edit"
+                    class="button is-success">Edit</button>
+                  <button (click)="property.edit = !property.edit" *ngIf="property.edit"
+                    class="button is-info">Save</button>
+                 
+                </td>
+                <td>
+                  <button (click)="onPropertyDeleteClick()" class="button is-danger">Delete</button>
+                </td>
+              </tr>
+
+            </ng-container>
+          </tbody>
+        </table>
+      </form>
+      <button (click)="onPropertyUpdateClick()" class="button is-primary update ">Update</button>
+    </div>
+  </div>
+</div>

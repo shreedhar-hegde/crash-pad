@@ -9,14 +9,14 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   url = 'http://localhost:5000/cart'
-  token:string = JSON.parse(localStorage.getItem('token')).token.replace(/['"]+/g, '')
-  auth = `bearer ${this.token}`
+  jwt:string = JSON.parse(localStorage.getItem('token')).jwt
+  auth = `bearer ${this.jwt}`
 
   getCart() {
-    console.log(this.token)
+    console.log('jwt',this.jwt)
     return this.http.get(this.url, {
       headers: new HttpHeaders({
-        'Authorization': this.auth
+        'Authorization': this.jwt
       })
     })
   }
@@ -25,7 +25,7 @@ export class CartService {
     console.log('item details', itemDetails)
     return this.http.post(this.url, itemDetails, {
       headers: new HttpHeaders({
-        'Authorization': this.auth
+        'Authorization': this.jwt
       })
     })
   }
@@ -34,7 +34,7 @@ export class CartService {
     console.log('item details', furnitureId)
     return this.http.delete<any>(`${this.url}/deletefurniture/${furnitureId}`,{
       headers: new HttpHeaders({
-        'Authorization': this.auth
+        'Authorization': this.jwt
       })
     })
   }
@@ -43,7 +43,7 @@ export class CartService {
     console.log('item details', propertyId)
     return this.http.delete<any>(`${this.url}/deleteproperty/${propertyId}`,{
       headers: new HttpHeaders({
-        'Authorization': this.auth
+        'Authorization': this.jwt
       })
     })
   }
