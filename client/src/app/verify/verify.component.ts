@@ -37,13 +37,15 @@ export class VerifyComponent implements OnInit {
   onUpdateClick(event) {
     event.preventDefault()
 
+    console.log('onupdateclick')
    
     this.users.map(user => {
        return this.verifiedUsers.indexOf(user._id) >= 0 ? user.isVerified = true : user.isVerified = false
      })
-   
 
-    console.log('final', this.users)
+    console.log('on update click final', this.users)
+
+
 
     this.verifyService.verify(this.users).subscribe(res =>{
       console.log('verify res', res)

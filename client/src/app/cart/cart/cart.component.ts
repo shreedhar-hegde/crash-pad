@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
   cart
-
+  cartID
   furnitureItems = []
   propertyItems = []
 
@@ -25,6 +25,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.cartService.getCart().subscribe(cartResponse => {
       this.cart = cartResponse['cart']
+      this.cartID = this.cart[0]._id
       console.log('cart service', this.cart)
       for(let cart of this.cart) {
         cart.furniture.forEach(item => {
@@ -41,7 +42,7 @@ export class CartComponent implements OnInit {
   
   onRemoveFurnitureClick(furnitureId) {
     console.log('furnitureid cart', furnitureId)
-    this.cartService.removeFurniture(furnitureId).subscribe(res => {
+    this.cartService.removeFurniture(furnitureId, this.cartID).subscribe(res => {
       console.log('remove item from cart', res)
       if(res.success) {
 
@@ -55,20 +56,14 @@ export class CartComponent implements OnInit {
     })
   }
 
-  onRemovePropertyClick(proeprtyId) {
-    console.log('furnitureid cart', proeprtyId)
-    this.cartService.removeProperty(proeprtyId).subscribe(res => {
-      console.log('remove item from cart', res)
-      if(res.success) {
+  onRemovePropertyClick(propertyId) {
+    console.log('remove cart', propertyId)
 
-        this.propertyService.updateProperty({proeprtyId: proeprtyId, isInCart: false}).subscribe()
-
-       this.propertyItems =  this.propertyItems.filter(property =>{
-         return property._id === proeprtyId
-        })
-        console.log('after filter', this.furnitureItems)
-      }
+   this.propertyItems =  this.propertyItems.filter(item => {
+     return item.id != propertyId
     })
+
+    this.cartService.removeProperty(propertyId, this.cartID).subscribe()
   }
 
   onCheckout() {

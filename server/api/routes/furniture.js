@@ -34,7 +34,7 @@ const Furniture = require('../models/furniture')
 
 
 
-router.get('/', auth, (req, res) => {
+router.get('/', (req, res) => {
     console.log('get furntiure')
     Furniture.find()
         .select('_id name price imageUrl')
@@ -62,7 +62,7 @@ router.get('/', auth, (req, res) => {
 
 
 // upload.single('furnitureImage')
-router.post('/', auth, (req, res) => {
+router.post('/', (req, res) => {
 
     console.log('auth furniture', req.body, req.userData)    
 
@@ -116,7 +116,7 @@ router.post('/', auth, (req, res) => {
 // })
 
 
-router.delete('/:furnitureId', auth, (req, res) => {
+router.delete('/:furnitureId', (req, res) => {
 
     furniture.remove({
             _id: req.params.furnitureId
@@ -134,7 +134,7 @@ router.delete('/:furnitureId', auth, (req, res) => {
 
 })
 
-router.patch('/', auth, (req, res) => {
+router.patch('/', (req, res) => {
     console.log('update funtiture req', req.body)
 
     req.body.map(furniture => {
@@ -147,7 +147,7 @@ router.patch('/', auth, (req, res) => {
     })
 })
 
-router.patch('/addtocart', auth, (req, res) => {
+router.patch('/addtocart', (req, res) => {
     console.log('update furniture', req.body)
 
     Furniture.updateOne({

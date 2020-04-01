@@ -19,12 +19,16 @@ export class FurnitureComponent implements OnInit {
   isModalActive: boolean = false;
   furnitures
   userId
+  response
   showNotification = false
   constructor(private furnitureService: FurnitureService, 
     private cartService: CartService, private authService: AuthService) { }
 
   ngOnInit() {
+
+
     this.furnitureService.getFurnitures().subscribe((res:any) => {
+      this.response = res.furnitures
       this.furnitures = res.furnitures
       console.log('furnitures', this.furnitures)
     })
@@ -40,13 +44,21 @@ export class FurnitureComponent implements OnInit {
   }
 
   checkIfInCart() {
+    let furnitureCart = []
     this.cartService.getCart().subscribe((res:any) => {
-      console.log('check if in cart', res.cart[0].furniture)
-      let furnitureCart = res.cart[0].furniture
+      console.log('chek in cart res', res)
+       res.cart.map(res => {
+         furnitureCart =  res.furniture
+      })
 
-      furnitureCart.map((item, index) => {
-        if(item._id === this.furnitures[index]._id) {
-          this.furnitures[index].isInCart = true
+      let ids = furnitureCart.map(furniture => {
+        return furniture._id
+      })
+
+      this.furnitures.map(furniture => {
+        console.log('index', ids.indexOf(furniture._id))
+        if(ids.indexOf(furniture._id) >= 0) {
+          furniture.isInCart = true
         }
       })
     })

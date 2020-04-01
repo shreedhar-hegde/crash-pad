@@ -119,40 +119,49 @@ router.patch('/', (req, res) => {
 })
 
 
-router.delete('/deletefurniture/:id', (req, res) => {
-            console.log('delete item from cart:', req.params.id)
-            Cart.findOneAndDelete({
-                furniture: req.params.id
-            }).then(result => {
-                console.log('result', result)
-                res.status(200).json({
-                    message: 'deleted successfully',
-                    success: true
-                })
-            }).catch(err => {
-                console.log('remove item err', err)
-                res.status(500).json({
-                    err: err
-                })
+router.delete('/deletefurniture/:furnitureid/:cartid', (req, res) => {
+            console.log('delete item from cart:', req.params.cartid)
+
+            Cart.findById({_id: req.params.cartid}).then(cart => {
+             let index =  cart.furniture.indexOf(req.params.cartid)
+             cart.furniture.splice(index, 1)
+             cart.save()
+            }).then(
+                res.status(200).json({success: true})
+            ).catch(err => {
+                console.log('delete furniture from cart err', err)
+                res.status(500).json({success: false})
             })
+
+            // Cart.findByIdAndDelete({
+            //     furniture: req.params.id
+            // }).then(result => {
+            //     console.log('result', result)
+            //     res.status(200).json({
+            //         message: 'deleted successfully',
+            //         success: true
+            //     })
+            // }).catch(err => {
+            //     console.log('remove item err', err)
+            //     res.status(500).json({
+            //         err: err
+            //     })
+            // })
         })
 
-        router.delete('/deleteproperty/:id', (req, res) => {
-            console.log('delete item from cart:', req.params.id)
-            Cart.findOneAndDelete({
-                property: req.params.id
-            }).then(result => {
-                console.log('result', result)
-                res.status(200).json({
-                    message: 'deleted successfully',
-                    success: true
-                })
-            }).catch(err => {
-                console.log('remove item err', err)
-                res.status(500).json({
-                    err: err
-                })
-            })
+        router.delete('/deleteproperty/:propertyid/:cartid', (req, res) => {
+            console.log('delete item from cart:', req.params.propertyid)
+            Cart.findById({_id: req.params.cartid}).then(cart => {
+                let index =  cart.property.indexOf(req.params.propertyid)
+                cart.property.splice(index, 1)
+                cart.save()
+                console.log('cart', cart.property)
+               }).then(
+                   res.status(200).json({success: true})
+               ).catch(err => {
+                   console.log('delete property from cart err', err)
+                   res.status(500).json({success: false})
+               })
         })
 
         module.exports = router

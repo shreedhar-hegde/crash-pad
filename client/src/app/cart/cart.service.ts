@@ -27,18 +27,18 @@ export class CartService {
     })
   }
 
-  removeFurniture(furnitureId) {
+  removeFurniture(furnitureId, cartID) {
     console.log('item details', furnitureId)
-    return this.http.delete<any>(`${this.url}/deletefurniture/${furnitureId}`,{
+    return this.http.delete<any>(`${this.url}/deletefurniture/${furnitureId}/${cartID}`,{
       headers: new HttpHeaders({
         'Authorization': this.auth
       })
     })
   }
 
-  removeProperty(propertyId) {
+  removeProperty(propertyId, cartID) {
     console.log('item details', propertyId)
-    return this.http.delete<any>(`${this.url}/deleteproperty/${propertyId}`,{
+    return this.http.delete<any>(`${this.url}/deleteproperty/${propertyId}/${cartID}`,{
       headers: new HttpHeaders({
         'Authorization': this.auth
       })

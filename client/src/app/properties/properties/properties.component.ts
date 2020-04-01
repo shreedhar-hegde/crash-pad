@@ -13,6 +13,7 @@ export class PropertiesComponent implements OnInit {
   properties
   showNotification = false
   userId
+  propertyRes
   constructor(private propertyService: PropertiesService, private cartService: CartService, private authService: AuthService
     ) { }
 
@@ -29,21 +30,23 @@ export class PropertiesComponent implements OnInit {
   }
 
   checkIfInCart() {
+    let propertyCart
     this.cartService.getCart().subscribe((res:any) => {
-      console.log('check if in cart', res.cart[0])
-      let propertyCart = res.cart[0].property
+      console.log('chek in cart res', res)
 
-     this.properties.map((property, index) => {
-        if(property._id === propertyCart[index]._id) {
-          return property.isInCart = true
-        }
+       res.cart.map(res => {
+         propertyCart =  res.property
+      })
+      let ids = propertyCart.map(property => {
+        return property._id
       })
 
-      // propertyCart.map((item, index) => {
-      //   if(item._id === this.properties[index]._id) {
-      //     this.properties[index].isInCart = true
-      //   }
-      // })
+      this.properties.map(property => {
+        console.log('index', ids.indexOf(property._id))
+        if(ids.indexOf(property._id) >= 0) {
+          property.isInCart = true
+        }
+      })
     })
   }
 

@@ -104,6 +104,9 @@ router.get('/auth', auth, (req, res) => {
 })
 
 router.get('/verify', (req, res) => {
+
+    console.log('verify', req.body)
+
     User.find()
     .select('name email address phone isVerified')
     .then(users => {
