@@ -7,6 +7,21 @@ const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
 
+const crypto = require('crypto')
+var path = require('path')
+const multer = require('multer')
+var storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+      cb(null, file.originalname)
+    })
+  }
+})
+
+var upload = multer({ storage: storage })
+
 router.get('/', (req, res) => {
     User.find()
     .then(users => {
@@ -132,15 +147,16 @@ router.put('/verify', async (req, res) => {
     res.status(200).json({message: 'Users Updated'})
 })
 
-router.patch('/updateprofile', (req, res) => {
-    console.log('update profile', req.body)
+router.patch('/updateprofile', upload.single('photoid'), (req, res) => {
+    console.log('update profile', req.file, req.body)
 
     User.findByIdAndUpdate({_id: req.body._id}, {
         $set: {
             name: req.body.name,
             phone: req.body.phone,
             email: req.body.email,
-            address: req.body.address
+            address: req.body.address,
+            photoid: req.file.filename
         }
     }).then(updatedUser => {
         console.log('updated user', updatedUser)

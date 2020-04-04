@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     role: {type: String, default: 'user'},
     isVerified: {type: Boolean, default: false},
     address: {type: String},
-    phone: {type: String}
+    phone: {type: String},
+    photoid: {type:String}
 })
 
 module.exports = mongoose.model('User', userSchema)
