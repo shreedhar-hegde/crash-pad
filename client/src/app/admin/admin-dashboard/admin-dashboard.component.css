@@ -12,3 +12,8 @@ li :hover {
     display: contents !important;
     justify-content: space-between;
 }
+
+.outlet-container {
+    display: flex !important;
+    overflow: scroll !important;
+}

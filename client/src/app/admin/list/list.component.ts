@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FurnitureService } from 'src/app/furniture/furniture.service';
 import { PropertiesService } from 'src/app/properties/properties.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/auth/auth.service';
 
 interface FurnitureResponse {
   name: String,
@@ -20,10 +21,12 @@ export class ListComponent implements OnInit {
   properties
   editing = false
 
+  users
+
   updatedFrunitures = []
   updatedProperties = []
 
-  constructor(private furnitureService: FurnitureService, private propertiesService: PropertiesService) { }
+  constructor(private furnitureService: FurnitureService, private propertiesService: PropertiesService, private authService: AuthService) { }
 
   ngOnInit() {
      this.furnitureService.getFurnitures().subscribe((res:any) => {
@@ -36,6 +39,10 @@ export class ListComponent implements OnInit {
       this.properties = res.properties
       this.furnitures.edit = false
       console.log('properties', this.properties)
+    })
+
+    this.authService.getUsers().subscribe((res:any) => {
+      this.users = res.users
     })
   }
 

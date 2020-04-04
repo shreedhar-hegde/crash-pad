@@ -111,3 +111,42 @@
     </div>
   </div>
 </div>
+
+
+<div class="container has-text-centered">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title is-1">Users</h1>
+        <table class="table is-bordered is-fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Verification Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let user of users">
+              <tr>
+                <td>
+                  {{user.name}}
+                </td>
+                <td>
+                 {{user.email}}
+                </td>
+                <td>{{user.address}}</td>
+                <td>
+                  {{user.phone}}
+                </td>
+                <td>
+                  {{user.isVerified ? 'Verified' : 'Not Verified'}}
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

@@ -44,4 +44,12 @@ export class AuthService {
     )
   }
 
+  updateProfile(updatedUser) {
+    return this.http.patch(`${this.url}/updateprofile`, updatedUser)
+  }
+
+  getUsers() {
+    return this.http.get(`${this.url}`)
+  }
+
 }
