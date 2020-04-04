@@ -15,7 +15,7 @@ export class EditProfileComponent implements OnInit {
   email
   phone
   address
-
+  photoid
   userForm
 
   user
@@ -30,10 +30,15 @@ export class EditProfileComponent implements OnInit {
         name: new FormControl(user.name),
         email: new FormControl(user.email),
         phone: new FormControl(user.phone),
-        address: new FormControl(user.address)
+        address: new FormControl(user.address),
+        photoid: new FormControl('')
       })
       this.verified = user.isVerified
     })
+  }
+
+  photoIdChange(event) {
+    this.photoid = event.target.files[0]
   }
 
   onUpdateProfile(event) {
@@ -41,14 +46,22 @@ export class EditProfileComponent implements OnInit {
     console.log('user profile', this.userForm.value)
 
     let updateUser = {
-      _id: this.user._id,
+      
       name: this.userForm.value.name,
       email: this.userForm.value.email,
       phone: this.userForm.value.phone,
       address: this.userForm.value.address
     }
 
-    this.authService.updateProfile(updateUser).subscribe((res:any) => {
+    let formData = new FormData()
+    formData.append('_id',this.user._id)
+    formData.append('photoid', this.photoid)
+    formData.append('name', this.userForm.value.name)
+    formData.append('email', this.userForm.value.email)
+    formData.append('phone', this.userForm.value.phone)
+    formData.append('address', this.userForm.value.address)
+
+    this.authService.updateProfile(formData).subscribe((res:any) => {
       console.log('updated profile', res)
       this.user = res.updatedUser
     })

@@ -43,12 +43,12 @@
                 <input [value]="user.address" (change)="$event.target.value" formControlName="address" type="text" class="input">
               </div>
             </div>
-            <!-- <div class="field">
-              <label class="label">ID</label>
+            <div class="field">
+              <label class="label">Photo ID</label>
               <div class="control">
-                <input formControlName="id" type="file" class="input">
+                <input formControlName="photoid" (change)="photoIdChange($event)" type="file" name="photoid" class="input">
               </div>
-            </div> -->
+            </div>
             <button type="submit" class="button is-primary">Update Profile</button>
       </form>
   
