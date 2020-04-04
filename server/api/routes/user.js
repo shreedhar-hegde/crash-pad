@@ -132,5 +132,26 @@ router.put('/verify', async (req, res) => {
     res.status(200).json({message: 'Users Updated'})
 })
 
+router.patch('/updateprofile', (req, res) => {
+    console.log('update profile', req.body)
+
+    User.findByIdAndUpdate({_id: req.body._id}, {
+        $set: {
+            name: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email,
+            address: req.body.address
+        }
+    }).then(updatedUser => {
+        console.log('updated user', updatedUser)
+        res.status(200).json({
+            updatedUser: updatedUser
+        })
+    }).catch(err => {
+        console.log('update user error', err)
+        res.status(500).json({sucess: false})
+    })
+})
+
 
 module.exports = router
