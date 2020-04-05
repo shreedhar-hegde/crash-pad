@@ -1,7 +1,7 @@
 import { Component, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
-
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,8 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent {
   title = 'playground';
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {
+  }
 
   ngOnInit() {
     console.log('ngonint')
@@ -25,9 +26,10 @@ export class AppComponent {
       this.router.navigateByUrl('/verify')
       }
       else if(token) {
+        console.log('ngonint here')
         let user = JSON.parse(token).user
         this.authService.loggedIn$.next(user)
-        // this.router.navigateByUrl('/dashboard/furniture')
+        this.router.navigateByUrl('/dashboard/furniture')
     } else {
       this.router.navigateByUrl('/')
     }

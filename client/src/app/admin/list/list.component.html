@@ -124,6 +124,7 @@
               <th>Email</th>
               <th>Address</th>
               <th>Phone</th>
+              <th>Photo ID</th>
               <th>Verification Status</th>
             </tr>
           </thead>
@@ -139,6 +140,9 @@
                 <td>{{user.address}}</td>
                 <td>
                   {{user.phone}}
+                </td>
+                <td class="photoid">
+                  <img  [src]="user.photoid" alt="">
                 </td>
                 <td>
                   {{user.isVerified ? 'Verified' : 'Not Verified'}}

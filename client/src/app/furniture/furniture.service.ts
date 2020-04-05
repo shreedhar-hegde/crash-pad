@@ -12,22 +12,25 @@ interface FurnitureResponse {
 })
 export class FurnitureService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    console.log('local storage', localStorage)
+  }
 
   
 
   url = 'http://localhost:5000/furniture'
 
-  jwt:any = JSON.parse(localStorage.getItem('token')).jwt
+
+  // jwt:any = JSON.parse(localStorage.getItem('token')).jwt
 
 
-  auth = 'bearer ' + this.jwt
+  // auth = 'bearer ' + this.jwt
 
   getFurnitures() {
-    console.log('token', this.jwt)
+    console.log('loacl storage furniture', localStorage)
    return this.http.get(`${this.url}`, {
         headers : new HttpHeaders({
-          'Authorization': this.auth
+          'Authorization': 'bearer ' + JSON.parse(localStorage.getItem('token')).jwt
         })
     })
   }
@@ -35,9 +38,8 @@ export class FurnitureService {
   addFurniture(furniture) {
     return this.http.post(this.url, furniture, {
       headers: {
-        'Authorization': this.auth 
-      }
-    })
+        'Authorization': 'bearer ' + JSON.parse(localStorage.getItem('token')).jwt
+    }})
   }
 
   updateFruniture(furnitures) {
@@ -48,7 +50,7 @@ export class FurnitureService {
   addFurnitureToCart(furnitureDetails) {
     return this.http.patch<any>(`${this.url}/addtocart`,furnitureDetails, {
       headers: new HttpHeaders({
-        'Authorization': this.auth
+        'Authorization': 'bearer ' + JSON.parse(localStorage.getItem('token')).jwt
       })
     })
   }

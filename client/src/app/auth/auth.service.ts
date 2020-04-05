@@ -36,6 +36,7 @@ export class AuthService {
   }
 
   login(credentials) {
+    console.log('login service')
     return this.http.post<LoginResponse>(`${this.url}/login`, credentials).pipe(
       tap(({user}) => {
         console.log('pipe user', user)

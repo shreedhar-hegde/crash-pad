@@ -33,19 +33,19 @@ export class LoginComponent implements OnInit {
 
   onLogin(event) {
     event.preventDefault()
+    console.log('on login')
     if (this.loginForm.invalid) {
       return;
     }
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (response) => {
-        console.log('login response', response.user.role)
-        localStorage.setItem('token', JSON.stringify(response))
-        if(response.user.role === 'verifier') {
+    this.authService.login(this.loginForm.value).subscribe(res => {
+        console.log('login response', res)
+        localStorage.setItem('token', JSON.stringify(res))
+        console.log('after setup', localStorage)
+        if(res.user.role === 'verifier') {
           this.router.navigateByUrl('/verify')
         } else {
           this.router.navigateByUrl('/dashboard/furniture')
         }
-      }
     })
     
   }
