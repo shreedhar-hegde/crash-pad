@@ -7,7 +7,7 @@ const Property = require('../models/property')
 const auth = require('../middleware/auth')
 
 router.get('/', auth, (req, res) => {
-    console.log(req.userData)
+    console.log('userdata', req.userData)
     Cart.find({
             user: req.userData.userId
         })

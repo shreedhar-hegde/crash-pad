@@ -7,6 +7,10 @@ const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
 
+let app = express()
+
+app.use(express.static('uploads'))
+
 const crypto = require('crypto')
 var path = require('path')
 const multer = require('multer')
@@ -25,6 +29,9 @@ var upload = multer({ storage: storage })
 router.get('/', (req, res) => {
     User.find()
     .then(users => {
+        users.map(user => {
+            user.photoid = `http://localhost:5000/uploads/${user.photoid}`
+        })
         res.status(200).json({users: users})
     })
 })
@@ -73,7 +80,7 @@ router.post('/login', (req, res, next) => {
     console.log('req',req.body.email)
     User.findOne({email: req.body.email})
     .then(user => {
-        console.log(user)
+        console.log('login user',user)
         if(user.length < 1) {
             return res.status(401).json({
                 message: 'Auth failed'
@@ -86,6 +93,7 @@ router.post('/login', (req, res, next) => {
                     })
                 } 
                 if(result) {
+                    console.log('result', user, user)
                    const token =  jwt.sign({
                         email: user.email,
                         userId: user._id
