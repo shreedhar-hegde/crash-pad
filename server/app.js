@@ -18,6 +18,7 @@ const furnitureRoutes = require('./api/routes/furniture')
 const propertyRoutes = require('./api/routes/property')
 const userRoutes = require('./api/routes/user')
 const cartRoutes = require('./api/routes/cart')
+const rentRoutes = require('./api/routes/rent')
 
 app.use('/uploads', express.static('uploads'))
 
@@ -47,6 +48,7 @@ app.use('/property', propertyRoutes)
 app.use('/furniture', furnitureRoutes)
 app.use('/user', userRoutes)
 app.use('/cart', cartRoutes)
+app.use('/rent', rentRoutes)
 
 app.use((req, res, next) => {
     const error = new Error('Not found')

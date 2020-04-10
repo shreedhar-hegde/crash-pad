@@ -11,6 +11,7 @@ router.get('/', auth, (req, res) => {
     Cart.find({
             user: req.userData.userId
         })
+        .populate('user')
         .populate('furniture')
         .populate('property')
         .then(cartResponse => {
@@ -60,6 +61,7 @@ router.patch('/', (req, res) => {
     .then(cart => {
         if(cart) {
             cart.furniture.push(req.body.furnitureId);
+            console.log(' furniture cart', cart.furniture)
             cart.save().then(cart => {
                 res.status(200).json({success: true})
             }).catch(err => {
@@ -72,6 +74,7 @@ router.patch('/', (req, res) => {
             newCart.save()
             .then(cart => {
                 cart.furniture.push(req.body.furnitureId);
+
                 cart.save().then(cart => {
                     res.status(200).json({success: true})
                 }).catch(err => {
@@ -87,6 +90,7 @@ router.patch('/', (req, res) => {
         .then(cart => {
             if(cart) {
                 cart.property.push(req.body.propertyId)
+            console.log(' furniture property', cart.property)
                 cart.save().then(cart => {
                     console.log('property cart', cart)
                 }).catch(err => {
