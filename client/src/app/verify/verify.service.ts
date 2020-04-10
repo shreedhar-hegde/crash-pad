@@ -20,7 +20,7 @@ export class VerifyService {
   url = 'http://localhost:5000/user'
 
   getUsers() {
-    return this.http.get<UsersResponse>(`${this.url}/verify`)
+    return this.http.get<UsersResponse>(`${this.url}`)
   }
 
   verify(modifiedUsers) {

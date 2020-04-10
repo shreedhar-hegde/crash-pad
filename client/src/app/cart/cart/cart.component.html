@@ -56,12 +56,12 @@
                       </div>
                   </div>
                   <footer class="card-footer">
-                      <a (click)="onRemovePropertyClick(item._id)" class="button is-danger card-footer-item">
+                      <button (click)="onRemovePropertyClick(item._id)" class="button is-danger card-footer-item">
                         Remove
-                      </a>
-                      <a (click)="onCheckout()" class="button is-primary card-footer-item">
+                      </button>
+                      <button (click)="onCheckout()" [disabled]="!isVerfied"  class="button is-primary card-footer-item">
                         Rent
-                       </a>
+                      </button>
                   </footer>
               </div>
             </div>

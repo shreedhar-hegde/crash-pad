@@ -29,7 +29,7 @@ export class AppComponent {
         console.log('ngonint here')
         let user = JSON.parse(token).user
         this.authService.loggedIn$.next(user)
-        this.router.navigateByUrl('/dashboard/furniture')
+        // this.router.navigateByUrl('/dashboard/furniture')
     } else {
       this.router.navigateByUrl('/')
     }

@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
   cartID
   furnitureItems = []
   propertyItems = []
+  isVerfied
 
   constructor(private cartService: CartService,
     private furnitureService: FurnitureService,
@@ -23,8 +24,9 @@ export class CartComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.cartService.getCart().subscribe(cartResponse => {
+    this.cartService.getCart().subscribe((cartResponse: any) => {
       this.cart = cartResponse['cart']
+      this.isVerfied = cartResponse['cart'][0].user['isVerified']
       this.cartID = this.cart[0]._id
       console.log('cart service', this.cart)
       for(let cart of this.cart) {

@@ -9,6 +9,7 @@
                       <th>Address</th>
                       <th>Phone</th>
                       <th>Email</th>
+                      <th>Photo ID</th>
                       <th>Verify</th>
                     </tr>
                   </thead>
@@ -19,6 +20,9 @@
                                 <td>{{user.address}}</td>
                                 <td>{{user.phone}}</td>
                                 <td>{{user.email}}</td>
+                                <td>
+                                 <img [src]="user.photoid" alt="">
+                                </td>
                                 <td>
                                   <div class="field">
                                       <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge"

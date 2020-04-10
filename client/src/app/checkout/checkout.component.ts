@@ -1,7 +1,8 @@
-import { ViewChild, Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
  
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
+import { CheckoutService } from './checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -11,6 +12,8 @@ import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } f
 export class CheckoutComponent implements OnInit {
 
   @ViewChild(StripeCardComponent, {static: false}) card: StripeCardComponent;
+
+  @Input() amount = 500
  
   cardOptions: ElementOptions = {
     style: {
@@ -29,18 +32,22 @@ export class CheckoutComponent implements OnInit {
   };
  
   elementsOptions: ElementsOptions = {
-    locale: 'es'
+    locale: 'en'
   };
  
   stripeTest: FormGroup;
  
   constructor(
     private fb: FormBuilder,
-    private stripeService: StripeService) {}
+    private stripeService: StripeService,
+    private checkoutService: CheckoutService) {}
  
   ngOnInit() {
     this.stripeTest = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      months: ['', [Validators.required]]
     });
   }
  
@@ -50,9 +57,18 @@ export class CheckoutComponent implements OnInit {
       .createToken(this.card.getCard(), { name })
       .subscribe(result => {
         if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-          console.log(result.token.id);
+          console.log(result.token.id, this.stripeTest.value.email);
+
+          let payload = {
+            token : result.token.id,
+            email: this.stripeTest.value.email,
+            name: this.stripeTest.value.name,
+            address: this.stripeTest.value.address,
+            amount: this.amount,
+          }
+
+          this.checkoutService.checkout(payload).subscribe()
+
         } else if (result.error) {
           // Error creating the token
           console.log(result.error.message);

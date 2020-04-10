@@ -1,11 +1,18 @@
 <div class=" columns is-centered">
-    <div class="card has-background-grey-light column is-half">
+  <div class="card has-background-info column is-half">
+    <h1 class="title is-1">Billing</h1>
 
         <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
-            <input class="input" type="text" formControlName="name" placeholder="Jane Doe">
+        Name  <input class="input" type="text" formControlName="name" placeholder="John Doe">
+          Email
+            <input class="input" type="email" formControlName="email" placeholder="example@email.com">
+           Delivery Address
+            <input class="input"  type="text" placeholder="#123, street, landmark, locality, taluk, pin">
+            Months 
+            <input type="number"  class="input" min="1">
             <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
             <button class="button" type="submit">
-              BUY
+              Pay {{amount}}
             </button>
           </form>
     </div>
