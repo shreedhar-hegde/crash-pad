@@ -63,7 +63,7 @@ router.patch('/', (req, res) => {
             cart.furniture.push(req.body.furnitureId);
             console.log(' furniture cart', cart.furniture)
             cart.save().then(cart => {
-                res.status(200).json({success: true})
+                res.status(200).json({success: true, message: 'Added to Liked'})
             }).catch(err => {
                 console.log('cart furniture err', err)
             })
@@ -76,7 +76,7 @@ router.patch('/', (req, res) => {
                 cart.furniture.push(req.body.furnitureId);
 
                 cart.save().then(cart => {
-                    res.status(200).json({success: true})
+                    res.status(200).json({success: true, message: 'Added to Liked'})
                 }).catch(err => {
                     console.log('new cart  save err', err)
                 })
@@ -92,7 +92,7 @@ router.patch('/', (req, res) => {
                 cart.property.push(req.body.propertyId)
             console.log(' furniture property', cart.property)
                 cart.save().then(cart => {
-                    console.log('property cart', cart)
+                    res.status(200).json({success: true, message: 'Added to Liked'})
                 }).catch(err => {
                     console.log('property err')
                 })
@@ -105,7 +105,7 @@ router.patch('/', (req, res) => {
                 .then(cart => {
                     cart.property.push(req.body.propertyId)
                     cart.save().then(cart => {
-                        res.status(200).json({success: true})
+                        res.status(200).json({success: true, message: 'Added to Liked'})
                     }).catch(err => {
                         console.log('property err')
                     })
@@ -131,26 +131,11 @@ router.delete('/deletefurniture/:furnitureid/:cartid', (req, res) => {
              cart.furniture.splice(index, 1)
              cart.save()
             }).then(
-                res.status(200).json({success: true})
+                res.status(200).json({success: true, message: 'Removed'})
             ).catch(err => {
                 console.log('delete furniture from cart err', err)
                 res.status(500).json({success: false})
             })
-
-            // Cart.findByIdAndDelete({
-            //     furniture: req.params.id
-            // }).then(result => {
-            //     console.log('result', result)
-            //     res.status(200).json({
-            //         message: 'deleted successfully',
-            //         success: true
-            //     })
-            // }).catch(err => {
-            //     console.log('remove item err', err)
-            //     res.status(500).json({
-            //         err: err
-            //     })
-            // })
         })
 
         router.delete('/deleteproperty/:propertyid/:cartid', (req, res) => {
@@ -161,7 +146,7 @@ router.delete('/deletefurniture/:furnitureid/:cartid', (req, res) => {
                 cart.save()
                 console.log('cart', cart.property)
                }).then(
-                   res.status(200).json({success: true})
+                   res.status(200).json({success: true, message: 'Removed'})
                ).catch(err => {
                    console.log('delete property from cart err', err)
                    res.status(500).json({success: false})
