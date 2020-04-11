@@ -1,0 +1,39 @@
+<div class="columns">
+    <div class="column">
+      <h1 class="title is-1">History</h1>
+      <h1 class="title is-2">Furnitures</h1>
+
+        <table class="table is-bordered is-fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+             <th>Months Rented</th>
+             <th>Status</th>
+             <th>Invoice ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let furniture of furnitures">
+              <tr>
+                <td>
+                  {{furniture.name}}
+                </td>
+                <td style="width: 30%;">
+                   <img  [src]="furniture.imageUrl" alt="">
+                </td>
+                <td>
+                    {{furniture.monthsRented}}
+                </td>
+                <td>{{furniture.status}}</td>
+                <td>
+                 {{furniture.invoiceId}}
+                </td>
+              </tr>
+
+            </ng-container>
+          </tbody>
+        </table>
+    
+     
+  </div>

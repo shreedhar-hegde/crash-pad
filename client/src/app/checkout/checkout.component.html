@@ -1,19 +1,37 @@
-<div class=" columns is-centered">
-  <div class="card has-background-info column is-half">
-    <h1 class="title is-1">Billing</h1>
+<div class="columns is-centered">
+    <div class="column bill is-half">
+      <h1 class="title is-1">Billing</h1>
+          <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+          Name  <input class="input" type="text" formControlName="name" placeholder="John Doe">
+            Email
+              <input class="input" type="email" formControlName="email" placeholder="example@email.com">
+             Delivery Address
+              <input class="input"  type="text" placeholder="#123, street, landmark, locality, taluk, pin">
+              Months 
+              <input type="number" (keyup)="months = $event.target.value" value="1" (change)="months = $event.target.value"  class="input" min="1">
+              <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+              <button class="button" type="submit">
+                Pay {{amount * months }}
+              </button>
+            </form>
+      </div>
+      
 
-        <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
-        Name  <input class="input" type="text" formControlName="name" placeholder="John Doe">
-          Email
-            <input class="input" type="email" formControlName="email" placeholder="example@email.com">
-           Delivery Address
-            <input class="input"  type="text" placeholder="#123, street, landmark, locality, taluk, pin">
-            Months 
-            <input type="number"  class="input" min="1">
-            <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-            <button class="button" type="submit">
-              Pay {{amount}}
-            </button>
-          </form>
+      <div class="column item auto">
+        <div class="card">
+          <div class="card-image">
+              <figure class="image is-5by3">
+                <img [src]="selectedItem.imageUrl" alt="">
+              </figure>
+              <div class="card-content is-overlay is-clipped">
+                <span class="tag is-info">
+                  {{selectedItem.name}}
+                </span> 
+                <span class="tag is-danger is-pulled-right">
+                  {{selectedItem.price}}
+                </span> 
+              </div>
+          </div>
+      </div>
+
     </div>
-</div>

@@ -17,6 +17,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { VerifyComponent } from './verify/verify.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { HistoryComponent } from './history/history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     NotFoundComponent,
     VerifyComponent,
     CheckoutComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

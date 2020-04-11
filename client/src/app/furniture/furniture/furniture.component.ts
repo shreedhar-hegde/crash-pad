@@ -16,11 +16,10 @@ interface FurnitureResponse {
 })
 export class FurnitureComponent implements OnInit {
 
-  isModalActive: boolean = false;
   furnitures
   userId
   response
-  showNotification = false
+
   constructor(private furnitureService: FurnitureService, 
     private cartService: CartService, private authService: AuthService) { }
 
@@ -33,8 +32,8 @@ export class FurnitureComponent implements OnInit {
       console.log('furnitures', this.furnitures)
     })
 
-    this.checkIfInCart()
 
+    this.checkIfInCart()
     this.authService.loggedIn$.subscribe(user => {
       this.userId = user._id
       console.log('userid', this.userId)
@@ -65,16 +64,17 @@ export class FurnitureComponent implements OnInit {
   }
 
   onLikeClick(furnitureId) {
-        this.cartService.cart({furnitureId: furnitureId, userId: this.userId, key: 'furniture'}).subscribe(res => {
-          console.log('added to cart', res)
+        this.cartService.cart({furnitureId: furnitureId, userId: this.userId, key: 'furniture'}).subscribe((res:any) => {
+
+          if(res.success) {
+            this.furnitureService.getFurnitures().subscribe((res:any) => {
+              this.response = res.furnitures
+              this.furnitures = res.furnitures
+            })
+            this.checkIfInCart()
+          }
         }) 
       }
-      
-
-
-
-  toggleModal() {
-    this.isModalActive = !this.isModalActive;
-  }
+    
 
 }

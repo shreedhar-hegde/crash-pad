@@ -17,7 +17,7 @@ import { AdminModule } from '../admin/admin.module';
     LayoutRoutingModule,
     PropertiesModule,
     ProfileModule,
-    AdminModule
+    AdminModule,
   ]
 })
 export class LayoutModule { }

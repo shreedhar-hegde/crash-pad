@@ -11,9 +11,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class PropertiesComponent implements OnInit {
 
   properties
-  showNotification = false
   userId
   propertyRes
+
+
   constructor(private propertyService: PropertiesService, private cartService: CartService, private authService: AuthService
     ) { }
 
@@ -51,12 +52,15 @@ export class PropertiesComponent implements OnInit {
   }
 
   onLikeClick(propertyId) {
-        setTimeout(() => {
-          this.showNotification = false
-        }, 5000)
-
-        this.cartService.cart({propertyId: propertyId, userId: this.userId, key: 'property'}).subscribe(res => {
-          console.log('added to cart', res)
+    console.log('liked')
+        this.cartService.cart({propertyId: propertyId, userId: this.userId, key: 'property'}).subscribe((res:any) => {
+          console.log('res', res)
+          if(res.success) {
+            this.propertyService.getProperties().subscribe((res:any) => {
+              this.properties = res.properties
+            })
+            this.checkIfInCart()
+          }
         })
   }
 

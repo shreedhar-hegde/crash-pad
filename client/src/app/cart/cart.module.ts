@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartComponent } from './cart/cart.component';
+import { CartComponent, DataShareService } from './cart/cart.component';
 
 
 
@@ -8,6 +8,7 @@ import { CartComponent } from './cart/cart.component';
   declarations: [CartComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  providers: [DataShareService]
 })
 export class CartModule { }

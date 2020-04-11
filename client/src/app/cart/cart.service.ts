@@ -12,7 +12,6 @@ export class CartService {
 
 
   getCart() {
-    console.log('auth from cart', localStorage)
     return this.http.get(this.url, {
       headers: new HttpHeaders({
         'Authorization': 'bearer ' + JSON.parse(localStorage.getItem('token')).jwt

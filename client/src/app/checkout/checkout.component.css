@@ -1,3 +1,10 @@
-.card {
+
+.bill {
     margin-top: 25px;
+    float: left;
+}
+
+.item {
+    margin-top: 25px;
+    padding-right: 25px;
 }

@@ -25,7 +25,7 @@
                     <a (click)="onRemoveFurnitureClick(item._id)" class="button is-danger card-footer-item">
                       Remove
                     </a>
-                    <a (click)="onCheckout()" class="button is-primary card-footer-item">
+                    <a (click)="onCheckout({item:item, key: 'furniture'})" class="button is-primary card-footer-item">
                      Rent
                     </a>
                 </footer>
@@ -33,7 +33,14 @@
             </div>
           </div>
         </ng-container>
-        
+        <div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title has-text-centered">{{notificationMessage}}</p>
+            </header>
+          </div>
+        </div>
       </div>
 
 
@@ -59,13 +66,12 @@
                       <button (click)="onRemovePropertyClick(item._id)" class="button is-danger card-footer-item">
                         Remove
                       </button>
-                      <button (click)="onCheckout()" [disabled]="!isVerfied"  class="button is-primary card-footer-item">
+                      <button (click)="onCheckout({item: item, key: 'property'})" [disabled]="!isVerfied"  class="button is-primary card-footer-item">
                         Rent
                       </button>
                   </footer>
               </div>
             </div>
           </ng-container>
-          
         </div>
     </div>

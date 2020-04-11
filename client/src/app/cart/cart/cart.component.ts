@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { CartService } from '../cart.service';
 import { FurnitureService } from 'src/app/furniture/furniture.service';
 import { PropertiesService } from 'src/app/properties/properties.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+
+
+@Injectable()
+export class DataShareService {
+ 
+    selectedItem = new BehaviorSubject<any>('');
+
+}
 
 @Component({
   selector: 'app-cart',
@@ -16,62 +25,65 @@ export class CartComponent implements OnInit {
   furnitureItems = []
   propertyItems = []
   isVerfied
+  notificationMessage = ''
+  isModalActive = false
+  user
 
   constructor(private cartService: CartService,
     private furnitureService: FurnitureService,
     private propertyService: PropertiesService,
-    private router: Router
+    private router: Router,
+    private sharedData: DataShareService
     ) { }
+  
+    cartInit() {
+      console.log('cart init')
+      this.cartService.getCart().subscribe((cartResponse: any) => {
+
+        console.log('cart response', cartResponse)
+
+        this.cart = cartResponse['cart']
+        this.isVerfied = cartResponse['cart'][0].user['isVerified']
+
+        this.user = cartResponse['cart'][0].user
+        console.log('user', this.user)
+
+        this.cartID = this.cart[0]._id
+        for(let cart of this.cart) {
+          cart.furniture.forEach(item => {
+            this.furnitureItems.push(item)
+          });
+          cart.property.forEach(item => {
+            this.propertyItems.push(item)
+          })
+        }      
+      })
+    }
 
   ngOnInit() {
-    this.cartService.getCart().subscribe((cartResponse: any) => {
-      this.cart = cartResponse['cart']
-      this.isVerfied = cartResponse['cart'][0].user['isVerified']
-      this.cartID = this.cart[0]._id
-      console.log('cart service', this.cart)
-      for(let cart of this.cart) {
-        cart.furniture.forEach(item => {
-          this.furnitureItems.push(item)
-        });
-        cart.property.forEach(item => {
-          this.propertyItems.push(item)
-        })
-      }      
-
-    })
-
+    this.cartInit()
   }
   
   onRemoveFurnitureClick(furnitureId) {
-    console.log('furnitureid cart', furnitureId)
     this.cartService.removeFurniture(furnitureId, this.cartID).subscribe(res => {
-      console.log('remove item from cart', res)
       if(res.success) {
-
-        this.furnitureService.addFurnitureToCart({furnitureId: furnitureId, isInCart: false}).subscribe()
-
-       this.furnitureItems =  this.furnitureItems.filter(furniture =>{
-         return furniture._id === furnitureId
-        })
-        console.log('after filter', this.furnitureItems)
+       this.furnitureItems.splice(this.furnitureItems.indexOf(furnitureId), 1)
       }
     })
   }
 
   onRemovePropertyClick(propertyId) {
-    console.log('remove cart', propertyId)
-
-   this.propertyItems =  this.propertyItems.filter(item => {
-     return item.id != propertyId
+    this.cartService.removeProperty(propertyId, this.cartID).subscribe((res:any) => {
+      if(res.success) {
+        this.propertyItems.splice( this.propertyItems.indexOf(propertyId) , 1)
+      }
     })
-
-    this.cartService.removeProperty(propertyId, this.cartID).subscribe()
   }
 
-  onCheckout() {
+  onCheckout(data) {
     console.log('checkout');
-    
-    this.router.navigateByUrl('/dashboard/checkout')
+    this.sharedData.selectedItem.next({item: data.item, key: data.key, user: this.user})
+    this.router.navigateByUrl('/dashboard/billing')
   }
 
 }

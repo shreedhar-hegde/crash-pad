@@ -12,6 +12,7 @@ import { AddFurnitureComponent } from '../admin/add-furniture/add-furniture.comp
 import { AddPropertyComponent } from '../admin/add-property/add-property.component';
 import { ReportComponent } from '../admin/report/report.component';
 import { ListComponent } from '../admin/list/list.component';
+import { HistoryComponent } from '../history/history.component';
 
 
 const routes: Routes = [{
@@ -21,7 +22,8 @@ const routes: Routes = [{
     { path: 'property', component: PropertiesComponent},
     { path: 'liked', component: CartComponent},
     {path: 'editprofile', component: EditProfileComponent},
-    {path: 'checkout', component: CheckoutComponent},
+    {path: 'billing', component: CheckoutComponent},
+    {path: 'history', component: HistoryComponent},
     {path: 'admin', component: AdminDashboardComponent , 
     children: [{
       path: '', redirectTo: 'report', pathMatch: 'full'},

@@ -4,10 +4,6 @@
     <p>Awesome Furnitures For You</p>
   </div>
 
-  <div *ngIf="showNotification" class="notification is-primary">
-    <button class="delete"></button>
-    Added to Liked
-  </div>
 
     <div class="columns is-multiline">
     <ng-container *ngFor="let furniture of furnitures">
@@ -34,29 +30,8 @@
              
           </div>
         </div>
-         
-       
-        
       </ng-container>
     </div>
-
-
-    <!-- <div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
-      <div class="modal-background" (click)="toggleModal()"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Modal title</p>
-          <button class="delete" aria-label="close" (click)="toggleModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <h1>Modal</h1>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" (click)="toggleModal()">Save changes</button>
-          <button class="button" (click)="toggleModal()">Cancel</button>
-        </footer>
-      </div>
-    </div> -->
   </div>
 
 
