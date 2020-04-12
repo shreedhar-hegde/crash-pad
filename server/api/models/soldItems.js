@@ -14,7 +14,6 @@ const soldItemSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Property'
     }],
-    invoiceId: String,
     createdOn: {
         type: Date,
         default: Date.now

@@ -12,7 +12,6 @@ const Furniture = require('../models/furniture')
 router.get('/', (req, res) => {
     console.log('get furntiure')
     Furniture.find()
-        .select('_id name price imageUrl')
         .then(furnitures => {
             console.log('furnitures', furnitures)
             if (furnitures.length > 0) {
