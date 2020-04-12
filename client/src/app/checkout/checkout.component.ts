@@ -19,6 +19,7 @@ export class CheckoutComponent implements OnInit {
    months = 1
    user
    key
+   cartid
  
   cardOptions: ElementOptions = {
     style: {
@@ -61,6 +62,7 @@ export class CheckoutComponent implements OnInit {
       this.selectedItem = data.item
       this.user = data.user
       this.key = data.key
+      this.cartid = data.cartID
     })
 
     this.amount = this.selectedItem.price
@@ -83,7 +85,9 @@ export class CheckoutComponent implements OnInit {
             amount: this.amount,
             user: this.user,
             item: this.selectedItem,
-            key: this.key
+            key: this.key,
+            monthsRented: this.months,
+            cartid: this.cartid
           }
 
           this.checkoutService.checkout(payload).subscribe()
