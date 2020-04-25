@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 const mongoose = require('mongoose')
 
 const Furniture = require('../models/furniture')
-
+const Cart = require('../models/cart')
 
 
 router.get('/', (req, res) => {
@@ -92,19 +92,15 @@ router.post('/', (req, res) => {
 
 router.delete('/:furnitureId', (req, res) => {
 
-    furniture.remove({
-            _id: req.params.furnitureId
+    Cart.deleteOne({furniture: req.params.furnitureId})
+    .then(cart => {
+        Furniture.deleteOne({_id: req.params.furnitureId})
+        .then(deletedFurniture => {
+            res.status(200).json({message: 'Furniture deleted'})
         })
-        .then(result => {
-            res.status(200).json({
-                message: 'Delete Success',
-                result: result
-            })
-        }).catch(err => {
-            console.log(err), res.status(500).json({
-                message: err
-            })
-        })
+    }).catch(err => {
+        console.log('cart delete err', err)
+    })
 
 })
 

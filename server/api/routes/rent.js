@@ -26,150 +26,160 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     console.log('rent', req.body)
+
+    // stripe.invoices.list((err, invoices) => {
+    //     console.log('invoices',invoices)
+    // })
 
     stripe.customers
         .create({
             email: req.body.email,
         })
         .then((customer) => {
-            console.log('customer', customer)
             return stripe.invoiceItems.create({
                     customer: customer.id,
                     amount: req.body.amount * 100,
                     currency: 'inr',
-                    description: 'One-time setup fee',
                 })
                 .then((invoiceItem) => {
                     return stripe.invoices.create({
                         customer: invoiceItem.customer,
+                        collection_method: 'send_invoice',
+                        days_until_due: 1
                     });
                 })
-                .then((invoice) => {
-                    console.log('invoice', invoice, req.body.key)
-                    if (req.body.key === 'furniture') {
-                        Furniture.updateOne({
-                                _id: req.body.item._id
-                            }, {
-                                $set: {
-                                    monthsRented: req.body.monthsRented,
-                                    invoiceNumber: invoice.number,
-                                    isSold: true
-                                }
-                            })
-                            .then(updatedItem => {
+                .then(async(invoice) => {
 
-                                console.log('updated item',  updatedItem)
-                                Cart.findById({
-                                    _id: req.body.cartid
-                                }).then(cart => {
-                                    let index = cart.furniture.indexOf(req.body.item._id)
-                                    cart.furniture.splice(index, 1)
-                                    cart.save()
-                                    console.log('cart', cart.furniture)
-                                }).then(
-                                    SoldItem.findOne({
-                                        user: req.body.user._id
-                                    })
-                                    .then(soldItem => {
-                                        if (soldItem) {
-                                            soldItem.furniture.push(req.body.item._id);
-                                            console.log(' sold item furniture', soldItem.furniture)
-                                            soldItem.save()
-                                                .then(soldItem => {
-                                                    res.status(200).json({
-                                                        success: true,
-                                                        soldItem: soldItem
-                                                    })
-                                                })
-                                                .catch(err => {
-                                                    console.log('sold item furniture err', err)
-                                                })
-                                        } else {
-                                            let newSoldItem = new SoldItem({
-                                                user: req.body.user._id
-                                            })
-                                            newSoldItem.save()
-                                                .then(soldItem => {
-                                                    soldItem.furniture.push(req.body.item._id);
-                                                    soldItem.save()
-                                                        .then(soldItem => {
-                                                            res.status(200).json({
-                                                                success: true,
-                                                                soldItem: soldItem
-                                                            })
-                                                        })
-                                                        .catch(err => {
-                                                            console.log('new soldItem  save err', err)
-                                                        })
-                                                })
-                                                .catch(err => {
-                                                    console.log(' new sold item err', err)
-                                                })
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.log('sold item err', err)
-                                    })
-                                )
-                            })
-                    } else {
-                        Property.updateOne({
-                            _id: req.body.item._id
-                        }, {
-                            $set: {
-                                monthsRented: req.body.monthsRented,
-                                invoiceNumber: invoice.number,
-                                isSold: true
-                            }
-                        }).then(updatedItem => {
-                            Cart.findById({_id: req.body.cartid}).then(cart => {
-                                let index =  cart.property.indexOf(req.body.item._id)
-                                cart.property.splice(index, 1)
-                                cart.save()
-                                console.log('cart', cart.property)
+                 stripe.invoices.sendInvoice(invoice.id, (err, invoice) => {
+                        console.log('invoice', invoice)
+                    })
+                    
+                    // if (req.body.key === 'furniture') {
+                    //     Furniture.updateOne({
+                    //             _id: req.body.item._id
+                    //         }, {
+                    //             $set: {
+                    //                 monthsRented: req.body.monthsRented,
+                    //                 invoiceNumber: invoice.number,
+                    //                 isSold: true,
+                    //                 address: req.body.address
+                    //             }
+                    //         })
+                    //         .then(updatedItem => {
 
-                               }).then(
-                                    SoldItem.findOne({
-                                        user: req.body.userId
-                                    })
-                                    .then(soldItem => {
-                                        if (soldItem) {
-                                            soldItem.property.push(req.body.item._id)
-                                            soldItem.save().then(soldItem => {
-                                                res.status(200).json({
-                                                    success: true,
-                                                    soldItem: soldItem
-                                                })
-                                            }).catch(err => {
-                                                console.log('sold item property err')
-                                            })
-                                        } else {
+                    //             console.log('updated item',  updatedItem)
+                    //             Cart.findById({
+                    //                 _id: req.body.cartid
+                    //             }).then(cart => {
+                    //                 let index = cart.furniture.indexOf(req.body.item._id)
+                    //                 cart.furniture.splice(index, 1)
+                    //                 cart.save()
+                    //                 console.log('cart', cart.furniture)
+                    //             }).then(
+                    //                 SoldItem.findOne({
+                    //                     user: req.body.user._id
+                    //                 })
+                    //                 .then(soldItem => {
+                    //                     if (soldItem) {
+                    //                         soldItem.furniture.push(req.body.item._id);
+                    //                         console.log(' sold item furniture', soldItem.furniture)
+                    //                         soldItem.save()
+                    //                             .then(soldItem => {
+                    //                                 res.status(200).json({
+                    //                                     success: true,
+                    //                                     soldItem: soldItem
+                    //                                 })
+                    //                             })
+                    //                             .catch(err => {
+                    //                                 console.log('sold item furniture err', err)
+                    //                             })
+                    //                     } else {
+                    //                         let newSoldItem = new SoldItem({
+                    //                             user: req.body.user._id
+                    //                         })
+                    //                         newSoldItem.save()
+                    //                             .then(soldItem => {
+                    //                                 soldItem.furniture.push(req.body.item._id);
+                    //                                 soldItem.save()
+                    //                                     .then(soldItem => {
+                    //                                         res.status(200).json({
+                    //                                             success: true,
+                    //                                             soldItem: soldItem
+                    //                                         })
+                    //                                     })
+                    //                                     .catch(err => {
+                    //                                         console.log('new soldItem  save err', err)
+                    //                                     })
+                    //                             })
+                    //                             .catch(err => {
+                    //                                 console.log(' new sold item err', err)
+                    //                             })
+                    //                     }
+                    //                 })
+                    //                 .catch(err => {
+                    //                     console.log('sold item err', err)
+                    //                 })
+                    //             )
+                    //         })
+                    // } else {
+                    //     Property.updateOne({
+                    //         _id: req.body.item._id
+                    //     }, {
+                    //         $set: {
+                    //             monthsRented: req.body.monthsRented,
+                    //             invoiceNumber: invoice.number,
+                    //             isSold: true,
+                    //             address: req.body.address
+                    //         }
+                    //     }).then(updatedItem => {
+                    //         Cart.findById({_id: req.body.cartid}).then(cart => {
+                    //             let index =  cart.property.indexOf(req.body.item._id)
+                    //             cart.property.splice(index, 1)
+                    //             cart.save()
+                    //             console.log('cart', cart.property)
 
-                                            let newSoldItem = new SoldItem({
-                                                property: req.body.item._id,
-                                                user: req.body.user._id
-                                            })
-                                            newSoldItem.save()
-                                                .then(soldItem => {
-                                                    soldItem.property.push(req.body.propertyId)
-                                                    soldItem.save().then(soldItem => {
-                                                        res.status(200).json({
-                                                            success: true,
-                                                            soldItem: soldItem
-                                                        })
-                                                    }).catch(err => {
-                                                        console.log('sold item property err')
-                                                    })
-                                                }).catch(err => {
-                                                    console.log('new sold item property err')
-                                                })
-                                        }
-                                    })
-                                )
-                        })
-                    }
+                    //            }).then(
+                    //                 SoldItem.findOne({
+                    //                     user: req.body.userId
+                    //                 })
+                    //                 .then(soldItem => {
+                    //                     if (soldItem) {
+                    //                         soldItem.property.push(req.body.item._id)
+                    //                         soldItem.save().then(soldItem => {
+                    //                             res.status(200).json({
+                    //                                 success: true,
+                    //                                 soldItem: soldItem
+                    //                             })
+                    //                         }).catch(err => {
+                    //                             console.log('sold item property err')
+                    //                         })
+                    //                     } else {
+
+                    //                         let newSoldItem = new SoldItem({
+                    //                             property: req.body.item._id,
+                    //                             user: req.body.user._id
+                    //                         })
+                    //                         newSoldItem.save()
+                    //                             .then(soldItem => {
+                    //                                 soldItem.property.push(req.body.propertyId)
+                    //                                 soldItem.save().then(soldItem => {
+                    //                                     res.status(200).json({
+                    //                                         success: true,
+                    //                                         soldItem: soldItem
+                    //                                     })
+                    //                                 }).catch(err => {
+                    //                                     console.log('sold item property err')
+                    //                                 })
+                    //                             }).catch(err => {
+                    //                                 console.log('new sold item property err')
+                    //                             })
+                    //                     }
+                    //                 })
+                    //             )
+                    //     })
+                    // }
                 })
                 .catch((err) => {
                     console.log('stripe err', err)

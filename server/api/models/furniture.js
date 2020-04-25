@@ -6,7 +6,8 @@ const furnitureSchema = mongoose.Schema({
     imageUrl: String,
     isSold: {type: Boolean, default: false},
     invoiceNumber: String,
-    monthsRented: Number
+    monthsRented: Number,
+    deliveryAddress: String,
 })
 
 module.exports = mongoose.model('Furniture', furnitureSchema)

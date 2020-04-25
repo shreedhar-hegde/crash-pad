@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const Property = require('../models/property')
+const Cart = require('../models/cart')
 
 router.get('/', (req, res) => {
     Property.find()
@@ -88,13 +89,24 @@ router.patch('/', (req, res) => {
 
 router.delete('/:propertyId', (req, res) => {
 
-    Property.remove(req.params.propertyId)
-        .then(result => {
-            res.status(200).json({
-                message: 'Property deleted'
-            })
+    console.log('delete property', req.params.propertyId)
+    Cart.deleteOne({property: req.params.propertyId})
+    .then(cart => {
+        Property.deleteOne({_id: req.params.propertyId})
+        .then(deletedProperty => {
+            res.status(200).json({message: 'Property deleted'})
         })
-        .catch(err => res.status(500).json(err))
+    }).catch(err => {
+        console.log('cart delete err', err)
+    })
+
+    // Property.remove(req.params.propertyId)
+    //     .then(result => {
+    //         res.status(200).json({
+    //             message: 'Property deleted'
+    //         })
+    //     })
+    //     .catch(err => res.status(500).json(err))
 })
 
 module.exports = router

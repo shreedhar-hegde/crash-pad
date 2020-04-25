@@ -7,7 +7,7 @@ const keys = require('./config')
 
 
 
-mongoose.connect( keys.mongoUrl, {
+mongoose.connect( keys.mongoAtlasUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
