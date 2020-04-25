@@ -55,4 +55,8 @@ export class FurnitureService {
     })
   }
 
+  deleteFurniture(furnitureId) {
+    return this.http.delete(`${this.url}/${furnitureId}`)
+  }
+
 }

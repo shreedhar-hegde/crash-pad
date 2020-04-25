@@ -1,7 +1,7 @@
 <div class="columns is-centered">
     <div class="column bill is-half">
       <h1 class="title is-1">Billing</h1>
-          <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+          <form novalidate (ngSubmit)="proceed()" [formGroup]="stripeTest">
           Name  <input class="input" type="text" formControlName="name" placeholder="John Doe">
             Email
               <input class="input" type="email" formControlName="email" placeholder="example@email.com">
@@ -11,7 +11,7 @@
               <input type="number" (keyup)="months = $event.target.value" value="1" (change)="months = $event.target.value"  class="input" min="1">
               <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
               <button class="button" type="submit">
-                Pay {{amount * months }}
+                Procced to pay {{amount * months }}
               </button>
             </form>
       </div>

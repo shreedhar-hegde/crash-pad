@@ -69,7 +69,7 @@ export class CheckoutComponent implements OnInit {
     console.log('selected item', this.selectedItem)
   }
  
-  buy() {
+  proceed() {
     const name = this.stripeTest.get('name').value;
     this.stripeService
       .createToken(this.card.getCard(), { name })

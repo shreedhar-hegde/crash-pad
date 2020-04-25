@@ -18,12 +18,15 @@ export class HistoryComponent implements OnInit {
     this.historyService.getHistory().subscribe((res:any) => {
       console.log('res', res)
       this.items = res.soldItems
-      this.items[0].furniture.forEach(item => {
-        this.furnitures.push(item)
-      });
-      this.items[0].property.forEach(item => {
-        this.properties.push(item)
-      })
+      if(res.soldItems.length > 0) {
+        this.items[0].furniture.forEach(item => {
+          this.furnitures.push(item)
+        });
+        this.items[0].property.forEach(item => {
+          this.properties.push(item)
+        })
+      }
+      
     })
 
      

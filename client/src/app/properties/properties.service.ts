@@ -47,4 +47,8 @@ export class PropertiesService {
       })
     })
   }
+
+  deleteProperty(propertyId) {
+    return this.http.delete(`${this.url}/${propertyId}`)
+  }
 }

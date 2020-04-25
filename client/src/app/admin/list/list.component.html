@@ -33,7 +33,7 @@
                     class="button is-info">Save</button>
                 </td>
                 <td>
-                  <button (click)="onDeleteFurnitureClick()" class="button is-danger">Delete</button>
+                  <button (click)="onDeleteFurnitureClick(furniture._id)" class="button is-danger">Delete</button>
                 </td>
               </tr>
 
@@ -99,7 +99,7 @@
                  
                 </td>
                 <td>
-                  <button (click)="onPropertyDeleteClick()" class="button is-danger">Delete</button>
+                  <button (click)="onPropertyDeleteClick(property._id)" class="button is-danger">Delete</button>
                 </td>
               </tr>
 

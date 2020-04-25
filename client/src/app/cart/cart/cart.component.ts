@@ -39,9 +39,8 @@ export class CartComponent implements OnInit {
     cartInit() {
       console.log('cart init')
       this.cartService.getCart().subscribe((cartResponse: any) => {
-
-        console.log('cart response', cartResponse)
-
+        console.log('cart lenght', cartResponse['cart'].length)
+       if(cartResponse['cart'].length > 0) {
         this.cart = cartResponse['cart']
         this.isVerfied = cartResponse['cart'][0].user['isVerified']
 
@@ -57,7 +56,9 @@ export class CartComponent implements OnInit {
             this.propertyItems.push(item)
           })
         }      
-      })
+      }
+    })
+        
     }
 
   ngOnInit() {

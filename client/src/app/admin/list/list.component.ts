@@ -92,8 +92,10 @@ export class ListComponent implements OnInit {
     )
   }
 
-  onDeleteFurnitureClick() {
-
+  onDeleteFurnitureClick(furnitureId) {
+    this.furnitureService.deleteFurniture(furnitureId).subscribe(res => {
+      console.log('delete furniture res', res)
+    })
   }
 
 
@@ -167,8 +169,10 @@ export class ListComponent implements OnInit {
     )
   }
 
-  onPropertyDeleteClick() {
-
+  onPropertyDeleteClick(propertyId) {
+    this.propertiesService.deleteProperty(propertyId).subscribe(res => {
+      console.log('delete res', res)
+    })
   }
   
 
