@@ -6,10 +6,10 @@
             Email
               <input class="input" type="email" formControlName="email" placeholder="example@email.com">
              Delivery Address
-              <input class="input"  type="text" placeholder="#123, street, landmark, locality, taluk, pin">
+              <input class="input" formControlName="address"  type="text" placeholder="#123, street, landmark, locality, taluk, pin">
               Months 
               <input type="number" (keyup)="months = $event.target.value" value="1" (change)="months = $event.target.value"  class="input" min="1">
-              <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+              <!-- <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card> -->
               <button class="button" type="submit">
                 Procced to pay {{amount * months }}
               </button>

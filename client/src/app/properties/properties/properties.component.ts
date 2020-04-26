@@ -13,6 +13,10 @@ export class PropertiesComponent implements OnInit {
   properties
   userId
   propertyRes
+  class
+  active = false
+  popertiesForFilter
+  areas = []
 
 
   constructor(private propertyService: PropertiesService, private cartService: CartService, private authService: AuthService
@@ -22,6 +26,14 @@ export class PropertiesComponent implements OnInit {
     this.propertyService.getProperties().subscribe((res:any) => {
       console.log('properties', res.properties)
       this.properties = res.properties
+      this.popertiesForFilter = res.properties
+      res.properties.map(property => {
+        console.log('this.areas.indexOf(property.area)', this.areas.indexOf(property.area))
+       
+        if(!this.areas.includes(property.area)) 
+          this.areas.push(property.area)
+      })
+      console.log('areas', this.areas)
     })
     this.checkIfInCart()
 
@@ -50,6 +62,20 @@ export class PropertiesComponent implements OnInit {
       })
     })
   }
+
+  selectedArea(area) {
+    if(area === 'all') {
+      this.properties = this.popertiesForFilter
+    } else {
+      this.properties = this.popertiesForFilter.filter(property => {
+        return property.area === area
+       })
+    }
+   
+   
+  }
+
+
 
   onLikeClick(propertyId) {
     console.log('liked')

@@ -9,6 +9,8 @@
               <th>Furniture Name</th>
               <th>Image URL</th>
               <th>Price</th>
+              <th>Payment Status</th>
+              <th>Delivery Status</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -26,6 +28,10 @@
                 </td>
                 <td><input (keyup)="onPriceChange(furniture._id, $event.target.value)" class="input" type="number"
                     [disabled]="!furniture.edit" [value]="furniture.price"></td>
+                    <td><input (keyup)="onPaymentStatusChange(furniture._id, $event.target.value)" class="input" type="text"
+                      [disabled]="!furniture.edit" [value]="furniture.paymentStatus"></td>
+                      <td><input (keyup)="onDeliveryStatusChange(furniture._id, $event.target.value)" class="input" type="text"
+                        [disabled]="!furniture.edit" [value]="furniture.deliveryStatus"></td>
                 <td>
                   <button *ngIf="!furniture.edit" (click)="furniture.edit = !furniture.edit"
                     class="button is-success">Edit</button>
@@ -90,7 +96,7 @@
                 <td><input (keyup)="onnoOfRoomsChange(property._id, $event.target.value)" class="input" type="number"
                     [disabled]="!property.edit" [value]="property.numberOfRooms">
                   </td>
-                
+                  
                   <td>
                     <button *ngIf="!property.edit" (click)="property.edit = !property.edit"
                     class="button is-success">Edit</button>
@@ -98,6 +104,7 @@
                     class="button is-info">Save</button>
                  
                 </td>
+                
                 <td>
                   <button (click)="onPropertyDeleteClick(property._id)" class="button is-danger">Delete</button>
                 </td>

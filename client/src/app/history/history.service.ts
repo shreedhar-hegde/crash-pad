@@ -10,8 +10,11 @@ export class HistoryService {
 
   url = 'http://localhost:5000/rent'
 
+  userid = JSON.parse(localStorage.getItem('token')).user._id
+
   getHistory() {
-    return this.http.get(`${this.url}`)
+    console.log('userid', this.userid)
+    return this.http.get(`${this.url}/${this.userid}`)
   }
   
 }

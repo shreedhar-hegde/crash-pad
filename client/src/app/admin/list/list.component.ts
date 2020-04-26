@@ -79,6 +79,24 @@ export class ListComponent implements OnInit {
     })
   }
 
+  onPaymentStatusChange(id, value) {
+    this.furnitures.map(furniture => {
+      if(furniture._id === id) {
+        furniture.paymentStatus = value
+        this.updatedFrunitures.push(furniture)
+      }
+    })
+  }
+
+  onDeliveryStatusChange(id, value) {
+    this.furnitures.map(furniture => {
+      if(furniture._id === id) {
+        furniture.deliveryStatus = value
+        this.updatedFrunitures.push(furniture)
+      }
+    })
+  }
+
   onUpdateFurnitureClick() {
     this.furnitureService.updateFruniture(this.updatedFrunitures).subscribe((res:any) => {
       console.log('update res', res)

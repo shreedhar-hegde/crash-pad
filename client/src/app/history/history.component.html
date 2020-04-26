@@ -10,9 +10,10 @@
               <th>Image</th>
              <th>Months Rented</th>
              <th>Amount</th>
+             <th>Payment status</th>
              <th>Delivery Address</th>
              <th>Delivery Status</th>
-             <th>Invoice ID</th>
+             <th>Invoice Number</th>
             </tr>
           </thead>
           <tbody>
@@ -21,21 +22,22 @@
                 <td>
                   {{furniture.name}}
                 </td>
-                <td style="width: 30%;">
-                   <img  [src]="furniture.imageUrl" alt="">
+                <td >
+                   <img style="width: 100%; height: 100px;"  [src]="furniture.imageUrl" alt="">
                 </td>
                 <td>
                     {{furniture.monthsRented}}
                 </td>
                 
                 <td>
-                 {{furniture.invoiceNumber}}
+                 {{furniture.price}}
                 </td>
+                <td>{{furniture.paymentStatus ? 'Paid' : 'Pending'}}</td>
                 <td>
-                  {{furniture.invoiceNumber}}
+                  {{furniture.deliveryAddress}}
                  </td>
                  <td>
-                  {{furniture.invoiceNumber}}
+                  {{furniture.deliveryStatus ? 'Deliverd': 'Pending'}}
                  </td>
                  <td>
                   {{furniture.invoiceNumber}}

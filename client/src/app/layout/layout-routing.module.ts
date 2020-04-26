@@ -26,10 +26,9 @@ const routes: Routes = [{
     {path: 'history', component: HistoryComponent},
     {path: 'admin', component: AdminDashboardComponent , 
     children: [{
-      path: '', redirectTo: 'report', pathMatch: 'full'},
+      path: '', redirectTo: 'list', pathMatch: 'full'},
        {path: 'add-furniture', component: AddFurnitureComponent},
        {path: 'add-property', component: AddPropertyComponent},
-       {path: 'report', component: ReportComponent},
        {path: 'list', component: ListComponent}
       ]}, 
     ] 

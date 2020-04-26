@@ -16,7 +16,7 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
 
     this.historyService.getHistory().subscribe((res:any) => {
-      console.log('res', res)
+      console.log('get history', res)
       this.items = res.soldItems
       if(res.soldItems.length > 0) {
         this.items[0].furniture.forEach(item => {

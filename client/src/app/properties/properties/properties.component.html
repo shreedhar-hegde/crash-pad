@@ -2,6 +2,26 @@
   <div class="content is-large">
     <h1>Properties Gallery</h1>
     <p>Awesome properties For You</p>
+    <div class="dropdown is-hoverable">
+      <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+          <span>Select Area</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+        <div class="dropdown-content">
+          <a (click)="selectedArea('all')" class="dropdown-item">
+           All
+           </a>
+          <a *ngFor="let area of areas" (click)="selectedArea(area)" class="dropdown-item">
+           {{area}}
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
     <div class="columns is-multiline">
@@ -23,6 +43,12 @@
                       {{property.area}}
                     </span>      
                   </div>
+              </div>
+              <div class="label">3rd cross, Near Kathriguppe Big bazar Banashankari,
+                Bangalore
+              </div>
+              <div class="label">
+               contact: 9999999999
               </div>
               <footer class="card-footer">
                 <button (click)="onLikeClick(property._id)" class="button is-primary card-footer-item" [disabled]="property.isInCart">

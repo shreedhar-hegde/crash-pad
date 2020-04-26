@@ -12,7 +12,7 @@ import { DataShareService } from '../cart/cart/cart.component';
 })
 export class CheckoutComponent implements OnInit {
 
-  @ViewChild(StripeCardComponent, {static: false}) card: StripeCardComponent;
+  // @ViewChild(StripeCardComponent, {static: false}) card: StripeCardComponent;
 
    amount
    selectedItem
@@ -71,14 +71,8 @@ export class CheckoutComponent implements OnInit {
  
   proceed() {
     const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card.getCard(), { name })
-      .subscribe(result => {
-        if (result.token) {
-          console.log(result.token.id, this.stripeTest.value.email);
 
           let payload = {
-            token : result.token.id,
             email: this.stripeTest.value.email,
             name: this.stripeTest.value.name,
             address: this.stripeTest.value.address,
@@ -92,11 +86,6 @@ export class CheckoutComponent implements OnInit {
 
           this.checkoutService.checkout(payload).subscribe()
 
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
-        }
-      });
   }
 
 }
