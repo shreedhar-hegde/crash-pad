@@ -29,7 +29,7 @@ export class EditProfileComponent implements OnInit {
       this.userForm = new FormGroup({
         name: new FormControl(user.name),
         email: new FormControl(user.email),
-        phone: new FormControl(user.phone),
+        contact: new FormControl(user.contact),
         address: new FormControl(user.address),
         photoid: new FormControl('')
       })
@@ -45,20 +45,20 @@ export class EditProfileComponent implements OnInit {
     event.preventDefault()
     console.log('user profile', this.userForm.value)
 
-    let updateUser = {
+    // let updateUser = {
       
-      name: this.userForm.value.name,
-      email: this.userForm.value.email,
-      phone: this.userForm.value.phone,
-      address: this.userForm.value.address
-    }
+    //   name: this.userForm.value.name,
+    //   email: this.userForm.value.email,
+    //   phone: this.userForm.value.phone,
+    //   address: this.userForm.value.address
+    // }
 
     let formData = new FormData()
     formData.append('_id',this.user._id)
     formData.append('photoid', this.photoid)
     formData.append('name', this.userForm.value.name)
     formData.append('email', this.userForm.value.email)
-    formData.append('phone', this.userForm.value.phone)
+    formData.append('contact', this.userForm.value.contact)
     formData.append('address', this.userForm.value.address)
 
     this.authService.updateProfile(formData).subscribe((res:any) => {

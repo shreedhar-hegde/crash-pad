@@ -17,30 +17,30 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let furniture of furnitures">
+            <ng-container *ngFor="let content of contents">
               <tr>
                 <td>
-                  {{furniture.name}}
+                  {{content.name}}
                 </td>
                 <td >
-                   <img style="width: 100%; height: 100px;"  [src]="furniture.imageUrl" alt="">
+                   <img style="width: 100%; height: 100px;"  [src]="content.imageUrl || content.propertyImage" alt="">
                 </td>
                 <td>
-                    {{furniture.monthsRented}}
+                    {{content.monthsRented}}
                 </td>
                 
                 <td>
-                 {{furniture.price}}
+                 {{content.price}}
                 </td>
-                <td>{{furniture.paymentStatus ? 'Paid' : 'Pending'}}</td>
+                <td>{{content.paymentStatus ? 'Paid' : 'Pending'}}</td>
                 <td>
-                  {{furniture.deliveryAddress}}
+                  {{content.deliveryAddress}}
                  </td>
                  <td>
-                  {{furniture.deliveryStatus ? 'Deliverd': 'Pending'}}
+                  {{content.deliveryStatus ? 'Deliverd': 'Pending'}}
                  </td>
                  <td>
-                  {{furniture.invoiceNumber}}
+                  {{content.invoiceNumber}}
                  </td>
               </tr>
 

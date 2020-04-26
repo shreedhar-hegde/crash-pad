@@ -56,6 +56,28 @@
       </div>
     </div>
 
+    <div class="columns is-centered">
+      <div class="field column is-half">
+        <label class="label">Contact</label>
+        <div class="control has-icons-left has-icons-right">
+          <input [formControl]="signupForm.get('contact')" class="input" type="number" placeholder="9234594321">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+        </div>
+        <p  *ngIf="signupForm.controls.contact.errors?.required && signupForm.controls.contact.touched" class="help is-danger">
+          Contact cannot be empty
+        </p>
+        <p  *ngIf="signupForm.controls.contact.errors?.pattern && signupForm.controls.contact.touched" class="help is-danger">
+          Invalid contact
+        </p>
+      </div>
+    </div>
+
+
 
     <div class="columns is-centered">
       <div class="column is-half">

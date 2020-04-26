@@ -12,6 +12,7 @@ export class HistoryComponent implements OnInit {
   items
   furnitures = []
   properties = []
+  contents = []
 
   ngOnInit() {
 
@@ -20,13 +21,13 @@ export class HistoryComponent implements OnInit {
       this.items = res.soldItems
       if(res.soldItems.length > 0) {
         this.items[0].furniture.forEach(item => {
-          this.furnitures.push(item)
+          this.contents.push(item)
         });
         this.items[0].property.forEach(item => {
-          this.properties.push(item)
+          this.contents.push(item)
         })
       }
-      
+      console.log('content', this.contents)
     })
 
      

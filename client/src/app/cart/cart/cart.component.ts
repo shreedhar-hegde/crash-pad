@@ -82,7 +82,7 @@ export class CartComponent implements OnInit {
   }
 
   onCheckout(data) {
-    console.log('checkout');
+    console.log('checkout', data);
     this.sharedData.selectedItem.next({item: data.item, key: data.key, user: this.user, cartID: this.cartID})
     this.router.navigateByUrl('/dashboard/billing')
   }

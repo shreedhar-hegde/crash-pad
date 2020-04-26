@@ -66,6 +66,8 @@
               <th>Area</th>
               <th>Type</th>
               <th>Number of Rooms</th>
+              <th>Address</th>
+              <th>Contact</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -95,6 +97,12 @@
                 
                 <td><input (keyup)="onnoOfRoomsChange(property._id, $event.target.value)" class="input" type="number"
                     [disabled]="!property.edit" [value]="property.numberOfRooms">
+                  </td>
+                  <td><input (keyup)="onAddressChange(property._id, $event.target.value)" class="input" type="text"
+                    [disabled]="!property.edit" [value]="property.address">
+                  </td>
+                  <td><input (keyup)="onContactChange(property._id, $event.target.value)" class="input" type="text"
+                    [disabled]="!property.edit" [value]="property.contact">
                   </td>
                   
                   <td>

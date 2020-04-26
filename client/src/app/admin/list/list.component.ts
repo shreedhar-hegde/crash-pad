@@ -172,6 +172,24 @@ export class ListComponent implements OnInit {
     })
   }
 
+  onContactChange(id, contact) {
+    this.properties.map(property => {
+      if(property._id === id) {
+        property.contact = contact
+        this.updatedProperties.push(property)
+      }
+    })
+  }
+
+  onAddressChange(id, address) {
+    this.properties.map(property => {
+      if(property._id === id) {
+        property.address = address
+        this.updatedProperties.push(property)
+      }
+    })
+  }
+
 
   onPropertyUpdateClick() {
     console.log('updated properties', this.updatedProperties)

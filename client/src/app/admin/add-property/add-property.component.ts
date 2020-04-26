@@ -24,7 +24,9 @@ export class AddPropertyComponent implements OnInit {
     costPerMonth: new FormControl(''),
     propertyImage: new FormControl(''),
     type: new FormControl(''),
-    noOfRooms: new FormControl('')
+    noOfRooms: new FormControl(''),
+    address: new FormControl(''),
+    contact: new FormControl(''),
   })
 
 

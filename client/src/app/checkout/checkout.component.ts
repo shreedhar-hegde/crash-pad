@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
 import { CheckoutService } from './checkout.service';
 import { DataShareService } from '../cart/cart/cart.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -47,7 +48,9 @@ export class CheckoutComponent implements OnInit {
     private fb: FormBuilder,
     private stripeService: StripeService,
     private checkoutService: CheckoutService,
-    private sharedData: DataShareService) {}
+    private sharedData: DataShareService,
+    private router: Router
+    ) {}
  
   ngOnInit() {
     this.stripeTest = this.fb.group({
@@ -65,11 +68,14 @@ export class CheckoutComponent implements OnInit {
       this.cartid = data.cartID
     })
 
-    this.amount = this.selectedItem.price
+    this.amount = this.selectedItem.price || this.selectedItem.costPerMonth
     console.log('selected item', this.selectedItem)
   }
  
   proceed() {
+
+    
+
     const name = this.stripeTest.get('name').value;
 
           let payload = {
@@ -84,7 +90,13 @@ export class CheckoutComponent implements OnInit {
             cartid: this.cartid
           }
 
-          this.checkoutService.checkout(payload).subscribe()
+          this.checkoutService.checkout(payload).subscribe((res:any) => {
+            alert(`Thank you! Invoice has been mailed to ${payload.email}`)
+
+            setTimeout(() => {
+              this.router.navigateByUrl('/dashboard/history')
+            }, 2000)
+          })
 
   }
 

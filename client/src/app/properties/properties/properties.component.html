@@ -41,14 +41,17 @@
                     </span> 
                     <span class="tag is-danger">
                       {{property.area}}
+                    </span>
+                    <span class="tag is-info">
+                      {{property.type}}
                     </span>      
                   </div>
               </div>
-              <div class="label">3rd cross, Near Kathriguppe Big bazar Banashankari,
-                Bangalore
+              <div class="label">
+                {{property.address}}
               </div>
               <div class="label">
-               contact: 9999999999
+               {{property.contact}}
               </div>
               <footer class="card-footer">
                 <button (click)="onLikeClick(property._id)" class="button is-primary card-footer-item" [disabled]="property.isInCart">
