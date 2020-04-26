@@ -55,7 +55,7 @@ router.post('/signup', (req, res, next) => {
                             name: req.body.name,
                             email: req.body.email,
                             address: req.body.address,
-                            phone: req.body.phone,
+                            contact: req.body.contact,
                             password: hash
                         })
                         user.save()
@@ -158,10 +158,10 @@ router.put('/verify', async (req, res) => {
 router.patch('/updateprofile', upload.single('photoid'), (req, res) => {
     console.log('update profile', req.file, req.body)
 
-    User.findByIdAndUpdate({_id: req.body._id}, {
+    User.updateOne({_id: req.body._id}, {
         $set: {
             name: req.body.name,
-            phone: req.body.phone,
+            contact: req.body.contact,
             email: req.body.email,
             address: req.body.address,
             photoid: req.file.filename

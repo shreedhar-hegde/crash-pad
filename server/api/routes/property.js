@@ -80,7 +80,7 @@ router.patch('/', (req, res) => {
     req.body.map(property => {
         Property.updateOne({_id: property._id}, property, {new: true})
         .then(updateproperty => {
-            res.json({success: true})
+            res.status(200).json({success: true})
         }).catch(err => {
             console.log('err', err)
         })

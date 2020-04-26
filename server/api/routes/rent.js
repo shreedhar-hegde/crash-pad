@@ -102,6 +102,7 @@ router.post('/', async (req, res) => {
                                                     console.log('sold item furniture err', err)
                                                 })
                                         } else {
+                                            console.log('new sold furniture')
                                             let newSoldItem = new SoldItem({
                                                 user: req.body.user._id
                                             })
@@ -130,6 +131,7 @@ router.post('/', async (req, res) => {
                                 )
                             })
                     } else {
+                        console.log('in else, property')
                         Property.updateOne({
                             _id: req.body.item._id
                         }, {
@@ -154,6 +156,7 @@ router.post('/', async (req, res) => {
                                         if (soldItem) {
                                             soldItem.property.push(req.body.item._id)
                                             soldItem.save().then(soldItem => {
+                                                console.log('sold item', soldItem)
                                                 res.status(200).json({
                                                     success: true,
                                                     soldItem: soldItem
@@ -162,15 +165,15 @@ router.post('/', async (req, res) => {
                                                 console.log('sold item property err')
                                             })
                                         } else {
-
                                             let newSoldItem = new SoldItem({
                                                 property: req.body.item._id,
                                                 user: req.body.user._id
                                             })
                                             newSoldItem.save()
                                                 .then(soldItem => {
-                                                    soldItem.property.push(req.body.propertyId)
+                                                    soldItem.property.push(req.body.item._id)
                                                     soldItem.save().then(soldItem => {
+                                                        console.log('new sold item', soldItem)
                                                         res.status(200).json({
                                                             success: true,
                                                             soldItem: soldItem

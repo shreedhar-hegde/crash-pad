@@ -9,7 +9,9 @@ const propertySchema = mongoose.Schema({
     numberOfRooms: Number,
     monthsRented: Number,
     invoiceNumber: String,
-    isSold: { type:Boolean, default: false }
+    isSold: { type:Boolean, default: false },
+    contact: String,
+    address: String
 })
 
 module.exports = mongoose.model('Property', propertySchema)
