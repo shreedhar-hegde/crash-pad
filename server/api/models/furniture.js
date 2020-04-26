@@ -7,6 +7,8 @@ const furnitureSchema = mongoose.Schema({
     isSold: {type: Boolean, default: false},
     invoiceNumber: String,
     monthsRented: Number,
+    paymentStatus: {type: Boolean, default: false},
+    deliveryStatus: {type: Boolean, default: false},
     deliveryAddress: String,
 })
 

@@ -110,7 +110,7 @@ router.patch('/', (req, res) => {
     req.body.map(furniture => {
         Furniture.updateOne({_id: furniture._id}, furniture, {new: true})
         .then(updateFurniture => {
-            res.json({success: true})
+            res.status(200).json({success: true})
         }).catch(err => {
             console.log('err', err)
         })
