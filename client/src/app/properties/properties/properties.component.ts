@@ -17,6 +17,8 @@ export class PropertiesComponent implements OnInit {
   active = false
   popertiesForFilter
   areas = []
+  isModalActive
+  notificationMessage
 
 
   constructor(private propertyService: PropertiesService, private cartService: CartService, private authService: AuthService
@@ -24,7 +26,6 @@ export class PropertiesComponent implements OnInit {
 
   ngOnInit() {
     this.propertyService.getProperties().subscribe((res:any) => {
-      console.log('properties', res.properties)
       this.properties = res.properties
       this.popertiesForFilter = res.properties
       res.properties.map(property => {
@@ -82,6 +83,13 @@ export class PropertiesComponent implements OnInit {
         this.cartService.cart({propertyId: propertyId, userId: this.userId, key: 'property'}).subscribe((res:any) => {
           console.log('res', res)
           if(res.success) {
+            this.isModalActive = true
+
+            setTimeout(() => {
+              this.isModalActive = false
+            }, 1500)
+
+            this.notificationMessage = res.message
             this.propertyService.getProperties().subscribe((res:any) => {
               this.properties = res.properties
             })

@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
   furnitureItems = []
   propertyItems = []
   isVerfied
-  notificationMessage = ''
+  notificationMessage
   isModalActive = false
   user
 
@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
     ) { }
   
     cartInit() {
-      console.log('cart init')
+
       this.cartService.getCart().subscribe((cartResponse: any) => {
         console.log('cart lenght', cartResponse['cart'].length)
        if(cartResponse['cart'].length > 0) {
@@ -63,19 +63,35 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.cartInit()
+    console.log('local storage', localStorage)
   }
   
   onRemoveFurnitureClick(furnitureId) {
-    this.cartService.removeFurniture(furnitureId, this.cartID).subscribe(res => {
+    let userId = JSON.parse(localStorage.getItem('token')).user._id
+    console.log('remove furniture',furnitureId, userId)
+    this.cartService.removeFurniture(furnitureId, userId).subscribe((res:any) => {
       if(res.success) {
+        this.isModalActive = true
+        this.notificationMessage = res.message
+        setTimeout(() => {
+          this.isModalActive = false
+        }, 1500)
        this.furnitureItems.splice(this.furnitureItems.indexOf(furnitureId), 1)
       }
     })
   }
 
   onRemovePropertyClick(propertyId) {
-    this.cartService.removeProperty(propertyId, this.cartID).subscribe((res:any) => {
+    console.log('onRemovePropertyClick', propertyId)
+    let userId = JSON.parse(localStorage.getItem('token')).user._id
+
+    this.cartService.removeProperty(propertyId, userId).subscribe((res:any) => {
       if(res.success) {
+        this.isModalActive = true
+        this.notificationMessage = res.message
+        setTimeout(() => {
+          this.isModalActive = false
+        }, 1500)
         this.propertyItems.splice( this.propertyItems.indexOf(propertyId) , 1)
       }
     })

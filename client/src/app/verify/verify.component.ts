@@ -14,6 +14,9 @@ export class VerifyComponent implements OnInit {
   verifiedUsers: Array<any> = [];
   users: Array<any> = []
 
+  notificationMessage
+  isModalActive = false
+
   ngOnInit() {
 
     this.verifyService.getUsers().subscribe(users => {
@@ -47,12 +50,25 @@ export class VerifyComponent implements OnInit {
 
 
 
-    this.verifyService.verify(this.users).subscribe(res =>{
-      console.log('verify res', res)
+    this.verifyService.verify(this.users).subscribe((res:any) =>{
+      console.log('verify', res)
+      if(res.success) {
+        console.log('users', this.users)
+        this.isModalActive = true
+
+        setTimeout(() => {
+          this.isModalActive = false
+        }, 1500)
+  
+        this.notificationMessage = res.message
+       
+      }
+     
     })
    
 
     
   }
+
 
 }

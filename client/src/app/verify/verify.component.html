@@ -7,9 +7,10 @@
                     <tr>
                       <th>Name</th>
                       <th>Address</th>
-                      <th>Phone</th>
+                     
                       <th>Email</th>
                       <th>Photo ID</th>
+                      <th>Contact</th>
                       <th>Verify</th>
                     </tr>
                   </thead>
@@ -18,11 +19,12 @@
                             <tr>
                                 <td>{{user.name}}</td>
                                 <td>{{user.address}}</td>
-                                <td>{{user.phone}}</td>
+                               
                                 <td>{{user.email}}</td>
                                 <td>
                                  <img [src]="user.photoid" alt="">
                                 </td>
+                                <td>{{user.contact}}</td>
                                 <td>
                                   <div class="field">
                                       <input class="is-checkradio is-large" id="exampleCheckboxLarge" type="checkbox" name="exampleCheckboxLarge"
@@ -42,6 +44,15 @@
                 <button class="button is-success" type="submit"  >Update</button>
               </form>
             
+        </div>
+
+        <div class="modal has-text-centered" [ngClass]="{ 'is-active' : isModalActive }">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <section class="modal-card-body">
+                {{notificationMessage}}
+            </section>
+          </div>
         </div>
     </div>
 </div>

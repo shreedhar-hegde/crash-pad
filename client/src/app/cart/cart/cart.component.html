@@ -34,14 +34,6 @@
             </div>
           </div>
         </ng-container>
-        <div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head">
-              <p class="modal-card-title has-text-centered">{{notificationMessage}}</p>
-            </header>
-          </div>
-        </div>
       </div>
 
 
@@ -74,5 +66,13 @@
               </div>
             </div>
           </ng-container>
+          <div class="modal has-text-centered" [ngClass]="{ 'is-active' : isModalActive }">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <section class="modal-card-body">
+                  {{notificationMessage}}
+              </section>
+            </div>
+          </div>
         </div>
     </div>

@@ -48,6 +48,11 @@
               <div class="control">
                 <input formControlName="photoid" (change)="photoIdChange($event)" type="file" name="photoid" class="input">
               </div>
+              
+              <div class="columns image is-centered">
+                <img style="width: 30%;height: 30%; margin-top: 5%; margin-bottom: 5%;" [src]="profilePhoto" alt="">
+              </div>
+             
             </div>
             <button type="submit" class="button is-primary">Update Profile</button>
       </form>

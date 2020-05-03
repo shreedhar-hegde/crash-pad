@@ -21,6 +21,9 @@ export class CheckoutComponent implements OnInit {
    user
    key
    cartid
+
+   notificationMessage = ''
+   isModalActive = false
  
   cardOptions: ElementOptions = {
     style: {
@@ -91,11 +94,19 @@ export class CheckoutComponent implements OnInit {
           }
 
           this.checkoutService.checkout(payload).subscribe((res:any) => {
-            alert(`Thank you! Invoice has been mailed to ${payload.email}`)
-
-            setTimeout(() => {
-              this.router.navigateByUrl('/dashboard/history')
-            }, 2000)
+            console.log('on checkout', res)
+            if(res.success) {
+              this.isModalActive = true
+              this.notificationMessage = res.message
+              setTimeout(() => {
+                this.isModalActive = false
+              }, 3000)
+              
+              setTimeout(() => {
+                this.router.navigateByUrl('/dashboard/history')
+              }, 3500)
+            }
+           
           })
 
   }

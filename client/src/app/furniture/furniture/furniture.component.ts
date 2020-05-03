@@ -19,6 +19,8 @@ export class FurnitureComponent implements OnInit {
   furnitures
   userId
   response
+  isModalActive = false
+  notificationMessage
 
   constructor(private furnitureService: FurnitureService, 
     private cartService: CartService, private authService: AuthService) { }
@@ -64,9 +66,17 @@ export class FurnitureComponent implements OnInit {
   }
 
   onLikeClick(furnitureId) {
-        this.cartService.cart({furnitureId: furnitureId, userId: this.userId, key: 'furniture'}).subscribe((res:any) => {
 
+   
+
+        this.cartService.cart({furnitureId: furnitureId, userId: this.userId, key: 'furniture'}).subscribe((res:any) => {
+          console.log('cart res', res)
           if(res.success) {
+            this.isModalActive = true
+            this.notificationMessage = res.message
+            setTimeout(() => {
+              this.isModalActive = false
+            }, 1500)
             this.furnitureService.getFurnitures().subscribe((res:any) => {
               this.response = res.furnitures
               this.furnitures = res.furnitures

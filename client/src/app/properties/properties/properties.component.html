@@ -26,8 +26,8 @@
 
     <div class="columns is-multiline">
     <ng-container *ngFor="let property of properties">
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <div class="card">
+        <div *ngIf="!property.isSold" class="column is-one-quarter-desktop is-half-tablet">
+          <div  class="card">
               <div class="card-image">
                   <figure class="image is-3by2">
                     <img [src]="property.propertyImage" alt="">
@@ -61,5 +61,14 @@
           </div>
         </div>
       </ng-container>
+
+      <div class="modal has-text-centered" [ngClass]="{ 'is-active' : isModalActive }">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <section class="modal-card-body">
+              {{notificationMessage}}
+          </section>
+        </div>
+      </div>
     </div>
   </div>

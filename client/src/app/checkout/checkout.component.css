@@ -8,3 +8,7 @@
     margin-top: 25px;
     padding-right: 25px;
 }
+
+.modal-card-title{
+    height: 20% !important;
+}

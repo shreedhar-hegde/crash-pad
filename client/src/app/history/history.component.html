@@ -1,6 +1,54 @@
 <div class="columns">
     <div class="column">
       <h1 class="title is-1">History</h1>
+      <h1 class="title is-2">Properties</h1>
+
+        <table class="table is-bordered is-fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+             <th>Months Rented</th>
+             <th>Amount</th>
+             <th>Payment status</th>
+             <th>Property Address</th>
+             <th>Occupation Status</th>
+             <th>Invoice Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let property of properties">
+              <tr>
+                <td>
+                  {{property.name}}
+                </td>
+                <td >
+                   <img style="width: 100%; height: 100px;"  [src]="property.imageUrl || property.propertyImage" alt="">
+                </td>
+                <td>
+                    {{property.monthsRented}}
+                </td>
+                
+                <td>
+                 {{ property.costPerMonth * property.monthsRented}}
+                </td>
+                <td>{{property.paymentStatus ? 'Paid' : 'Pending'}}</td>
+                <td>
+                  {{property.address}}
+                 </td>
+                 <td>
+                  {{property.occupationStatus ? 'Deliverd': 'Pending'}}
+                 </td>
+                 <td>
+                  {{property.invoiceNumber}}
+                 </td>
+              </tr>
+
+            </ng-container>
+          </tbody>
+        </table>
+    
+
       <h1 class="title is-2">Furnitures</h1>
 
         <table class="table is-bordered is-fullwidth">
@@ -11,42 +59,41 @@
              <th>Months Rented</th>
              <th>Amount</th>
              <th>Payment status</th>
-             <th>Delivery Address</th>
-             <th>Delivery Status</th>
+             <th>Property Address</th>
+             <th>Occupy Status</th>
              <th>Invoice Number</th>
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let content of contents">
+            <ng-container *ngFor="let furniture of furnitures">
               <tr>
                 <td>
-                  {{content.name}}
+                  {{furniture.name}}
                 </td>
                 <td >
-                   <img style="width: 100%; height: 100px;"  [src]="content.imageUrl || content.propertyImage" alt="">
+                   <img style="width: 100%; height: 100px;"  [src]="furniture.imageUrl" alt="">
                 </td>
                 <td>
-                    {{content.monthsRented}}
+                    {{furniture.monthsRented}}
                 </td>
                 
                 <td>
-                 {{content.price}}
+                 {{furniture.price}}
                 </td>
-                <td>{{content.paymentStatus ? 'Paid' : 'Pending'}}</td>
+                <td>{{furniture.paymentStatus ? 'Paid' : 'Pending'}}</td>
                 <td>
-                  {{content.deliveryAddress}}
+                  {{furniture.deliveryAddress}}
                  </td>
                  <td>
-                  {{content.deliveryStatus ? 'Deliverd': 'Pending'}}
+                  {{furniture.deliveryStatus ? 'Deliverd': 'Pending'}}
                  </td>
                  <td>
-                  {{content.invoiceNumber}}
+                  {{furniture.invoiceNumber}}
                  </td>
               </tr>
 
             </ng-container>
           </tbody>
         </table>
-    
      
   </div>

@@ -20,11 +20,17 @@ export class EditProfileComponent implements OnInit {
 
   user
   verified
+  profilePhoto
 
   ngOnInit() {
     this.authService.loggedIn$.subscribe(user => {
-      console.log('edit', user)
       this.user = user
+
+      this.profilePhoto = `http://localhost:5000/uploads/${this.user.photoid}`
+      
+     user.address = user.address ? user.address : ''
+    
+
       
       this.userForm = new FormGroup({
         name: new FormControl(user.name),
@@ -62,8 +68,11 @@ export class EditProfileComponent implements OnInit {
     formData.append('address', this.userForm.value.address)
 
     this.authService.updateProfile(formData).subscribe((res:any) => {
-      console.log('updated profile', res)
-      this.user = res.updatedUser
+      console.log('updated user', res)
+     if(res.success) {
+      //  this.notificationMessage = res.message
+       this.user = res.user
+     }
     })
   }
 

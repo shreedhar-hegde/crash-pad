@@ -27,23 +27,13 @@ export class CartService {
     })
   }
 
-  removeFurniture(furnitureId, cartID) {
-    console.log('item details', furnitureId)
-    return this.http.delete<any>(`${this.url}/deletefurniture/${furnitureId}/${cartID}`,{
-      headers: new HttpHeaders({
-        'Authorization': 'bearer ' + JSON.parse(localStorage.getItem('token')).jwt
-      })
-    })
+  removeFurniture(furnitureId, userId) {
+    return this.http.delete<any>(`${this.url}/removefruniture-from-cart/${userId}/${furnitureId}`)
   }
 
-  removeProperty(propertyId, cartID) {
-    console.log('item details', propertyId)
-    return this.http.delete<any>(`${this.url}/deleteproperty/${propertyId}/${cartID}`,{
-      headers: new HttpHeaders({
-        'Authorization': 'bearer ' + JSON.parse(localStorage.getItem('token')).jwt
-      })
-    })
+  removeProperty(propertyId, userId) {
+    console.log('remove property', propertyId, userId)
+    return this.http.delete<any>(`${this.url}/removeproperty-from-cart/${userId}/${propertyId}`)
   }
 
-  
 }
