@@ -11,6 +11,9 @@ let app = express()
 
 app.use(express.static('uploads'))
 
+const Cart = require('../models/cart')
+const Order =  require('../models/order')
+
 const crypto = require('crypto')
 var path = require('path')
 const multer = require('multer')
@@ -60,7 +63,20 @@ router.post('/signup', (req, res, next) => {
                         })
                         user.save()
                             .then(user => {
-                                console.log(user)
+
+                                let cart = new Cart({
+                                    user: user._id
+                                })
+
+                                cart.save()
+
+                                let newOrder = new Order({
+                                    user: user._id
+                                })
+
+                                newOrder.save()
+
+                                console.log('new user',user)
                                 res.status(201).json({
                                     message: 'User created'
                                 })
@@ -145,14 +161,14 @@ router.put('/verify', async (req, res) => {
 
     console.log('verify',req.body)
 
-    req.body.map(newUser => {
-       User.findOneAndUpdate({_id: newUser._id}, newUser, {upsert: true})
-       .then(user => {
-           console.log('updated user', user)
+    await req.body.map(newUser => {
+       User.updateOne({_id: newUser._id}, newUser, {upsert: true}) 
+       .then(updatedUser => {
+           console.log('verified user', updatedUser)
        })
     })
+    res.status(200).json({message: 'User updated', success:true})
     
-    res.status(200).json({message: 'Users Updated'})
 })
 
 router.patch('/updateprofile', upload.single('photoid'), (req, res) => {
@@ -167,10 +183,10 @@ router.patch('/updateprofile', upload.single('photoid'), (req, res) => {
             photoid: req.file.filename
         }
     }).then(updatedUser => {
-        console.log('updated user', updatedUser)
-        res.status(200).json({
-            updatedUser: updatedUser
+        User.find({_id: req.body._id}).then(user => {
+            res.status(200).json({message: 'Profile updated', user: user})
         })
+      
     }).catch(err => {
         console.log('update user error', err)
         res.status(500).json({sucess: false})

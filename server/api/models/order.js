@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const soldItemSchema = mongoose.Schema({
+const orderSchema = mongoose.Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -20,4 +20,4 @@ const soldItemSchema = mongoose.Schema({
     }
 })
 
-module.exports =  mongoose.model('SoldItem', soldItemSchema)
+module.exports =  mongoose.model('Order', orderSchema)

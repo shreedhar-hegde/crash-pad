@@ -8,19 +8,19 @@ const stripe = require('stripe')(`${keys.stripeKey}`);
 const Furniture = require('../models/furniture')
 const Property = require('../models/property')
 const Cart = require('../models/cart')
-const SoldItem = require('../models/soldItems')
+const Order = require('../models/order')
 
 
 router.get('/:id', (req, res) => {
     console.log('get history', req.params)
-    SoldItem.find({user: req.params.id})
+    Order.find({user: req.params.id})
         .populate('user')
         .populate('furniture')
         .populate('property')
-        .then(soldItems => {
-            console.log('sold item', soldItems[0].furniture)
+        .then(orders => {
+            console.log('sold item', orders)
             res.status(200).json({
-                soldItems: soldItems
+                orders: orders
             })
         })
         .catch(err => {
@@ -31,6 +31,7 @@ router.get('/:id', (req, res) => {
 router.post('/', async (req, res) => {
     console.log('rent', req.body)
 
+    let email = req.body.email
     // stripe.invoices.listLineItems('in_1GbnFlLlkBcr8A7evgq0qZTv', (err, lines) => {
     //     console.log('lines', lines)
     // })
@@ -84,46 +85,23 @@ router.post('/', async (req, res) => {
                                     cart.save()
                                     console.log('cart', cart.furniture)
                                 }).then(
-                                    SoldItem.findOne({
+                                    Order.findOne({
                                         user: req.body.user._id
                                     })
-                                    .then(soldItem => {
-                                        if (soldItem) {
-                                            soldItem.furniture.push(req.body.item._id);
-                                            console.log(' sold item furniture', soldItem.furniture)
-                                            soldItem.save()
-                                                .then(soldItem => {
+                                    .then(order => {
+                                            order.furniture.push(req.body.item._id);
+                                            console.log('sold item furniture', order.furniture)
+                                            order.save()
+                                                .then(order => {
                                                     res.status(200).json({
                                                         success: true,
-                                                        soldItem: soldItem
+                                                       message:  `Successfully rented the property. Please check email ${email} for invoice. You will be navigated to History.`
+
                                                     })
                                                 })
                                                 .catch(err => {
                                                     console.log('sold item furniture err', err)
                                                 })
-                                        } else {
-                                            console.log('new sold furniture')
-                                            let newSoldItem = new SoldItem({
-                                                user: req.body.user._id
-                                            })
-                                            newSoldItem.save()
-                                                .then(soldItem => {
-                                                    soldItem.furniture.push(req.body.item._id);
-                                                    soldItem.save()
-                                                        .then(soldItem => {
-                                                            res.status(200).json({
-                                                                success: true,
-                                                                soldItem: soldItem
-                                                            })
-                                                        })
-                                                        .catch(err => {
-                                                            console.log('new soldItem  save err', err)
-                                                        })
-                                                })
-                                                .catch(err => {
-                                                    console.log(' new sold item err', err)
-                                                })
-                                        }
                                     })
                                     .catch(err => {
                                         console.log('sold item err', err)
@@ -143,55 +121,32 @@ router.post('/', async (req, res) => {
                             }
                         }).then(updatedItem => {
                             Cart.findById({_id: req.body.cartid}).then(cart => {
+                                console.log('cart', cart)
                                 let index =  cart.property.indexOf(req.body.item._id)
                                 cart.property.splice(index, 1)
                                 cart.save()
-                                console.log('cart', cart.property)
 
                                }).then(
-                                    SoldItem.findOne({
-                                        user: req.body.userId
+                                    Order.findOne({
+                                        user: req.body.user._id
                                     })
-                                    .then(soldItem => {
-                                        if (soldItem) {
-                                            soldItem.property.push(req.body.item._id)
-                                            soldItem.save().then(soldItem => {
-                                                console.log('sold item', soldItem)
+                                    .then(order => {
+                                            order.property.push(req.body.item._id)
+                                            order.save().then(order => {
+                                                console.log('sold item', order)
                                                 res.status(200).json({
                                                     success: true,
-                                                    soldItem: soldItem
+                                                    message: `Successfully rented the property. Please check email ${email} for invoice. You will be navigated to History.`
                                                 })
                                             }).catch(err => {
                                                 console.log('sold item property err')
                                             })
-                                        } else {
-                                            let newSoldItem = new SoldItem({
-                                                property: req.body.item._id,
-                                                user: req.body.user._id
-                                            })
-                                            newSoldItem.save()
-                                                .then(soldItem => {
-                                                    soldItem.property.push(req.body.item._id)
-                                                    soldItem.save().then(soldItem => {
-                                                        console.log('new sold item', soldItem)
-                                                        res.status(200).json({
-                                                            success: true,
-                                                            soldItem: soldItem
-                                                        })
-                                                    }).catch(err => {
-                                                        console.log('sold item property err')
-                                                    })
-                                                }).catch(err => {
-                                                    console.log('new sold item property err')
-                                                })
-                                        }
                                     })
                                 )
                         })
                     }
                 })
-            })
-                .catch((err) => {
+            }).catch((err) => {
                     console.log('stripe err', err)
                 })
         })
