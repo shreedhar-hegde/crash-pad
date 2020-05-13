@@ -97,6 +97,15 @@ export class ListComponent implements OnInit {
     })
   }
 
+  onFurnitureIsSoldChange(id, value) {
+    this.furnitures.map(furniture => {
+      if(furniture._id === id) {
+        furniture.isSold = value
+        this.updatedFrunitures.push(furniture)
+      }
+    })
+  }
+
   onUpdateFurnitureClick() {
     this.furnitureService.updateFruniture(this.updatedFrunitures).subscribe((res:any) => {
       console.log('update res', res)
@@ -186,6 +195,15 @@ export class ListComponent implements OnInit {
       if(property._id === id) {
         property.address = address
         this.updatedProperties.push(property)
+      }
+    })
+  }
+
+  onOccupiedStatusChange(id, value) {
+    this.properties.map(property => {
+      if(property._id === id) {
+        property.isSold = value
+        this.updatedFrunitures.push(property)
       }
     })
   }

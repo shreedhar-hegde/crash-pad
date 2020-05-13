@@ -11,6 +11,7 @@
               <th>Price</th>
               <th>Payment Status</th>
               <th>Delivery Status</th>
+              <th>Is Sold</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -30,14 +31,21 @@
                     [disabled]="!furniture.edit" [value]="furniture.price"></td>
                     <td><input (keyup)="onPaymentStatusChange(furniture._id, $event.target.value)" class="input" type="text"
                       [disabled]="!furniture.edit" [value]="furniture.paymentStatus"></td>
-                      <td><input (keyup)="onDeliveryStatusChange(furniture._id, $event.target.value)" class="input" type="text"
-                        [disabled]="!furniture.edit" [value]="furniture.deliveryStatus"></td>
-                <td>
-                  <button *ngIf="!furniture.edit" (click)="furniture.edit = !furniture.edit"
+                      <td>
+                        <input  (keyup)="onDeliveryStatusChange(furniture._id, $event.target.value)" class="input" type="text"
+                        [disabled]="!furniture.edit" [value]="furniture.deliveryStatus">
+                      </td>
+                      <td>
+                        <label class="checkbox">
+                          <input [disabled]="!furniture.edit" [checked]="furniture.isSold" (change)="onFurnitureIsSoldChange(furniture._id,$event.currentTarget.checked)" type="checkbox">
+                        </label>
+                      </td>
+                  <td>
+                   <button *ngIf="!furniture.edit" (click)="furniture.edit = !furniture.edit"
                     class="button is-success">Edit</button>
-                  <button (click)="furniture.edit = !furniture.edit" *ngIf="furniture.edit"
+                    <button (click)="furniture.edit = !furniture.edit" *ngIf="furniture.edit"
                     class="button is-info">Save</button>
-                </td>
+                  </td>
                 <td>
                   <button (click)="onDeleteFurnitureClick(furniture._id)" class="button is-danger">Delete</button>
                 </td>
@@ -68,6 +76,7 @@
               <th>Number of Rooms</th>
               <th>Address</th>
               <th>Contact</th>
+              <th>Occupied</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -99,10 +108,17 @@
                     [disabled]="!property.edit" [value]="property.numberOfRooms">
                   </td>
                   <td><input (keyup)="onAddressChange(property._id, $event.target.value)" class="input" type="text"
-                    [disabled]="!property.edit" [value]="property.address">
+                    [disabled]="!property.edit" [value]="property.address? property.address : '-'">
                   </td>
                   <td><input (keyup)="onContactChange(property._id, $event.target.value)" class="input" type="text"
-                    [disabled]="!property.edit" [value]="property.contact">
+                    [disabled]="!property.edit" [value]="property.contact ? property.contact : '-'">
+                  </td>
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" (change)="onOccupiedStatusChange(property._id, $event.currentTarget.checked)"
+                      [disabled]="!property.edit" [checked]="property.isSold">
+                    </label>
+                  
                   </td>
                   
                   <td>
@@ -152,9 +168,9 @@
                 <td>
                  {{user.email}}
                 </td>
-                <td>{{user.address}}</td>
+                <td>{{user.address ? user.address : '-'}}</td>
                 <td>
-                  {{user.phone}}
+                  {{user.phone ? user.phone : '-'}}
                 </td>
                 <td class="photoid">
                   <img  [src]="user.photoid" alt="">
