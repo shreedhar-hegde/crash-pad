@@ -203,9 +203,10 @@ export class ListComponent implements OnInit {
     this.properties.map(property => {
       if(property._id === id) {
         property.isSold = value
-        this.updatedFrunitures.push(property)
+        this.updatedProperties.push(property)
       }
     })
+    console.log('onOccupiedStatusChange', this.properties)
   }
 
 
