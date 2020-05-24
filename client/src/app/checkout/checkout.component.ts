@@ -21,6 +21,7 @@ export class CheckoutComponent implements OnInit {
    user
    key
    cartid
+   proceedToPay = false
 
    notificationMessage = ''
    isModalActive = false
@@ -85,7 +86,7 @@ export class CheckoutComponent implements OnInit {
             email: this.stripeTest.value.email,
             name: this.stripeTest.value.name,
             address: this.stripeTest.value.address,
-            amount: this.amount,
+            amount: this.amount * this.months,
             user: this.user,
             item: this.selectedItem,
             key: this.key,
@@ -111,4 +112,8 @@ export class CheckoutComponent implements OnInit {
 
   }
 
+  disableProceed() {
+    this.proceedToPay = true
+    console.log(this.proceedToPay)
+  }
 }
