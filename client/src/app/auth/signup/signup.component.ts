@@ -11,6 +11,9 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
+  notificationMessage = ''
+  isModalActive = false
+
 
   constructor(
     private matchPassword: MatchPassword, 
@@ -52,10 +55,16 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.authService.signup(this.signupForm.value).subscribe({
-      next: () => {
+    this.authService.signup(this.signupForm.value).subscribe((res:any) => {
+      if(res.success) {
         this.router.navigateByUrl('/login')
       }
+    }, (err) => {
+      this.isModalActive = true
+      this.notificationMessage = 'User with this email id exists, please try another'
+      setTimeout(() => {
+        this.isModalActive = false
+      }, 3000)
     })
   }
 

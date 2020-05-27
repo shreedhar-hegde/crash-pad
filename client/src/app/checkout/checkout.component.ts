@@ -21,10 +21,13 @@ export class CheckoutComponent implements OnInit {
    user
    key
    cartid
-   proceedToPay = false
+   proceedToPay = true
 
    notificationMessage = ''
    isModalActive = false
+
+   isTermsAndConditionsActive = false
+   termsAndConditions = 'Terms and Conditions'
  
   cardOptions: ElementOptions = {
     style: {
@@ -64,12 +67,23 @@ export class CheckoutComponent implements OnInit {
       months: [1, [Validators.required]]
     });
 
-    this.sharedData.selectedItem.subscribe(data => {
-      console.log('shared data', data)
-      this.selectedItem = data.item
-      this.user = data.user
-      this.key = data.key
-      this.cartid = data.cartID
+    this.sharedData.selectedItem.subscribe((data:any) => {
+      console.log('data',data)
+      if(typeof data === 'object') {
+        console.log('in if')
+        localStorage.setItem('checkout', JSON.stringify(data))
+        this.selectedItem = data.item
+        this.user = data.user
+        this.key = data.key
+        this.cartid = data.cartID
+      } else {
+        let data:any = localStorage.getItem('checkout')
+        console.log('shared data', JSON.parse(data))
+        this.selectedItem = JSON.parse(data).item
+      this.user = JSON.parse(data).user
+      this.key = JSON.parse(data).key
+      this.cartid = JSON.parse(data).cartID
+      }
     })
 
     this.amount = this.selectedItem.price || this.selectedItem.costPerMonth
@@ -78,6 +92,7 @@ export class CheckoutComponent implements OnInit {
  
   proceed() {
 
+    this.proceedToPay = true
     
 
     const name = this.stripeTest.get('name').value;
@@ -112,8 +127,13 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  disableProceed() {
-    this.proceedToPay = true
-    console.log(this.proceedToPay)
+  termsAndConditionsChange(value) {
+    console.log('checkbox', value)
+    if(value) {
+      this.proceedToPay = false
+    } else {
+      this.proceedToPay = true
+    }
   }
+
 }

@@ -11,9 +11,14 @@
               <input type="number" (keyup)="months = $event.target.value" value="1" (change)="months = $event.target.value"  class="input" min="1" max="11" placeholder="">
               *Maximum number of months can be 11
               <br>
+              <div>
+                <input (change)="termsAndConditionsChange($event.target.checked)" type="checkbox" name="" id="" class="checkbox"> 
+                <a (click)="isTermsAndConditionsActive = true">Terms and Conditions</a>
+              </div>
+            
               <br>
               <!-- <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card> -->
-              <button (click)="disableProceed()" [disabled]="proceedToPay" class="button is-primary" type="submit">
+              <button (click)="proceed()" [disabled]="proceedToPay" class="button is-primary" type="submit">
                 Procced to pay {{amount * months  }}
               </button>
             </form>
@@ -42,6 +47,22 @@
         <div class="modal-card has-text-centered">
           <section class="modal-card-body">
               {{notificationMessage}}
+          </section>
+        </div>
+      </div>
+
+     
+     
+
+      <div class="modal has-text-centered" [ngClass]="{ 'is-active' : isTermsAndConditionsActive }">
+        <div class="modal-background"></div>
+        <div class="modal-card has-text-centered">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Terms and Condtions</p>
+            <button class="delete" aria-label="close" (click)="isTermsAndConditionsActive = false"></button>
+          </header>
+          <section class="modal-card-body">
+              {{termsAndConditions}}
           </section>
         </div>
       </div>
