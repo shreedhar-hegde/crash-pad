@@ -63,7 +63,6 @@ export class CheckoutComponent implements OnInit {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      address: ['', [Validators.required]],
       months: [1, [Validators.required]]
     });
 
@@ -100,7 +99,6 @@ export class CheckoutComponent implements OnInit {
           let payload = {
             email: this.stripeTest.value.email,
             name: this.stripeTest.value.name,
-            address: this.stripeTest.value.address,
             amount: this.amount * this.months,
             user: this.user,
             item: this.selectedItem,

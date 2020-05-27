@@ -17,9 +17,11 @@ export class VerifyComponent implements OnInit {
   notificationMessage
   isModalActive = false
 
+  usersWithImage = []
+
   ngOnInit() {
 
-    this.verifyService.getUsers().subscribe(users => {
+    this.verifyService.getUsers().subscribe((users:any) => {
       this.users = users['users']
       this.users.map(user => user.isVerified ? this.verifiedUsers.push(user._id): false)
       console.log('users', this.users)
@@ -29,12 +31,13 @@ export class VerifyComponent implements OnInit {
   onChange(user:string, isChecked: boolean) {
     if(isChecked) {
       this.verifiedUsers.push(user);
-      console.log('onchange', this.verifiedUsers)
+     
     } else {
       let index = this.verifiedUsers.indexOf(user);
       this.verifiedUsers.splice(index,1);
-      console.log('onchange', this.verifiedUsers)
     }
+    console.log('onchange', this.verifiedUsers)
+
 }
 
   onUpdateClick(event) {

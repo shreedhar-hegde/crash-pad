@@ -14,6 +14,9 @@ import { BehaviorSubject } from 'rxjs';
 
 export class LoginComponent implements OnInit {
 
+  notificationMessage = ''
+  isModalActive = false
+
   constructor( private router: Router, private authService: AuthService) { }
 
 
@@ -46,6 +49,14 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigateByUrl('/dashboard/furniture')
         }
+    }, (err) => {
+      this.isModalActive = true
+
+      this.notificationMessage = 'Invalid Email or Password'
+        setTimeout(() => {
+          this.isModalActive = false
+        }, 3000)
+  
     })
     
   }

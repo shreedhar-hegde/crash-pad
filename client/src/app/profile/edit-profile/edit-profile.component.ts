@@ -22,6 +22,9 @@ export class EditProfileComponent implements OnInit {
   verified
   profilePhoto
 
+  notificationMessage
+  isModalActive = false
+
   ngOnInit() {
     this.authService.loggedIn$.subscribe(user => {
       this.user = user
@@ -70,8 +73,13 @@ export class EditProfileComponent implements OnInit {
     this.authService.updateProfile(formData).subscribe((res:any) => {
       console.log('updated user', res)
      if(res.success) {
-      //  this.notificationMessage = res.message
+       this.notificationMessage = res.message
        this.user = res.user
+
+       this.isModalActive = true
+       setTimeout(() => {
+         this.isModalActive = false
+       }, 3000)
      }
     })
   }
