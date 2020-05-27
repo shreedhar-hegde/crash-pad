@@ -24,7 +24,8 @@ router.post('/', (req, res) => {
         type: req.body.type,
         area: req.body.area,
         numberOfRooms: req.body.noOfRooms,
-        propertyImage: req.body.propertyImage
+        propertyImage: req.body.propertyImage,
+        address: req.body.address
     })
     newProperty.save()
         .then(property => {

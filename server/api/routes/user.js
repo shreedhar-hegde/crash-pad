@@ -32,9 +32,6 @@ var upload = multer({ storage: storage })
 router.get('/', (req, res) => {
     User.find()
     .then(users => {
-        users.map(user => {
-            user.photoid = `http://localhost:5000/uploads/${user.photoid}`
-        })
         res.status(200).json({users: users})
     })
 })
@@ -46,6 +43,7 @@ router.post('/signup', (req, res, next) => {
             email: req.body.email
         })
         .then(user => {
+            console.log('user', user)
             if (user.length >= 1) {
                 res.status(409).json({
                     message: 'Mail id taken'
@@ -78,6 +76,7 @@ router.post('/signup', (req, res, next) => {
 
                                 console.log('new user',user)
                                 res.status(201).json({
+                                    success: true,
                                     message: 'User created'
                                 })
                             })
@@ -158,14 +157,9 @@ router.get('/verify', (req, res) => {
 
 router.put('/verify', async (req, res) => {
 
-
-    console.log('verify',req.body)
-
-    await req.body.map(newUser => {
-       User.updateOne({_id: newUser._id}, newUser, {upsert: true}) 
-       .then(updatedUser => {
-           console.log('verified user', updatedUser)
-       })
+    await req.body.map(async newUser => {
+        console.log('new user', newUser)
+      await User.updateOne({_id: newUser._id}, newUser, {upsert: true}) 
     })
     res.status(200).json({message: 'User updated', success:true})
     
@@ -180,11 +174,11 @@ router.patch('/updateprofile', upload.single('photoid'), (req, res) => {
             contact: req.body.contact,
             email: req.body.email,
             address: req.body.address,
-            photoid: req.file.filename
+            photoid: `http://localhost:5000/uploads/${req.file.filename}`
         }
     }).then(updatedUser => {
         User.find({_id: req.body._id}).then(user => {
-            res.status(200).json({message: 'Profile updated', user: user})
+            res.status(200).json({success: true,message: 'Profile updated', user: user})
         })
       
     }).catch(err => {
