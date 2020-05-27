@@ -17,6 +17,7 @@ export class AddPropertyComponent implements OnInit {
   propertyImage
   type
   noOfRooms
+  address
 
   propertyForm = new FormGroup({
     name: new FormControl(''),
