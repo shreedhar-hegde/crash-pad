@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
         .populate('furniture')
         .populate('property')
         .then(orders => {
-            console.log('sold item', orders)
+            console.log('orders', orders)
             res.status(200).json({
                 orders: orders
             })
@@ -95,7 +95,7 @@ router.post('/', async (req, res) => {
                                                 .then(order => {
                                                     res.status(200).json({
                                                         success: true,
-                                                       message:  `Successfully rented the property. Please check email ${email} for invoice. You will be navigated to History.`
+                                                       message:  `Successfully rented the item. Please check email ${email} for invoice. You will be navigated to History.`
 
                                                     })
                                                 })
@@ -116,8 +116,7 @@ router.post('/', async (req, res) => {
                             $set: {
                                 monthsRented: req.body.monthsRented,
                                 invoiceNumber: invoice.number,
-                                isSold: true,
-                                address: req.body.address
+                                isSold: true
                             }
                         }).then(updatedItem => {
                             Cart.findById({_id: req.body.cartid}).then(cart => {
