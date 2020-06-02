@@ -16,7 +16,7 @@
             
               <br>
               <!-- <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card> -->
-              <button (click)="proceed()" [disabled]="proceedToPay" class="button is-primary" type="submit">
+              <button [disabled]="proceedToPay" class="button is-primary" type="submit">
                 Procced to pay {{amount * months  }}
               </button>
             </form>
