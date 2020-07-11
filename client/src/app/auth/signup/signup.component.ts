@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(event) {
-
+    console.log('signing up')
     event.preventDefault()
     if (this.signupForm.invalid) {
       return;

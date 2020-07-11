@@ -63,7 +63,8 @@ export class CheckoutComponent implements OnInit {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      months: [1, [Validators.required]]
+      months: [1, [Validators.required]],
+      address: ['',[Validators.required]]
     });
 
     this.sharedData.selectedItem.subscribe((data:any) => {
@@ -104,7 +105,8 @@ export class CheckoutComponent implements OnInit {
             item: this.selectedItem,
             key: this.key,
             monthsRented: this.months,
-            cartid: this.cartid
+            cartid: this.cartid,
+            address: this.stripeTest.value.address
           }
 
           this.checkoutService.checkout(payload).subscribe((res:any) => {

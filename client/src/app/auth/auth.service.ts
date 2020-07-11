@@ -32,6 +32,7 @@ export class AuthService {
   name = ''
   auth
   signup(credentials) {
+    console.log('signing up')
    return this.http.post(`${this.url}/signup`, credentials)
   }
 

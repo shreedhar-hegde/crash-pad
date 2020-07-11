@@ -9,6 +9,10 @@
               <input type="number" (keyup)="months = $event.target.value" value="1" (change)="months = $event.target.value"  class="input" min="1" max="11" placeholder="">
               *Maximum number of months can be 11
               <br>
+             <div  *ngIf="key==='furniture'">
+                Delivery Address
+               <input class="input"  type="text" formControlName="address" >
+             </div>
               <div>
                 <input (change)="termsAndConditionsChange($event.target.checked)" type="checkbox" name="" id="" class="checkbox"> 
                 <a (click)="isTermsAndConditionsActive = true">Terms and Conditions</a>
