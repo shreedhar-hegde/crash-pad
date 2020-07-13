@@ -11,7 +11,8 @@ const propertySchema = mongoose.Schema({
     invoiceNumber: String,
     isSold: { type:Boolean, default: false },
     contact: String,
-    address: String
+    address: String,
+    isOccupied: { type:Boolean, default: false }
 })
 
 module.exports = mongoose.model('Property', propertySchema)
