@@ -12,7 +12,7 @@
              <th>Amount</th>
              <th>Payment status</th>
              <th>Property Address</th>
-             <th>Status</th>
+             <th>Occupy Status</th>
              <th>Invoice Number</th>
             </tr>
           </thead>
@@ -37,7 +37,7 @@
                   {{property.address}}
                  </td>
                  <td>
-                  {{property.occupationStatus ? 'Deliverd': 'Pending'}}
+                  {{property.isOccupied ? 'Occupied': 'Pending'}}
                  </td>
                  <td>
                   {{property.invoiceNumber}}
@@ -60,7 +60,7 @@
              <th>Amount</th>
              <th>Payment status</th>
              <th>Delivery Address</th>
-             <th>Occupy Status</th>
+             <th>Delivery Status</th>
              <th>Invoice Number</th>
             </tr>
           </thead>
@@ -85,7 +85,7 @@
                   {{furniture.deliveryAddress}}
                  </td>
                  <td>
-                  {{furniture.deliveryStatus ? 'Deliverd': 'Pending'}}
+                  {{furniture.deliveryStatus ? 'Delivered': 'Pending'}}
                  </td>
                  <td>
                   {{furniture.invoiceNumber}}

@@ -67,7 +67,7 @@ export class FurnitureComponent implements OnInit {
 
   onLikeClick(furnitureId) {
 
-   
+   console.log('clicked')
 
         this.cartService.cart({furnitureId: furnitureId, userId: this.userId, key: 'furniture'}).subscribe((res:any) => {
           console.log('cart res', res)

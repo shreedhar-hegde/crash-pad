@@ -11,7 +11,7 @@
               <th>Price</th>
               <th>Payment Status</th>
               <th>Delivery Status</th>
-              <th>Is Sold</th>
+              <th>Sold</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -76,6 +76,7 @@
               <th>Number of Rooms</th>
               <th>Address</th>
               <th>Contact</th>
+              <th>Sold</th>
               <th>Occupied</th>
               <th>Edit</th>
               <th>Delete</th>
@@ -115,8 +116,15 @@
                   </td>
                   <td>
                     <label class="checkbox">
-                      <input type="checkbox" (change)="onOccupiedStatusChange(property._id, $event.currentTarget.checked)"
+                      <input type="checkbox" (change)="onSoldStatusChange(property._id, $event.currentTarget.checked)"
                       [disabled]="!property.edit" [checked]="property.isSold">
+                    </label>
+                  
+                  </td>
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" (change)="onOccupiedStatusChange(property._id, $event.currentTarget.checked)"
+                      [disabled]="!property.edit" [checked]="property.isOccupied">
                     </label>
                   
                   </td>
